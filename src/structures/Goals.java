@@ -3,7 +3,7 @@ package structures;
 import java.util.ArrayList;
 import java.util.List;
 
-import citySim.environment.Entity;
+import CasEV.environment.Entity;
 
 public class Goals {
 	
