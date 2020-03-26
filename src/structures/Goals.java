@@ -42,6 +42,7 @@ public class Goals {
 	
 	public void addGoal(Entity goal) {
 		goals.add(goal);
+		
 	}
 	
 	public void goToEnd() {
