@@ -85,22 +85,23 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		
 		//Reads the images
 		try {
-		    cityImg = ImageIO.read(new File("C:/Users/andrfo/Documents/Git/CAS-City/maps/smallTrondheimSmallPark.png"));
+		    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2.png"));
 		} catch (IOException e) {
 			System.out.println("There was an error while loading the city traffic map: " + e);
 		}
 		try {
-		    gridImg = ImageIO.read(new File("C:/Users/andrfo/Documents/Git/CAS-City/maps/overlays/smallTrondheimEL.png"));
+		    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2.png"));
 		} catch (IOException e) {
 			System.out.println("There was an error while loading the city electric grid map: " + e);
 		}
 		try {
-			roadImg = ImageIO.read(new File("C:/Users/andrfo/Documents/Git/CAS-City/maps/overlays/smallTrondheimRoads.png"));
+			roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
 		} catch (IOException e) {
 			System.out.println("There was an error while loading the city road weight overlay map: " + e);
 		}
 		width = cityImg.getWidth();
 		height = cityImg.getHeight();
+		
 		
 		
 		context.setId("CitySim");
