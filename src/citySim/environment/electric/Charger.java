@@ -21,14 +21,16 @@ public class Charger extends ElectricEntity{
 		this.totalLoad = 0.01;
 		this.grid = grid;
 		this.space = space;
+
 	}
 	
 	
 	//has small base cost
 	//has large cost while in use
 	public void setIsCharging(boolean isCharging) {
+
 		if(isCharging) {
-			
+
 			Double newValue = Double.valueOf(totalLoad) + unitLoad;
 			update(newValue - Double.valueOf(totalLoad));
 			totalLoad = newValue;
@@ -46,7 +48,7 @@ public class Charger extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		
+		System.out.println("Charger step called");
 		if(isCharging) {
 			if(chargeTime > 0) {
 				chargeTime--;
