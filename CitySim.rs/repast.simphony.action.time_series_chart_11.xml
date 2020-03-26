@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>Transport Use</name>
-  <dataSet>Transport use</dataSet>
+  <name>Parking</name>
+  <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Persons</yAxisLabel>
-  <chartTitle>Transport Use</chartTitle>
+  <yAxisLabel>Time</yAxisLabel>
+  <chartTitle>Parked cars</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,25 +21,13 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>People in Cars</string>
+      <string>Parked cars</string>
       <SeriesData>
-        <label>People in Cars</label>
+        <label>Parked cars</label>
         <color>
           <red>255</red>
-          <green>51</green>
-          <blue>51</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>People in Buses</string>
-      <SeriesData>
-        <label>People in Buses</label>
-        <color>
-          <red>51</red>
-          <green>51</green>
-          <blue>255</blue>
+          <green>100</green>
+          <blue>50</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
