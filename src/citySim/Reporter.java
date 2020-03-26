@@ -31,6 +31,13 @@ public class Reporter {
 	private Double AverageCarTravelTime = 0d;
 	private Double averageCarTravelDistance = 0d;
 	
+	//SEB
+	
+	
+	private Double totalLoad = 0d;
+
+	
+	private Double parkedCars = 0d;
 	
 	//===============================================================
 	//Getters
@@ -62,6 +69,14 @@ public class Reporter {
 	public Double getAverageCarTravelDistance() {
 		return averageCarTravelDistance;
 	}
+	public Double getTotalLoad() {
+		return totalLoad;
+	}
+	public Double getCarsParked() {
+		return parkedCars;
+	}
+
+
 	
 	
 	
@@ -176,6 +191,21 @@ public class Reporter {
 		Double newVal = oldVal + (val - oldVal) / nCarDistance;
 		
 		averageCarTravelDistance = newVal;
+	}
+	
+	public void addParkedCar() {
+
+		this.parkedCars++;
+
+	}
+	public void removeParkedCar() {
+
+		this.parkedCars--;
+
+	}
+	
+	public void setTotalLoad(Double totalLoad) {
+		this.totalLoad = totalLoad;
 	}
 	
 	
