@@ -23,7 +23,9 @@ public class InformationLabel extends Entity{
 	public void step() {
 		time = Tools.getTime();
 		
+		
 		label = timeToString();
+
 		
 	}
 
