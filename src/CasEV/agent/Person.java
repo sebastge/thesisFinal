@@ -100,12 +100,14 @@ public class Person extends Agent{
 	}
 	
 	public boolean determineParkingWorth(Vehicle v, Building workPlace) {
-
-		if (v.charge > 5 && workPlace.getLoadPrice() < 5d) {
-			System.out.println("Parking worth it");
+		
+		System.out.println("vehicle type: " + v.type + ". Charge: " + v.charge);
+		
+		if (v.charge > 200 && workPlace.getLoadPrice() < 5d) {
+			System.out.println("vehicle type: " + v.type + ". Parking worth it");
 			return true;
 		} else {
-			System.out.println("Parking not worth it");
+			System.out.println("vehicle type: " + v.type + ". Parking not worth it");
 			return false;
 		}
 	} 

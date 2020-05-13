@@ -70,6 +70,8 @@ public class Vehicle extends Agent{
 	
 	private int deadlockTimer;
 	
+	public int type;
+	
 	
 	//Speed control
 	private double speed;
@@ -111,11 +113,12 @@ public class Vehicle extends Agent{
 		this.blockingCar = null;
 		this.deadlockTimer = deadlockTime;
 		this.moved = true;
+		this.type = ThreadLocalRandom.current().nextInt(0, 4);
 		this.occupants = new ArrayList<Person>(occupantLimit);
 		this.spawner = spawner;
-		this.charge = ThreadLocalRandom.current().nextDouble(0, 10);
+		//this.charge = ThreadLocalRandom.current().nextDouble(0, 10);
+		this.charge = setCharge(this.type);
 		this.isParkedInBuilding = false;
-
 	}
 	
 	/**
@@ -136,6 +139,10 @@ public class Vehicle extends Agent{
 		move();	
 		
 		
+	}
+	
+	private Double setCharge(int type) {
+		return ((type+1) * ThreadLocalRandom.current().nextDouble(0, 10));
 	}
 	
 	
@@ -288,7 +295,7 @@ public class Vehicle extends Agent{
 					p.setParked(100);
 					this.parked = true;
 				}
-				spawner.getReporter().addParkedCar();
+				spawner.getReporter().addParkedCar(this.type);
 				goals.next(); //Sets the goal to be the next one
 				closed.clear();
 				open.clear();
@@ -297,7 +304,7 @@ public class Vehicle extends Agent{
 
 			//Reached the exit of the model. Updates the measurements and destroys the vehicle
 			else if (goal instanceof Despawn) {
-				spawner.getReporter().removeParkedCar();
+				spawner.getReporter().removeParkedCar(this.type);
 				for(Person p : occupants) {
 					p.setReachedGoal(this, true);
 				}

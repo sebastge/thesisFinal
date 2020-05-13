@@ -53,7 +53,6 @@ public abstract class ElectricEntity extends Entity{
 		
 		if(parent != null) {
 			this.parent.update(delta);
-
 		}
 	}
 

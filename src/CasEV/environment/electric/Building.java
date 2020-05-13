@@ -350,7 +350,6 @@ public class Building extends ElectricEntity{
 		return this.loadPrice;
 	}
 
-	
 	private boolean isInInterval(int n, int[] interval) {
 		return n >= interval[0] && n < interval[1];
 	}

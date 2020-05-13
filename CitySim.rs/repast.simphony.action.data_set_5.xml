@@ -33,6 +33,51 @@
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>LoadPrice</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>LoadPrice</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getElPrice</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CarsParked0</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CarsParked0</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getCarsParked0</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CarsParked1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CarsParked1</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getCarsParked1</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CarsParked2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CarsParked2</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getCarsParked2</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>CarsParked3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>CarsParked3</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getCarsParked3</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>

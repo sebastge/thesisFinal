@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>Total Load</name>
+  <name>Load Price</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel>Time</yAxisLabel>
-  <chartTitle>Total Load</chartTitle>
+  <chartTitle>Load Price</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -33,13 +33,13 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>TotalLoad</string>
+      <string>LoadPrice</string>
       <SeriesData>
-        <label>TotalLoad</label>
+        <label>LoadPrice</label>
         <color>
-          <red>255</red>
+          <red>0</red>
           <green>0</green>
-          <blue>0</blue>
+          <blue>250</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

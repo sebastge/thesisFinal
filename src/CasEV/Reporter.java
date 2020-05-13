@@ -36,8 +36,16 @@ public class Reporter {
 	
 	private Double totalLoad = 0d;
 
-	
 	private Double parkedCars = 0d;
+	
+	private Double elPrice = 0d;
+	
+	private int parkedCars0 = 0;
+	private int parkedCars1 = 0;
+	private int parkedCars2 = 0;
+	private int parkedCars3 = 0;
+	
+	
 	
 	//===============================================================
 	//Getters
@@ -74,6 +82,21 @@ public class Reporter {
 	}
 	public Double getCarsParked() {
 		return parkedCars;
+	}
+	public int getCarsParked0() {
+		return parkedCars0;
+	}
+	public int getCarsParked1() {
+		return parkedCars1;
+	}
+	public int getCarsParked2() {
+		return parkedCars2;
+	}
+	public int getCarsParked3() {
+		return parkedCars3;
+	}
+	public Double getElPrice() {
+		return elPrice;
 	}
 
 
@@ -193,19 +216,42 @@ public class Reporter {
 		averageCarTravelDistance = newVal;
 	}
 	
-	public void addParkedCar() {
+	public void addParkedCar(int type) {
 
 		this.parkedCars++;
-
+		
+		if (type == 0) {
+			this.parkedCars0++;
+		} else if (type == 1) {
+			this.parkedCars1++;
+		} else if (type == 2) {
+			this.parkedCars2++;
+		} else {
+			this.parkedCars3++;
+		}	
 	}
-	public void removeParkedCar() {
+	
+	public void removeParkedCar(int type) {
 
 		this.parkedCars--;
-
+		
+		if (type == 0) {
+			this.parkedCars0--;
+		} else if (type == 1) {
+			this.parkedCars1--;
+		} else if (type == 2) {
+			this.parkedCars2--;
+		} else {
+			this.parkedCars3--;
+		}
 	}
 	
 	public void setTotalLoad(Double totalLoad) {
 		this.totalLoad = totalLoad;
+	}
+	
+	public void setElPrice(Double elPrice) {
+		this.elPrice = elPrice;
 	}
 	
 	
