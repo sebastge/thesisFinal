@@ -379,6 +379,9 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				busStops, 
 				parkingNexiRoads
 				);
+		for (Building b : buildings) {
+			b.spawner = spawner;
+		}
 		context.add(spawner);
 		context.add(spawner.getReporter());
 	}

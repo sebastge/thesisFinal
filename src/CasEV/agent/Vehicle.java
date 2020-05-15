@@ -218,12 +218,11 @@ public class Vehicle extends Agent{
 			}
 			//Is the occupant done working or shopping?
 			if(!occupants.get(0).isWantToLeave(this, true)) {
-				
-				//System.out.println(occupants.get(0) + " does not want to leave");
 				return false;
 			}
 			//Is the way clear to exit the parking space?
 			else {
+				
 				Entity goal = goals.getCurrent();
 				//Check surroundings
 				GridPoint pt = grid.getLocation(this);
@@ -250,6 +249,7 @@ public class Vehicle extends Agent{
 				parked = false;
 				setSpeed(maxSpeed);
 				gatherOccupants();
+				
 				
 			}
 		}
@@ -295,7 +295,6 @@ public class Vehicle extends Agent{
 					p.setParked(100);
 					this.parked = true;
 				}
-				spawner.getReporter().addParkedCar(this.type);
 				goals.next(); //Sets the goal to be the next one
 				closed.clear();
 				open.clear();
@@ -304,7 +303,7 @@ public class Vehicle extends Agent{
 
 			//Reached the exit of the model. Updates the measurements and destroys the vehicle
 			else if (goal instanceof Despawn) {
-				spawner.getReporter().removeParkedCar(this.type);
+				
 				for(Person p : occupants) {
 					p.setReachedGoal(this, true);
 				}

@@ -253,15 +253,4 @@ public class Reporter {
 	public void setElPrice(Double elPrice) {
 		this.elPrice = elPrice;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

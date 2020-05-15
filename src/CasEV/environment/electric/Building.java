@@ -18,6 +18,7 @@ public class Building extends ElectricEntity{
 	private Double loadPrice;
 	private List<Person> occupants;
 	private List<ParkingSpace> parkingSpaces;
+
 	
 	/** TimeCycle
 	 * 	1 Tick = 10 sec
@@ -59,6 +60,7 @@ public class Building extends ElectricEntity{
 	private static final int[] PM11 = {8280, 8640}; 	//15:30 - 17:00
 	
 	private String timeOfDay;
+	public Spawner spawner;
 	
 	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces) {
 		super(space, grid);
@@ -69,7 +71,9 @@ public class Building extends ElectricEntity{
 		this.space = space;
 		this.parkingSpaces = parkingSpaces;
 		this.loadPrice = 0d;
-		this.timeOfDay = "";			
+		this.timeOfDay = "";
+		this.spawner = spawner;
+		
 	}
 	
 	/**
@@ -80,6 +84,7 @@ public class Building extends ElectricEntity{
 		//setLoad3();
 		changeLoad();
 		//setLoadPrice();
+	
 	}
 	
 	public void changeLoad() {
@@ -91,33 +96,50 @@ public class Building extends ElectricEntity{
 
 	
 	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
-		
+		System.out.println("Vehicle: " + v + ". Spawner: " + this.spawner);
 		
 		if (v instanceof Car && parkingDecision == true) {
 			update(-v.charge*0.25);
+			
+			for (ParkingSpace ps: this.parkingSpaces) {
+				if (!ps.isReserved()) {
+					ps.reserve();
+					v.isParkedInBuilding = true;
+					break;
+				} else {
+
+				}
+			}
+			
+			occupants.add(p);
+			spawner.getReporter().addParkedCar(v.type);
 		}
 			
-		for (ParkingSpace ps: this.parkingSpaces) {
-			if (!ps.isReserved()) {
-				ps.reserve();
-				v.isParkedInBuilding = true;
-				break;
-			} else {
-
-			}
-		}
 		
-		occupants.add(p);
+//		for (ParkingSpace ps: this.parkingSpaces) {
+//			if (!ps.isReserved()) {
+//				ps.reserve();
+//				v.isParkedInBuilding = true;
+//				break;
+//			} else {
+//
+//			}
+//		}
+		
+		//occupants.add(p);
 	}
 	
 	public void removeOccupants(Person p, Vehicle v) {
+		System.out.println("Vehicle: " + v + ". Spawner: " + this.spawner);
 
 		if(occupants.contains(p)) {
 			occupants.remove(p);
 			if (v.isParkedInBuilding) {
 				update(v.charge*0.25);
 				v.isParkedInBuilding = false;
+				spawner.getReporter().removeParkedCar(v.type);
 			}
+			
 		} else {
 
 		}
