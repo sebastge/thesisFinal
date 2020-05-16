@@ -99,6 +99,9 @@ public class Vehicle extends Agent{
 	protected HashSet<Road> closed;
 	private int deadlockTime = 100;
 	
+	public Building buildingParkedIn;
+	public ParkingSpace spaceParkedIn;
+	
 	public Vehicle(ContinuousSpace<Object> space, Grid<Object> grid, int occupantLimit, List<Road> parkingNexi, Spawner spawner) {
 		super(space, grid);
 		this.occupantLimit = occupantLimit;

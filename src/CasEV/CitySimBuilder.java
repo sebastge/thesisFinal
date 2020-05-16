@@ -575,67 +575,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		}
 		return net;
 	}
-	
-//	/**
-//	 * Builds a tree structure from the clusters.
-//	 * @param grid
-//	 * @param context
-//	 * @param clusters
-//	 * @return
-//	 */
-//	private Network<Object> buildElectricGraph(Grid<Object> grid, Context<Object> context, ArrayList<ArrayList<GridPoint>> clusters) {
-//		//Get network
-//		Network<Object> net = (Network<Object>)context.getProjection("electric network");
-//		
-//		//Substations
-//		ArrayList<ElectricEntity> subs = new ArrayList<ElectricEntity>();
-//		
-//		//Goes through the clusters(which are grid points) and find the objects at their members' locations
-//		//Creates spanning trees within and of these cluster and connects them together.
-//		for(ArrayList<GridPoint> cluster: clusters) {
-//			ArrayList<ElectricEntity> clusterEntities = new ArrayList<ElectricEntity>();
-//			
-//			//The location of the centroid of the cluster
-//			GridPoint ps = cluster.remove(0); 
-//			
-//			//The Substation located at the centroid
-//			Substation s = (Substation) Tools.getObjectAt(grid, Substation.class, ps.getX(), ps.getY());
-//			subs.add(s);
-//			
-//			
-//			ElectricEntity closest = null;
-//			double minDist = Double.MAX_VALUE;
-//			//Goes through all the entities in the cluster and creates a minimal spanning tree of them based on distance
-//			for(GridPoint p: cluster) {
-//				ElectricEntity e = null;
-//				for(Object o: grid.getObjectsAt(p.getX(), p.getY())) {
-//					if(!(o instanceof Substation) && o instanceof ElectricEntity) {
-//						e = (ElectricEntity) o;
-//						//System.out.println(e);
-//					}
-//				}
-//				double distance = Tools.gridDistance(p, ps);
-//				if(distance < minDist) {
-//					closest = e;
-//					minDist = distance;
-//				}
-//				clusterEntities.add(e);
-//			}
-//			net.addEdge(s, closest);
-//			closest.setParent(s);
-//			spanningTree(clusterEntities, net, closest);
-//		}
-//		spanningTree(subs, net, subs.get(0));
-//
-//		subs.get(0).setParent(globalNode);
-//		
-//		for (ElectricEntity s: subs) {
-//			System.out.println(s);
-//		}
-//		
-//		return net;
-//	}
-	
+		
 	/**
 	 * Builds a tree structure from the clusters.
 	 * @param grid

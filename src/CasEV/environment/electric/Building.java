@@ -95,54 +95,64 @@ public class Building extends ElectricEntity{
 	}
 
 	
-	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
-		System.out.println("Vehicle: " + v + ". Spawner: " + this.spawner);
-		
+	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {			
 		if (v instanceof Car && parkingDecision == true) {
+			//System.out.println("Vehicle: " + v  + " added");
 			update(-v.charge*0.25);
 			
 			for (ParkingSpace ps: this.parkingSpaces) {
 				if (!ps.isReserved()) {
 					ps.reserve();
 					v.isParkedInBuilding = true;
+					v.buildingParkedIn = this;
+					v.spaceParkedIn = ps;
 					break;
 				} else {
 
 				}
 			}
-			
 			occupants.add(p);
 			spawner.getReporter().addParkedCar(v.type);
 		}
-			
-		
-//		for (ParkingSpace ps: this.parkingSpaces) {
-//			if (!ps.isReserved()) {
-//				ps.reserve();
-//				v.isParkedInBuilding = true;
-//				break;
-//			} else {
-//
-//			}
-//		}
-		
-		//occupants.add(p);
 	}
 	
 	public void removeOccupants(Person p, Vehicle v) {
-		System.out.println("Vehicle: " + v + ". Spawner: " + this.spawner);
-
-		if(occupants.contains(p)) {
-			occupants.remove(p);
-			if (v.isParkedInBuilding) {
-				update(v.charge*0.25);
-				v.isParkedInBuilding = false;
-				spawner.getReporter().removeParkedCar(v.type);
-			}
+		
+		if (v.buildingParkedIn == this) {
+			v.isParkedInBuilding = false;
+			v.buildingParkedIn = null;
 			
-		} else {
+			for (ParkingSpace ps: this.parkingSpaces) {
+				if (v.spaceParkedIn == ps) {
+					ps.vacate();
+					v.isParkedInBuilding = false;
+					v.buildingParkedIn = null;
+					v.spaceParkedIn = null;
+					//System.out.println("PS being vacated");
+					break;
+				} else {
 
+				}
+			}
+			v.spaceParkedIn = null;
+			spawner.getReporter().removeParkedCar(v.type);
+		} else {
+			System.out.println("Car is not aprked in this building");
 		}
+
+
+//		if(occupants.contains(p)) {
+//			occupants.remove(p);
+//			if (v.isParkedInBuilding) {
+//				update(v.charge*0.25);
+//				v.isParkedInBuilding = false;
+//				spawner.getReporter().removeParkedCar(v.type);
+//				
+//			}
+//			
+//		} else {
+//			//System.out.println("Occupant not in building: " + p);
+//		}
 	}
 	
 	public void setLoad() {

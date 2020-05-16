@@ -68,7 +68,7 @@ public class Person extends Agent{
 	/**
 	 * Gets the number of ticks for the last trip
 	 * @return int, number of ticks
-	 */
+	 */	
 	public int getLastTimeUse() {
 		return lastTimeUse;
 	}
@@ -102,7 +102,7 @@ public class Person extends Agent{
 		
 		//System.out.println("vehicle type: " + v.type + ". Charge: " + v.charge);
 		
-		if (v.charge > 15 && workPlace.getLoadPrice() < 5d) {
+		if (v.charge > 7 && workPlace.getLoadPrice() < 5d) {
 			//System.out.println("vehicle type: " + v.type + ". Parking worth it");
 
 			return true;
