@@ -13,6 +13,7 @@ import repast.simphony.space.grid.Grid;
 public class Person extends Agent{
 
 	public Building workPlace;
+	private Building shop;
 	private Spawner spawner;
 	private int lastTimeUse = 0;
 	private int parkedTimer = 0;
@@ -62,6 +63,22 @@ public class Person extends Agent{
 	 */
 	public void setParked(int time) {
 		parkedTimer = time;
+	}
+	
+	public String getTravelChoice() {
+		
+
+		return "car";
+		
+		
+	}
+	
+	public void setShoppingPlace(Building shop) {
+		this.shop = shop;
+	}
+	
+	public Building getShoppingPlace() {
+		return shop;
 	}
 	
 	

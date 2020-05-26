@@ -195,26 +195,90 @@ public class Spawner {
 	 * @param isWorker is it a worker? if not, its a shopper
 	 * @param spawnCount The number of agents to spawn
 	 */
+//	private void spawnAgent(boolean isWorker, int spawnCount) {
+//		
+//		for (int i = 0; i < spawnCount; i++) {
+//			if(idleWorkers.size() == 0) {
+//				return;
+//			}
+//			Person p = idleWorkers.remove(0);
+//			
+//			//Start and goal
+//			Spawn start = getSpawnPoint();					
+//			Car car = new Car(space, grid, 5, parkingNexi, this);
+//			car.addOccupant(p);
+//			
+//			//Setup
+//			
+//			car.addGoal(p.getWorkPlace());
+//			car.setStart(start);
+//			car.setNet(net);
+//
+//			start.addToVehicleQueue(car);
+//		}
+//	}
+	
 	private void spawnAgent(boolean isWorker, int spawnCount) {
-		
-		for (int i = 0; i < spawnCount; i++) {
-			if(idleWorkers.size() == 0) {
-				return;
+		if(isWorker) {
+			for (int i = 0; i < spawnCount; i++) {
+				if(idleWorkers.size() == 0) {
+					return;
+				}
+				Person p = idleWorkers.remove(0);
+				
+				//Start and goal
+				Spawn start = getSpawnPoint();
+				if(p.getTravelChoice().equals("bus")) {//Bus
+					start.addToBusQueue(p);
+				}
+				else {//Car
+					
+					Car car = new Car(space, grid, 5, parkingNexi, this);
+					car.addOccupant(p);
+					
+					//Setup
+					
+					car.addGoal(p.getWorkPlace());
+					car.setStart(start);
+					car.setNet(net);
+					
+					start.addToVehicleQueue(car);
+				}
 			}
-			Person p = idleWorkers.remove(0);
-			
-			//Start and goal
-			Spawn start = getSpawnPoint();					
-			Car car = new Car(space, grid, 5, parkingNexi, this);
-			car.addOccupant(p);
-			
-			//Setup
-			
-			car.addGoal(p.getWorkPlace());
-			car.setStart(start);
-			car.setNet(net);
-
-			start.addToVehicleQueue(car);
+		}
+		else {//Shopper
+			for (int i = 0; i < spawnCount; i++) {
+				if(idleShoppers.size() == 0) {
+					continue;
+				}
+				
+				//Start and goal
+				Spawn start = getSpawnPoint();
+				Person p = idleShoppers.remove(0);
+				
+				//Random shopping place each trip
+				p.setShoppingPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+				
+				if(p.getTravelChoice().equals("bus")) {//Bus
+					start.addToBusQueue(p);
+				}
+				else {//car
+				
+					//Add the agent to the context
+					Car car = new Car(space, grid, 5, parkingNexi, this);
+					
+					car.addOccupant(p);
+					
+					//Setup
+					
+//					car.addGoal(parkingSpaces.get(RandomHelper.nextIntFromTo(0, parkingSpaces.size() - 1)));//Random parking space as a goal
+					car.addGoal(p.getShoppingPlace());
+					car.setStart(start);
+					car.setNet(net);
+					
+					start.addToVehicleQueue(car);
+				}
+			}
 		}
 	}
 	
