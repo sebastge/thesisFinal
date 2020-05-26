@@ -7,6 +7,7 @@ import java.util.Random;
 
 import CasEV.Reporter;
 import CasEV.agent.Car;
+import CasEV.agent.Bus;
 import CasEV.agent.Person;
 import CasEV.environment.electric.Building;
 import CasEV.environment.electric.ElectricEntity;
@@ -42,9 +43,21 @@ public class Spawner {
 	private List<Road> parkingNexi;
 	private List<Building> buildings;
 	private Network<Object> net;
+	private List<BusStop> busStops;
 
 		
-	private static final int[] NIGHT = {0, 8640};
+	//private static final int[] NIGHT = {0, 8640};
+	
+	//Time of day translation from ticks and schedule
+	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
+	private static final int[] MORNING = {2160, 4320}; 			//06:00 - 12:00
+	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
+	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
+	
+	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
+	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
+	
+	private static final int[] BUS =  {2160, 7920};
 	
 	/**
 	 * The distribution between the spawn points
@@ -85,6 +98,7 @@ public class Spawner {
 		this.grid = grid;
 		this.spawnPoints = spawnPoints;
 		this.buildings = buildings;
+		this.busStops = busStops;
 		this.parkingNexi = parkingNexiRoads;
 		this.reporter = new Reporter();
 		if(spawnPoints.length == 0 || despawnPoints.size() == 0) {
@@ -164,12 +178,61 @@ public class Spawner {
 	 * Sets up and spawns the agents of the simulation, and ads them to the queue of a(random) spawn point
 	 */
 	
+//	private void spawn() {
+//		//TODO: implement car pooling
+//		int spawnCount;
+//		int time = Tools.getTime();
+//
+//		if(isInInterval(time, NIGHT)) { //Spawn worker
+//			//98% of the workers are going to work over an hour and a half(2% are sick)
+//			Double workers = ((double) idleWorkers.size())*0.98d*(1d/540d);
+//			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
+//			spawnCount = valRem[0].intValue();
+//			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
+//				spawnCount++;
+//			}
+//			spawnAgent(true, spawnCount);
+//		}
+//		else { //Spawn shopper
+//			BigDecimal[] valRem = BigDecimal.valueOf(frequency).divideAndRemainder(BigDecimal.ONE);
+//			spawnCount = valRem[0].intValue();
+//			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
+//				spawnCount++;
+//			}
+//			spawnAgent(false, spawnCount);
+//		}
+//	}
+	
 	private void spawn() {
 		//TODO: implement car pooling
 		int spawnCount;
 		int time = Tools.getTime();
-
-		if(isInInterval(time, NIGHT)) { //Spawn worker
+		if(time % 30 == 0 /*&& isInInterval(time, BUS)*/) { //Spawn bus every 5 minutes from a random spawn
+			Road r = getSpawnPoint();
+				Spawn s = (Spawn) r;
+				Bus bus = new Bus(space, grid, 50, parkingNexi, this);
+				for(int i = 0; i < busStops.size(); i++) {
+					Road currentBussStop = r;
+					List<Road> used = new ArrayList<Road>();
+					double dist = 0;
+					double maxDist = Double.MAX_VALUE;
+					Road bestBusStop = null;
+					for(Road b : busStops) {
+						if(used.contains(b)) {
+							continue;
+						}
+						dist = Tools.gridDistance(currentBussStop.getLocation(), b.getLocation());
+						if(dist < maxDist) {
+							bestBusStop = b;
+						}
+					}
+					bus.addGoal(bestBusStop);
+					used.add(bestBusStop);
+					currentBussStop = bestBusStop;
+				}
+				s.addToVehicleQueue(bus);
+		}
+		if(isInInterval(time, MORNING_RUSH)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
 			Double workers = ((double) idleWorkers.size())*0.98d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);

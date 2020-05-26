@@ -2,6 +2,7 @@ package CasEV.agent;
 
 import CasEV.environment.Spawner;
 import CasEV.environment.electric.Building;
+import CasEV.environment.roads.BusStop;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
@@ -17,6 +18,8 @@ public class Person extends Agent{
 	private Spawner spawner;
 	private int lastTimeUse = 0;
 	private int parkedTimer = 0;
+	
+	private BusStop nearestBusStop;
 	
 	public Person(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
 		super(space, grid);
@@ -95,9 +98,18 @@ public class Person extends Agent{
 	 * Sets the nearest busstop and find the nearest busstop
 	 * @param workPlace
 	 */
+	public BusStop getNearestBusStop() {
+		return nearestBusStop;
+	}
+		
+
+	/**
+	 * Sets the nearest busstop and find the nearest busstop
+	 * @param workPlace
+	 */
 	public void setWorkPlace(Building workPlace) {
 		this.workPlace = workPlace;
-
+		this.nearestBusStop = workPlace.getNearestBusStop();
 	}
 	
 	/**

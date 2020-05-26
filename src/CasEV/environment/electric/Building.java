@@ -12,6 +12,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import utils.Tools;
+import CasEV.environment.roads.BusStop;
 
 public class Building extends ElectricEntity{
 
@@ -384,6 +385,22 @@ public class Building extends ElectricEntity{
 
 	private boolean isInInterval(int n, int[] interval) {
 		return n >= interval[0] && n < interval[1];
+	}
+	
+	public BusStop getNearestBusStop() {
+		Double minDist = Double.MAX_VALUE;
+		Double dist = 0d;
+		BusStop nearest = null;
+		for(Object o: grid.getObjects()){
+			if(o instanceof BusStop) {
+				dist = Tools.manhattanDistance(grid.getLocation(o), grid.getLocation(this));
+				if(dist < minDist) {
+					minDist = dist;
+					nearest = (BusStop) o;
+				}
+			}
+		}
+		return nearest;
 	}
 	
 }

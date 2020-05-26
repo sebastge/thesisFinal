@@ -313,6 +313,21 @@ public class Vehicle extends Agent{
 				die("");
 				return true;
 			}
+			else if (goal instanceof BusStop) {
+				stop();
+				space.moveTo(this, space.getLocation(goal).getX(), space.getLocation(goal).getY());
+				grid.moveTo(this, pt.getX(), pt.getY());
+				for(Person p : occupants) {
+					if(p.getNearestBusStop() == goal) {
+						p.setReachedGoal(this, false);						
+					}
+				}
+				gatherOccupants();
+				goals.next();
+				closed.clear();
+				open.clear();
+				getSurroundings();
+			}
 			
 			else{
 				die("Unknown Goal");
