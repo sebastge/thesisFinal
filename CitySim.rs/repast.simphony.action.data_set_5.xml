@@ -43,36 +43,36 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CarsParked0</string>
+      <string>10-25kWh</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CarsParked0</id>
+        <id>10-25kWh</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked0</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CarsParked1</string>
+      <string>25-50kWh</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CarsParked1</id>
+        <id>25-50kWh</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked1</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CarsParked2</string>
+      <string>50-75kWh</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CarsParked2</id>
+        <id>50-75kWh</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked2</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CarsParked3</string>
+      <string>75-100kWh</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CarsParked3</id>
+        <id>75-100kWh</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked3</methodName>
         <aggType>SUM</aggType>

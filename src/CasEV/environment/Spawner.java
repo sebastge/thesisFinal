@@ -152,12 +152,11 @@ public class Spawner {
 	private void generatePopulation() {
 		for(int i = 0; i < populationStartCount; i++) {
 			Person p = new Person(space, grid, this);
-
+			System.out.println("Person added: " + p);
 			p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
 			population.add(p);
 			idleWorkers.add(p);
-			
-
+			System.out.println(p + " has workpkace: " + p.workPlace);
 		}
 	}
 	
@@ -198,8 +197,6 @@ public class Spawner {
 	 */
 	private void spawnAgent(boolean isWorker, int spawnCount) {
 		
-
-
 		for (int i = 0; i < spawnCount; i++) {
 			if(idleWorkers.size() == 0) {
 				return;
@@ -216,12 +213,9 @@ public class Spawner {
 			car.addGoal(p.getWorkPlace());
 			car.setStart(start);
 			car.setNet(net);
-			
-			start.addToVehicleQueue(car);
-			
 
+			start.addToVehicleQueue(car);
 		}
-		
 	}
 	
 	/**

@@ -2,8 +2,8 @@
   <name>Distace Home</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Time</yAxisLabel>
-  <chartTitle>Distance Home</chartTitle>
+  <yAxisLabel>V2G connected</yAxisLabel>
+  <chartTitle>Battery tech</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,9 +21,9 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>CarsParked0</string>
+      <string>10-25kWh</string>
       <SeriesData>
-        <label>CarsParked0</label>
+        <label>10-25kWh</label>
         <color>
           <red>0</red>
           <green>255</green>
@@ -33,9 +33,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>CarsParked1</string>
+      <string>25-50kWh</string>
       <SeriesData>
-        <label>CarsParked1</label>
+        <label>25-50kWh</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -45,9 +45,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>CarsParked2</string>
+      <string>50-75kWh</string>
       <SeriesData>
-        <label>CarsParked2</label>
+        <label>50-75kWh</label>
         <color>
           <red>0</red>
           <green>0</green>
@@ -57,9 +57,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>CarsParked3</string>
+      <string>75-100kWh</string>
       <SeriesData>
-        <label>CarsParked3</label>
+        <label>75-100kWh</label>
         <color>
           <red>0</red>
           <green>255</green>
