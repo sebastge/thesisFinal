@@ -65,7 +65,7 @@ public class Building extends ElectricEntity{
 	
 	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces) {
 		super(space, grid);
-		this.totalLoad = 1d;
+		this.totalLoad = 0.2d;
 		this.parent = null;
 		this.occupants = new ArrayList<Person>();
 		this.grid = grid;
@@ -96,11 +96,13 @@ public class Building extends ElectricEntity{
 	}
 
 	
-	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {			
+	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
 		if (v instanceof Car && parkingDecision == true) {
-			//System.out.println("Vehicle: " + v  + " added");
-			update(-v.charge*0.25);
-			
+			System.out.println("Vehicle: " + v  + " added");
+			if (this.totalLoad >= 0.05 ) {
+				update(-v.charge*0.025);
+			}
+		
 			for (ParkingSpace ps: this.parkingSpaces) {
 				if (!ps.isReserved()) {
 					ps.reserve();
@@ -123,6 +125,7 @@ public class Building extends ElectricEntity{
 			v.isParkedInBuilding = false;
 			v.buildingParkedIn = null;
 			
+			
 			for (ParkingSpace ps: this.parkingSpaces) {
 				if (v.spaceParkedIn == ps) {
 					ps.vacate();
@@ -137,8 +140,9 @@ public class Building extends ElectricEntity{
 			}
 			v.spaceParkedIn = null;
 			spawner.getReporter().removeParkedCar(v.type);
+			update(v.charge*0.025);
 		} else {
-			System.out.println("Car is not aprked in this building");
+			//System.out.println("Car is not aprked in this building");
 		}
 
 
@@ -155,38 +159,7 @@ public class Building extends ElectricEntity{
 //			//System.out.println("Occupant not in building: " + p);
 //		}
 	}
-	
-	public void setLoad() {
-		int time = Tools.getTime();
-		if(isInInterval(time, NIGHT)) {
-			if (!this.timeOfDay.equals("NIGHT")) {
-				this.timeOfDay = "NIGHT";
-				setLoad2(-1d);
-				setLoadPrice();
-			}
-			
-		} else if(isInInterval(time, MORNING)) {
-			if (!this.timeOfDay.equals("MORNING")) {
-				this.timeOfDay = "MORNING";
-				setLoad2(5d);
-				setLoadPrice();
-			}
-			
-		} else if(isInInterval(time, AFTERNOON)) {
-			if (!this.timeOfDay.equals("AFTERNOON")) {
-				this.timeOfDay = "AFTERNOON";
-				setLoad2(-3d);
-				setLoadPrice();
-			}
-			
-		} else if(isInInterval(time, EVENING)) {
-			if (!this.timeOfDay.equals("EVENING")) {
-				this.timeOfDay = "EVENING";
-				setLoad2(-1d);
-				setLoadPrice();
-			}
-		} 
-	}
+
 	
 	public void setLoad3() {
 		int time = Tools.getTime();
@@ -195,161 +168,184 @@ public class Building extends ElectricEntity{
 				this.timeOfDay = "AM0";
 				setLoad2(0d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(15);
 			}
 			
 		} else if(isInInterval(time, AM1)) {
 			if (!this.timeOfDay.equals("AM1")) {
 				this.timeOfDay = "AM1";
-				setLoad2(-0.20d);
+				setLoad2(-0.020d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(14);
 			}
 			
 		} else if(isInInterval(time, AM2)) {
 			if (!this.timeOfDay.equals("AM2")) {
 				this.timeOfDay = "AM2";
-				setLoad2(-0.20d);
+				setLoad2(-0.020d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(13);
 			}
 			
 		} else if(isInInterval(time, AM3)) {
 			if (!this.timeOfDay.equals("AM3")) {
 				this.timeOfDay = "AM3";
-				setLoad2(-0.20d);
+				setLoad2(-0.020d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(10);
 			}
 		} 
 		else if(isInInterval(time, AM4)) {
 			if (!this.timeOfDay.equals("AM4")) {
 				this.timeOfDay = "AM4";
-				setLoad2(-0.20d);
+				setLoad2(-0.020d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(11);
 			}
 		} 
 		else if(isInInterval(time, AM5)) {
 			if (!this.timeOfDay.equals("AM5")) {
 				this.timeOfDay = "AM5";
-				setLoad2(0.3d);
+				setLoad2(0.03d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(13);
 			}
 		} 
 		else if(isInInterval(time, AM6)) {
 			if (!this.timeOfDay.equals("AM6")) {
 				this.timeOfDay = "AM6";
-				setLoad2(0.5d);
+				setLoad2(0.05d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(15);
 			}
 		} 
 		else if(isInInterval(time, AM7)) {
 			if (!this.timeOfDay.equals("AM7")) {
 				this.timeOfDay = "AM7";
-				setLoad2(0.95d);
+				setLoad2(0.095d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(16);
 			}
 		} 
 		else if(isInInterval(time, AM8)) {
 			if (!this.timeOfDay.equals("AM8")) {
 				this.timeOfDay = "AM8";
-				setLoad2(2d);
+				setLoad2(0.2d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(18);
 			}
 		}
 		
 		else if(isInInterval(time, AM9)) {
 			if (!this.timeOfDay.equals("AM9")) {
 				this.timeOfDay = "AM9";
-				setLoad2(2d);
+				setLoad2(0.2d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(20);
 			}
 		} 
 		else if(isInInterval(time, AM10)) {
 			if (!this.timeOfDay.equals("AM10")) {
 				this.timeOfDay = "AM10";
-				setLoad2(-1d);
+				setLoad2(-0.1d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(23);
 			}
 		} 
 		else if(isInInterval(time, AM11)) {
 			if (!this.timeOfDay.equals("AM11")) {
 				this.timeOfDay = "AM11";
-				setLoad2(-1d);
+				setLoad2(-0.1d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(25);
 			}
 		}
 		else if(isInInterval(time, PM0)) {
 			if (!this.timeOfDay.equals("PM0")) {
 				this.timeOfDay = "PM0";
-				setLoad2(-1d);
+				setLoad2(-0.1d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(28);
 			}
 		} 
 		else if(isInInterval(time, PM1)) {
 			if (!this.timeOfDay.equals("PM1")) {
 				this.timeOfDay = "PM1";
-				setLoad2(-0.25d);
+				setLoad2(-0.025d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(27);
 			}
 		} 
 		else if(isInInterval(time, PM2)) {
 			if (!this.timeOfDay.equals("PM2")) {
 				this.timeOfDay = "PM2";
-				setLoad2(-0.25d);
+				setLoad2(-0.025d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(26);
 			}
 		} 
 		else if(isInInterval(time, PM3)) {
 			if (!this.timeOfDay.equals("PM3")) {
 				this.timeOfDay = "PM3";
-				setLoad2(-0.25d);
+				setLoad2(-0.025d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(25);
 			}
 		} 
 		else if(isInInterval(time, PM4)) {
 			if (!this.timeOfDay.equals("PM4")) {
 				this.timeOfDay = "PM4";
-				setLoad2(-0.1d);
+				setLoad2(-0.01d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(21);
 			}
 		} 
 		else if(isInInterval(time, PM5)) {
 			if (!this.timeOfDay.equals("PM5")) {
 				this.timeOfDay = "PM5";
-				setLoad2(-0.1d);
+				setLoad2(-0.01d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(20);
 			}
 		} 
 		else if(isInInterval(time, PM6)) {
 			if (!this.timeOfDay.equals("PM6")) {
 				this.timeOfDay = "PM6";
-				setLoad2(-0.1d);
+				setLoad2(-0.01d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(19);
 			}
 		} 
 		else if(isInInterval(time, PM7)) {
 			if (!this.timeOfDay.equals("PM7")) {
 				this.timeOfDay = "PM7";
-				setLoad2(-0.4d);
+				setLoad2(-0.04d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(18);
 			}
 		} 
 		else if(isInInterval(time, PM8)) {
 			if (!this.timeOfDay.equals("PM8")) {
 				this.timeOfDay = "PM8";
-				setLoad2(-0.2d);
+				setLoad2(-0.02d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(17);
 			}
 		} 
 		else if(isInInterval(time, PM9)) {
 			if (!this.timeOfDay.equals("PM9")) {
 				this.timeOfDay = "PM9";
-				setLoad2(-0.2d);
+				setLoad2(-0.02d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(16);
 			}
 		} 
 		else if(isInInterval(time, PM10)) {
 			if (!this.timeOfDay.equals("PM10")) {
 				this.timeOfDay = "PM10";
-				setLoad2(-0.1d);
+				setLoad2(-0.01d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(16);
 			}
 		} 
 		else if(isInInterval(time, PM11)) {
@@ -357,6 +353,7 @@ public class Building extends ElectricEntity{
 				this.timeOfDay = "PM11";
 				setLoad2(-0.d);
 				setLoadPrice();
+				spawner.getReporter().setWeatherProfile(15);
 			}
 		} 
 	}

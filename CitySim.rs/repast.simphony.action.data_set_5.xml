@@ -78,6 +78,15 @@
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>Weather</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Weather</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getWeatherProfile</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>

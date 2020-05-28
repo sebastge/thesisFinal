@@ -45,6 +45,8 @@ public class Reporter {
 	private int parkedCars2 = 0;
 	private int parkedCars3 = 0;
 	
+	private int weatherProfile = 0;
+	
 	
 	
 	//===============================================================
@@ -98,9 +100,9 @@ public class Reporter {
 	public Double getElPrice() {
 		return elPrice;
 	}
-
-
-	
+	public int getWeatherProfile() {
+		return weatherProfile;
+	}
 	
 	
 	//===============================================================
@@ -252,5 +254,9 @@ public class Reporter {
 	
 	public void setElPrice(Double elPrice) {
 		this.elPrice = elPrice;
+	}
+	
+	public void setWeatherProfile(int weatherProfile) {
+		this.weatherProfile = weatherProfile;
 	}
 }

@@ -6,6 +6,8 @@ import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import utils.Tools;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class RegionalGridNode extends ElectricEntity{
 
 	
@@ -39,11 +41,19 @@ public class RegionalGridNode extends ElectricEntity{
 		setTotalLoadForReporter();
 		setLoadPrice();
 		setLoadPriceForReporter();
+		//setWeatherProfileForReporter();
 		//System.out.println("Load price: " + this.loadPrice);
+		//System.out.println("Total load: " + this.totalLoad);
 	}
 	
 	public void setTotalLoadForReporter() {
+
 		spawner.getReporter().setTotalLoad(this.totalLoad);
+		
+	}
+	
+	public void setWeatherProfileForReporter() {
+		spawner.getReporter().setWeatherProfile(ThreadLocalRandom.current().nextInt(1, 4 + 1));
 	}
 	
 	public void setLoadPriceForReporter() {
@@ -54,16 +64,22 @@ public class RegionalGridNode extends ElectricEntity{
 		int time = Tools.getTime();
 		if(isInInterval(time, NIGHT)) {
 			this.loadPrice = 2d;
+			//spawner.getReporter().setWeatherProfile(3);
 		} else if(isInInterval(time, MORNING)) {
 			this.loadPrice = 10d;
+			//spawner.getReporter().setWeatherProfile(2);
 		} else if(isInInterval(time, AFTERNOON)) {
 			this.loadPrice = 5d;
+			//spawner.getReporter().setWeatherProfile(4);
 		} else if(isInInterval(time, EVENING)) {
 			this.loadPrice = 2d;
+			//spawner.getReporter().setWeatherProfile(1);
 		} else if(isInInterval(time, MORNING_RUSH)) {
 			this.loadPrice = 20d;
+			//spawner.getReporter().setWeatherProfile(2);
 		} else if(isInInterval(time, AFTERNOON_RUSH)) {
 			this.loadPrice = 15d;
+			//spawner.getReporter().setWeatherProfile(1);
 		}
 	}
 	

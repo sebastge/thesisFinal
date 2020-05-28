@@ -54,7 +54,7 @@ public class Spawner {
 	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
 	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
 	
-	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
+	private static final int[] MORNING_RUSH = {0, 3060}; 	//07:00 - 08:30
 	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
 	
 	private static final int[] BUS =  {2160, 7920};
@@ -70,6 +70,13 @@ public class Spawner {
 	
 	private Double nightFrequency;
 	private int populationStartCount;
+	
+
+	private Double morningFrequency;
+	private Double afternoonFrequency;
+	private Double eveningFrequency;
+	private Double rushFrequency;
+	private int personsPerCar;
 
 	
 	private List<Person> population;
@@ -80,6 +87,8 @@ public class Spawner {
 	private ArrayList<Person> idleWorkers;
 	private ArrayList<Person> idleShoppers;
 	private Reporter reporter;
+	
+
 	
 	
 	@SuppressWarnings("unchecked")
@@ -112,6 +121,10 @@ public class Spawner {
 		
 		//Sets up the parameters to be determined in the GUI
 		this.nightFrequency = params.getDouble("Car_frequency_at_Night");
+		this.morningFrequency = params.getDouble("Car_frequency_in_the_Morning");
+		this.afternoonFrequency = params.getDouble("Car_frequency_in_the_Afternoon");
+		this.eveningFrequency = params.getDouble("Car_frequency_in_the_Evening");
+		this.rushFrequency = params.getDouble("Car_frequency_in_Rushhour");
 		this.populationStartCount = params.getInteger("population_start_count");
 		
 		this.loadDistribution = new Double[4];
@@ -208,6 +221,7 @@ public class Spawner {
 		int spawnCount;
 		int time = Tools.getTime();
 		if(time % 30 == 0 /*&& isInInterval(time, BUS)*/) { //Spawn bus every 5 minutes from a random spawn
+			//System.out.println("Bus spawned");
 			Road r = getSpawnPoint();
 				Spawn s = (Spawn) r;
 				Bus bus = new Bus(space, grid, 50, parkingNexi, this);
@@ -282,8 +296,10 @@ public class Spawner {
 //	}
 	
 	private void spawnAgent(boolean isWorker, int spawnCount) {
+		//System.out.println("Spawnagent called. Isworker:  " + isWorker + " .spawnCount: " + spawnCount);
 		if(isWorker) {
 			for (int i = 0; i < spawnCount; i++) {
+				//System.out.println("in wrorker for");
 				if(idleWorkers.size() == 0) {
 					return;
 				}
@@ -310,11 +326,13 @@ public class Spawner {
 			}
 		}
 		else {//Shopper
+			
 			for (int i = 0; i < spawnCount; i++) {
+
 				if(idleShoppers.size() == 0) {
 					continue;
 				}
-				
+				System.out.println("Passed continue");
 				//Start and goal
 				Spawn start = getSpawnPoint();
 				Person p = idleShoppers.remove(0);
@@ -322,10 +340,12 @@ public class Spawner {
 				//Random shopping place each trip
 				p.setShoppingPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
 				
-				if(p.getTravelChoice().equals("bus")) {//Bus
+				if(p.getTravelChoice().equals("bus1")) {//Bus
+					System.out.println("bus is the choise lol");
 					start.addToBusQueue(p);
 				}
 				else {//car
+					System.out.println("Shopper in car");
 				
 					//Add the agent to the context
 					Car car = new Car(space, grid, 5, parkingNexi, this);
@@ -385,6 +405,24 @@ public class Spawner {
 		if(isInInterval(time, NIGHT)) {
 			frequency += nightFrequency;
 		}
+		else if(isInInterval(time, MORNING)) {
+			frequency += morningFrequency;
+		}
+		else if(isInInterval(time, AFTERNOON)) {
+			frequency += afternoonFrequency;		
+		}
+		else if(isInInterval(time, EVENING)) {
+			frequency += eveningFrequency;
+		}
+		
+//		if(isInInterval(time, MORNING_RUSH)) {
+//			frequency += rushFrequency;
+//		}
+//		else if(isInInterval(time, AFTERNOON_RUSH)) {
+//			frequency += rushFrequency;
+//		}
+		
+		
 	}
 	
 	/**

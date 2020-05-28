@@ -119,7 +119,12 @@ public class Person extends Agent{
 	 */
 	public void setReachedGoal(Vehicle v, boolean isEndGoal) {
 		if(isEndGoal) {
-			spawner.returnWorker(this);
+			if (workPlace == null) {
+				spawner.returnShopper(this);
+			} else {
+				spawner.returnWorker(this);
+			}
+
 			return;
 		}
 		if(workPlace != null) {

@@ -43,9 +43,11 @@ public abstract class ElectricEntity extends Entity{
 	}
 	
 	public void update(Double delta) {
+		
 
 		this.totalLoad += delta;
 		updateParent(delta);
+
 	}
 	
 	

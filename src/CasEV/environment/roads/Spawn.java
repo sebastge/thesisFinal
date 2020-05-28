@@ -120,6 +120,7 @@ public class Spawn extends Road {
 		else if(vehicle instanceof Bus) {//Get people from those that are waiting for the bus
 			for(int i = 0; i < busQueue.size(); i++) {
 				if(busQueue.size() > 0 && !vehicle.isFull()) {
+					System.out.println("Geezer added to bus");
 					vehicle.addOccupant(busQueue.remove(i));
 				}
 			}
