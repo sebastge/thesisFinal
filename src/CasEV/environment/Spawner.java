@@ -59,6 +59,8 @@ public class Spawner {
 	
 	private static final int[] BUS =  {2160, 7920};
 	
+	private static final int[] TEST = {0, 8640}; 
+	
 	/**
 	 * The distribution between the spawn points
 	 * where the lists index + 1 corresponds to the spawn point number noted in the simulation by sidewalks in the shape of numbers
@@ -246,7 +248,7 @@ public class Spawner {
 				}
 				s.addToVehicleQueue(bus);
 		}
-		if(isInInterval(time, MORNING_RUSH)) { //Spawn worker
+		if(isInInterval(time, TEST)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
 			Double workers = ((double) idleWorkers.size())*0.98d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);

@@ -2,6 +2,7 @@ package CasEV.environment.electric;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import CasEV.agent.Car;
 import CasEV.agent.Person;
@@ -115,6 +116,7 @@ public class Building extends ElectricEntity{
 				}
 			}
 			occupants.add(p);
+			int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 			spawner.getReporter().addParkedCar(v.type);
 		}
 	}
@@ -222,7 +224,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, AM7)) {
 			if (!this.timeOfDay.equals("AM7")) {
 				this.timeOfDay = "AM7";
-				setLoad2(0.095d);
+				setLoad2(0.08d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(16);
 			}
@@ -230,7 +232,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, AM8)) {
 			if (!this.timeOfDay.equals("AM8")) {
 				this.timeOfDay = "AM8";
-				setLoad2(0.2d);
+				setLoad2(0.05d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(18);
 			}
@@ -239,7 +241,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, AM9)) {
 			if (!this.timeOfDay.equals("AM9")) {
 				this.timeOfDay = "AM9";
-				setLoad2(0.2d);
+				setLoad2(0.05d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(20);
 			}
@@ -247,7 +249,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, AM10)) {
 			if (!this.timeOfDay.equals("AM10")) {
 				this.timeOfDay = "AM10";
-				setLoad2(-0.1d);
+				setLoad2(-0.06d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(23);
 			}
@@ -255,7 +257,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, AM11)) {
 			if (!this.timeOfDay.equals("AM11")) {
 				this.timeOfDay = "AM11";
-				setLoad2(-0.1d);
+				setLoad2(-0.06d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(25);
 			}
@@ -263,7 +265,7 @@ public class Building extends ElectricEntity{
 		else if(isInInterval(time, PM0)) {
 			if (!this.timeOfDay.equals("PM0")) {
 				this.timeOfDay = "PM0";
-				setLoad2(-0.1d);
+				setLoad2(-0.08d);
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(28);
 			}
@@ -355,7 +357,10 @@ public class Building extends ElectricEntity{
 				setLoadPrice();
 				spawner.getReporter().setWeatherProfile(15);
 			}
-		} 
+		}
+		if((time % 8640) == 0 ) {
+			//setLoad2(1d);
+		}
 	}
 	
 	

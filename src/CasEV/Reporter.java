@@ -1,5 +1,7 @@
 package CasEV;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Reporter {
 
 	
@@ -46,6 +48,8 @@ public class Reporter {
 	private int parkedCars3 = 0;
 	
 	private int weatherProfile = 0;
+	
+	private int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 	
 	
 	
@@ -221,7 +225,7 @@ public class Reporter {
 	public void addParkedCar(int type) {
 
 		this.parkedCars++;
-		
+
 		if (type == 0) {
 			this.parkedCars0++;
 		} else if (type == 1) {

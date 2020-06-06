@@ -145,7 +145,8 @@ public class Vehicle extends Agent{
 	}
 	
 	private Double setCharge(int type) {
-		return ((type+1) * ThreadLocalRandom.current().nextDouble(0, 10));
+		return (2*ThreadLocalRandom.current().nextDouble(0, 10));
+		//return ((type+1) * ThreadLocalRandom.current().nextDouble(0, 10));
 	}
 	
 	

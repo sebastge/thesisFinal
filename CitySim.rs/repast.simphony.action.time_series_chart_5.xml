@@ -21,18 +21,6 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>CarsParked</string>
-      <SeriesData>
-        <label>CarsParked</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
       <string>TotalLoad</string>
       <SeriesData>
         <label>TotalLoad</label>
