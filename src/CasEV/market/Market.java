@@ -1,5 +1,5 @@
 package CasEV.market;
 
-public class market {
+public class Market {
 
 }
