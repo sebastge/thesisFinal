@@ -70,6 +70,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	BufferedImage roadImg = null;
 	
 	RegionalGridNode globalNode;
+	
+	Market market;
 
 	
 	
@@ -152,7 +154,9 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		grid.moveTo(globalNode, width - 50, height - 15);
 		
 
-			
+		Market market = new Market();
+		context.add(market);
+		
 		
 		
 		//Read the images and do stuff with the pixels
