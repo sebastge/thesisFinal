@@ -1,5 +1,6 @@
 package CasEV.environment.electric;
 
+import CasEV.Market;
 import CasEV.environment.Spawner;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
@@ -12,6 +13,7 @@ public class RegionalGridNode extends ElectricEntity{
 
 	
 	private Spawner spawner;
+	
 	
 	private Double loadPrice;
 	
@@ -49,6 +51,8 @@ public class RegionalGridNode extends ElectricEntity{
 	public void setTotalLoadForReporter() {
 
 		spawner.getReporter().setTotalLoad(this.totalLoad);
+		spawner.getMarket().setTotalLoad(this.totalLoad);
+		
 		
 	}
 	

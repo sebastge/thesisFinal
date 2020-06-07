@@ -34,9 +34,9 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>LoadPrice</string>
+      <string>LoadPrice2</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>LoadPrice</id>
+        <id>LoadPrice2</id>
         <className>CasEV.Reporter</className>
         <methodName>getElPrice</methodName>
         <aggType>SUM</aggType>
@@ -84,6 +84,24 @@
         <id>Weather</id>
         <className>CasEV.Reporter</className>
         <methodName>getWeatherProfile</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>LoadPrice</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>LoadPrice</id>
+        <className>CasEV.Market</className>
+        <methodName>getLoadPrice</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>V2GLoadAvailable</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>V2GLoadAvailable</id>
+        <className>CasEV.Market</className>
+        <methodName>getV2GLoadAvailable</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

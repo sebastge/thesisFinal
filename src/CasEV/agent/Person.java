@@ -54,7 +54,7 @@ public class Person extends Agent{
 			return true;
 			
 		} else {
-			workPlace.removeOccupants(this, v);
+			workPlace.removeOccupants(this, (EV) v);
 			//spawner.getReporter().removeParkedCar(v.type);
 			return true;	
 		}
@@ -127,21 +127,16 @@ public class Person extends Agent{
 
 			return;
 		}
-		if(workPlace != null) {
-				workPlace.addOccupants(this, v, determineParkingWorth(v, workPlace));
+		if(workPlace != null && v instanceof EV) {
+				workPlace.addOccupants(this, (EV) v, determineParkingWorth((EV) v, workPlace));
 		}
 	}
 	
-	public boolean determineParkingWorth(Vehicle v, Building workPlace) {
+	public boolean determineParkingWorth(EV v, Building workPlace) {
 		
-		//System.out.println("vehicle type: " + v.type + ". Charge: " + v.charge);
-		
-		if (v.charge > 7 && workPlace.getLoadPrice() < 5d) {
-			//System.out.println("vehicle type: " + v.type + ". Parking worth it");
-
+		if (v.charge > 7 && spawner.getMarket().getPriceLevel() < 50d) {
 			return true;
 		} else {
-			//System.out.println("vehicle type: " + v.type + ". Parking not worth it");
 			return false;
 		}
 	} 

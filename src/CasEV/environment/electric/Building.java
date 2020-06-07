@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import CasEV.agent.Car;
+import CasEV.agent.EV;
 import CasEV.agent.Person;
 import CasEV.agent.Vehicle;
 import CasEV.environment.Spawner;
@@ -87,7 +88,7 @@ public class Building extends ElectricEntity{
 		changeLoad();
 		//setLoadPrice();
 		spawner.getMarket().getPriceLevel();
-		System.out.println("Demand: " + spawner.getMarket().getDemand());
+
 	
 	}
 	
@@ -99,9 +100,10 @@ public class Building extends ElectricEntity{
 	}
 
 	
-	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
-		if (v instanceof Car && parkingDecision == true) {
-			System.out.println("Vehicle: " + v  + " added");
+	public void addOccupants(Person p, EV v, Boolean parkingDecision) {
+
+		if (v instanceof EV && parkingDecision == true) {
+
 			if (this.totalLoad >= 0.05 ) {
 				update(-v.charge*0.025);
 			}
@@ -117,14 +119,19 @@ public class Building extends ElectricEntity{
 
 				}
 			}
+			
 			occupants.add(p);
 			int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 			spawner.getReporter().addParkedCar(v.type);
 			spawner.getMarket().setDemand();
+			spawner.getMarket().addNumV2G();
+			spawner.getMarket().addNumCars();
+			spawner.getMarket().addNumEV();
+			spawner.getMarket().addV2GLoadAvailable(v.charge);
 		}
 	}
 	
-	public void removeOccupants(Person p, Vehicle v) {
+	public void removeOccupants(Person p, EV v) {
 		
 		if (v.buildingParkedIn == this) {
 			v.isParkedInBuilding = false;
@@ -146,6 +153,10 @@ public class Building extends ElectricEntity{
 			v.spaceParkedIn = null;
 			spawner.getReporter().removeParkedCar(v.type);
 			update(v.charge*0.025);
+			spawner.getMarket().removeNumV2G();
+			spawner.getMarket().removeNumCars();
+			spawner.getMarket().removeNumEV();
+			spawner.getMarket().removeV2GLoadAvailable(v.charge);
 		} else {
 			//System.out.println("Car is not aprked in this building");
 		}

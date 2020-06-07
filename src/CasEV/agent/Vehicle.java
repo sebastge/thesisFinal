@@ -44,8 +44,6 @@ public class Vehicle extends Agent{
 	
 	private Spawner spawner;
 	
-	public double charge;
-
 	
 	private Road start;
 	private Road localGoal;
@@ -120,7 +118,7 @@ public class Vehicle extends Agent{
 		this.occupants = new ArrayList<Person>(occupantLimit);
 		this.spawner = spawner;
 		//this.charge = ThreadLocalRandom.current().nextDouble(0, 10);
-		this.charge = setCharge(this.type);
+		
 		this.isParkedInBuilding = false;
 	}
 	
@@ -144,10 +142,7 @@ public class Vehicle extends Agent{
 		
 	}
 	
-	private Double setCharge(int type) {
-		return (2*ThreadLocalRandom.current().nextDouble(0, 10));
-		//return ((type+1) * ThreadLocalRandom.current().nextDouble(0, 10));
-	}
+
 	
 	
 	/**

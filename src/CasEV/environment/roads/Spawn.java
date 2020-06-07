@@ -7,6 +7,7 @@ import java.util.List;
 import CasEV.agent.Agent;
 import CasEV.agent.Bus;
 import CasEV.agent.Car;
+import CasEV.agent.EV;
 import CasEV.agent.Person;
 import CasEV.agent.Vehicle;
 import repast.simphony.query.space.grid.GridCell;

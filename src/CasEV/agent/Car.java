@@ -21,7 +21,6 @@ public class Car extends Vehicle{
 		super(space, grid, occupantLimit, parkingNexi, spawner);
 		
 		
-		
 
 		
 		// TODO Auto-generated constructor stub

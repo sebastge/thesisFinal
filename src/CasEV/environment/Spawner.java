@@ -8,6 +8,7 @@ import java.util.Random;
 import CasEV.Reporter;
 import CasEV.Market;
 import CasEV.agent.Car;
+import CasEV.agent.EV;
 import CasEV.agent.Bus;
 import CasEV.agent.Person;
 import CasEV.environment.electric.Building;
@@ -317,16 +318,16 @@ public class Spawner {
 				}
 				else {//Car
 					
-					Car car = new Car(space, grid, 5, parkingNexi, this);
-					car.addOccupant(p);
+					EV ev = new EV(space, grid, 5, parkingNexi, this);
+					ev.addOccupant(p);
 					
 					//Setup
 					
-					car.addGoal(p.getWorkPlace());
-					car.setStart(start);
-					car.setNet(net);
+					ev.addGoal(p.getWorkPlace());
+					ev.setStart(start);
+					ev.setNet(net);
 					
-					start.addToVehicleQueue(car);
+					start.addToVehicleQueue(ev);
 				}
 			}
 		}
@@ -353,18 +354,18 @@ public class Spawner {
 					System.out.println("Shopper in car");
 				
 					//Add the agent to the context
-					Car car = new Car(space, grid, 5, parkingNexi, this);
+					EV ev = new EV(space, grid, 5, parkingNexi, this);
 					
-					car.addOccupant(p);
+					ev.addOccupant(p);
 					
 					//Setup
 					
 //					car.addGoal(parkingSpaces.get(RandomHelper.nextIntFromTo(0, parkingSpaces.size() - 1)));//Random parking space as a goal
-					car.addGoal(p.getShoppingPlace());
-					car.setStart(start);
-					car.setNet(net);
+					ev.addGoal(p.getShoppingPlace());
+					ev.setStart(start);
+					ev.setNet(net);
 					
-					start.addToVehicleQueue(car);
+					start.addToVehicleQueue(ev);
 				}
 			}
 		}
