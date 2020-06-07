@@ -86,6 +86,8 @@ public class Building extends ElectricEntity{
 		//setLoad3();
 		changeLoad();
 		//setLoadPrice();
+		spawner.getMarket().getPriceLevel();
+		System.out.println("Demand: " + spawner.getMarket().getDemand());
 	
 	}
 	
@@ -118,6 +120,7 @@ public class Building extends ElectricEntity{
 			occupants.add(p);
 			int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 			spawner.getReporter().addParkedCar(v.type);
+			spawner.getMarket().setDemand();
 		}
 	}
 	

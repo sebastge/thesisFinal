@@ -70,8 +70,6 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	BufferedImage roadImg = null;
 	
 	RegionalGridNode globalNode;
-	
-	Market market;
 
 	
 	
@@ -153,9 +151,6 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		space.moveTo(globalNode, width - 50, height - 15);
 		grid.moveTo(globalNode, width - 50, height - 15);
 		
-
-		Market market = new Market();
-		context.add(market);
 		
 		
 		
@@ -388,6 +383,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		}
 		context.add(spawner);
 		context.add(spawner.getReporter());
+		context.add(spawner.getMarket());
+		
 	}
 	
 	/**

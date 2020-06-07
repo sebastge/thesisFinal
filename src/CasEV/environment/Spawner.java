@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import CasEV.Reporter;
+import CasEV.Market;
 import CasEV.agent.Car;
 import CasEV.agent.Bus;
 import CasEV.agent.Person;
@@ -89,6 +90,7 @@ public class Spawner {
 	private ArrayList<Person> idleWorkers;
 	private ArrayList<Person> idleShoppers;
 	private Reporter reporter;
+	private Market market;
 	
 
 	
@@ -112,6 +114,7 @@ public class Spawner {
 		this.busStops = busStops;
 		this.parkingNexi = parkingNexiRoads;
 		this.reporter = new Reporter();
+		this.market = new Market();
 		if(spawnPoints.length == 0 || despawnPoints.size() == 0) {
 			throw new IllegalArgumentException("no spawn or goal");
 		}
@@ -395,6 +398,10 @@ public class Spawner {
 	
 	public Reporter getReporter() {
 		return reporter;
+	}
+	
+	public Market getMarket() {
+		return this.market;
 	}
 	
 	/**

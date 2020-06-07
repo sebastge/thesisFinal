@@ -1,43 +1,41 @@
 package CasEV;
 
 
-
-import CasEV.agent.Person;
-import CasEV.environment.Spawner;
-import CasEV.environment.roads.Road;
-import repast.simphony.engine.schedule.ScheduledMethod;
-
-import repast.simphony.space.continuous.ContinuousSpace;
-import repast.simphony.space.grid.Grid;
-import structures.Goals;
-
 public class Market {
 	
-	private int occupantLimit = 5;
+	private Double supply = 0d;
+	private Double demand = 0d;
+	private Double priceLevel = 0d;
+	private int numCars = 0;
+	private int numEV = 0;
+	private int numV2G = 0;
 
 	
-	private ContinuousSpace<Object> space;
-	private Grid<Object> grid;
 	
-	
-	private Goals goals;
-	
-	private Spawner spawner;
 
-	public Market() {
-		super();
-
+	
+	public Double getSupply() {
+		return supply;
 	}
 	
-	/**
-	 * Runs every step. Checks for "dead" after each main step because model destruction does not trigger until next step.
-	 */
-	@ScheduledMethod(start = 1, interval = 1)
-	public void step(){
-		
-		System.out.println("Market innit");
-		
+	public Double getDemand() {
+		return demand;
+	}
+	
+	public Double getPriceLevel() {
+		return priceLevel;
+	}
+	public void setSupply() {
+		supply ++;
+	}
+	public void setDemand() {
+		demand ++;
+	}
+	
+	public void setPriceLevel() {
+		priceLevel ++;
 	}
 		
 		
-	}
+}
+
