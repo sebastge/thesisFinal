@@ -67,7 +67,7 @@ public class Building extends ElectricEntity{
 	
 	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces) {
 		super(space, grid);
-		this.totalLoad = 0.2d;
+		this.totalLoad = 1d;
 		this.parent = null;
 		this.occupants = new ArrayList<Person>();
 		this.grid = grid;
@@ -85,9 +85,9 @@ public class Building extends ElectricEntity{
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
 		//setLoad3();
-		changeLoad();
+		//changeLoad();
 		//setLoadPrice();
-		spawner.getMarket().getPriceLevel();
+		//spawner.getMarket().getPriceLevel();
 
 	
 	}
@@ -105,7 +105,7 @@ public class Building extends ElectricEntity{
 		if (v instanceof EV && parkingDecision == true) {
 
 			if (this.totalLoad >= 0.05 ) {
-				update(-v.charge*0.025);
+				update(-v.charge*2.5);
 			}
 		
 			for (ParkingSpace ps: this.parkingSpaces) {
@@ -121,7 +121,6 @@ public class Building extends ElectricEntity{
 			}
 			
 			occupants.add(p);
-			int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 			spawner.getReporter().addParkedCar(v.type);
 			spawner.getMarket().setDemand();
 			spawner.getMarket().addNumV2G();
@@ -152,7 +151,7 @@ public class Building extends ElectricEntity{
 			}
 			v.spaceParkedIn = null;
 			spawner.getReporter().removeParkedCar(v.type);
-			update(v.charge*0.025);
+			update(v.charge*2.5);
 			spawner.getMarket().removeNumV2G();
 			spawner.getMarket().removeNumCars();
 			spawner.getMarket().removeNumEV();
