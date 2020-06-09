@@ -20,6 +20,7 @@ public class Building extends ElectricEntity{
 
 	private Double loadPrice;
 	private List<Person> occupants;
+	private List<EV> occupantEVs;
 	private List<ParkingSpace> parkingSpaces;
 
 	
@@ -62,14 +63,19 @@ public class Building extends ElectricEntity{
 	private static final int[] PM10 = {7920, 8280}; 	//07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; 	//15:30 - 17:00
 	
+	
+	
 	private String timeOfDay;
 	public Spawner spawner;
+	
+	private static final int[] buildingLoadRange = {0, 20}; 	//15:30 - 17:00
 	
 	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces) {
 		super(space, grid);
 		this.totalLoad = 1d;
 		this.parent = null;
 		this.occupants = new ArrayList<Person>();
+		this.occupantEVs = new ArrayList<EV>();
 		this.grid = grid;
 		this.space = space;
 		this.parkingSpaces = parkingSpaces;
@@ -88,8 +94,37 @@ public class Building extends ElectricEntity{
 		//changeLoad();
 		//setLoadPrice();
 		//spawner.getMarket().getPriceLevel();
+		//System.out.println(this + " building has a total load of: " + this.totalLoad);
+		//System.out.println("Occupants EV: " + this.occupantEVs);
 
 	
+	}
+	
+	
+	private boolean isInInterval2(double outputValue, int[] interval) {
+		return outputValue >= interval[0] && outputValue < interval[1];
+	}
+	
+	@Override
+	public void update(Double delta) {
+		
+		
+		double outputValue = output_start + ((output_end - output_start) / (input_end - input_start)) * (delta - input_start);
+		
+		if (isInInterval2((this.totalLoad + delta), buildingLoadRange)) {
+			//System.out.println("In taht range");
+			this.totalLoad += delta;
+			updateParent(delta);
+		} else {
+//			System.out.println("Not in taht range");
+//			System.out.println("delta: " + delta);
+//			System.out.println("Total load: " + this.totalLoad);
+			
+		}
+		
+		//this.totalLoad += delta;
+		//updateParent(delta);
+
 	}
 	
 	public void changeLoad() {
@@ -104,9 +139,10 @@ public class Building extends ElectricEntity{
 
 		if (v instanceof EV && parkingDecision == true) {
 
-			if (this.totalLoad >= 0.05 ) {
-				update(-v.charge*2.5);
-			}
+			
+			//update(-v.charge*0.25);
+			update(-3d);
+			
 		
 			for (ParkingSpace ps: this.parkingSpaces) {
 				if (!ps.isReserved()) {
@@ -121,12 +157,20 @@ public class Building extends ElectricEntity{
 			}
 			
 			occupants.add(p);
+			
 			spawner.getReporter().addParkedCar(v.type);
 			spawner.getMarket().setDemand();
 			spawner.getMarket().addNumV2G();
 			spawner.getMarket().addNumCars();
 			spawner.getMarket().addNumEV();
-			spawner.getMarket().addV2GLoadAvailable(v.charge);
+			this.occupantEVs.add(v);
+			//spawner.getMarket().addV2GLoadAvailable(v.charge);
+			
+			if (spawner.getMarket().borrowFromAggregator(v.getChargeAvailableForV2G()) > 0d) {
+				//System.out.println("Charge before: " + v.charge);
+				v.charge -= spawner.getMarket().borrowFromAggregator(v.charge);
+				//System.out.println("Charge after: " + v.charge);
+			} 
 		}
 	}
 	
@@ -143,7 +187,6 @@ public class Building extends ElectricEntity{
 					v.isParkedInBuilding = false;
 					v.buildingParkedIn = null;
 					v.spaceParkedIn = null;
-					//System.out.println("PS being vacated");
 					break;
 				} else {
 
@@ -151,28 +194,17 @@ public class Building extends ElectricEntity{
 			}
 			v.spaceParkedIn = null;
 			spawner.getReporter().removeParkedCar(v.type);
-			update(v.charge*2.5);
+			//update(v.charge*0.25);
+			update(3d);
 			spawner.getMarket().removeNumV2G();
 			spawner.getMarket().removeNumCars();
 			spawner.getMarket().removeNumEV();
-			spawner.getMarket().removeV2GLoadAvailable(v.charge);
+			spawner.getMarket().removeV2GLoadAvailable(v.charge/12);
+			this.occupantEVs.remove(v);
 		} else {
 			//System.out.println("Car is not aprked in this building");
 		}
 
-
-//		if(occupants.contains(p)) {
-//			occupants.remove(p);
-//			if (v.isParkedInBuilding) {
-//				update(v.charge*0.25);
-//				v.isParkedInBuilding = false;
-//				spawner.getReporter().removeParkedCar(v.type);
-//				
-//			}
-//			
-//		} else {
-//			//System.out.println("Occupant not in building: " + p);
-//		}
 	}
 
 	

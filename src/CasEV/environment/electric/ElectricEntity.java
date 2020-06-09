@@ -27,10 +27,19 @@ public abstract class ElectricEntity extends Entity{
 		this.totalLoad = 0d;
 		this.grid = grid;
 		this.space = space;
-		this.totalOccupants = 0;
-		
-		
+		this.totalOccupants = 0;	
 	}
+	
+
+	
+	Double input_start = 0d; // The lowest number of the range input.
+	Double input_end = 300d; // The lowest number of the range input.
+	Double output_start = 15d; // The lowest number of the range output.
+	Double output_end = 45d; // The largest number of the range output.
+	
+
+	
+
 	
 	
 	public GridPoint getLocation() {
@@ -44,7 +53,6 @@ public abstract class ElectricEntity extends Entity{
 	
 	public void update(Double delta) {
 		
-
 		this.totalLoad += delta;
 		updateParent(delta);
 

@@ -15,10 +15,13 @@ public class Market {
 		setLoad();
 		setPriceLevel();
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
-		System.out.println("Price level: " + this.priceLevel);
+//		System.out.println("Price level: " + this.priceLevel);
 //		System.out.println("Num EV: " + this.numEV);
 //		System.out.println("Num V2G: " + this.numV2G);
-		System.out.println("Total load: " + this.totalLoad);
+//		System.out.println("Total load market: " + this.totalLoad);
+		
+//		this.tester(this.totalLoad);
+//		System.out.println("Output test: " + this.kWhPrice);
 
 	
 	}
@@ -49,7 +52,12 @@ public class Market {
 	private static final int[] PM9 = {6480, 7920}; 	//18:00 - 00:00
 	private static final int[] PM10 = {7920, 8280}; //07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; //15:30 - 17:00
+	
+	private static final int[] kWhPriceRange = {15, 45};
+	private Double kWhPrice = 30d;
 
+	private static final int[] loadInterval = {15, 45};
+	
 	
 	private Double supply = 0d;
 	private Double demand = 0d;
@@ -64,7 +72,47 @@ public class Market {
 	private Double v2gLoadWanted = 0d;
 	
 	private String timeOfDay = "";
+	
+//	Double input_start = 0d; // The lowest number of the range input.
+//	Double input_end = 300d; // The lowest number of the range input.
+//	Double output_start = 15d; // The lowest number of the range output.
+//	Double output_end = 45d; // The largest number of the range output.
+	
+	
+	private Double createDoubleInRange(Double inputVariable, Double input_start, Double input_end, Double output_start, Double output_end) {
+		return output_start + ((output_end - output_start) / (input_end - input_start)) * (inputVariable - input_start);
 
+		
+	}
+	
+	public Double determineNeedFromAggregator(Double kWhOffered) {
+		if (v2gLoadWanted > v2gLoadAvailable) {
+			Double need = createDoubleInRange(kWhOffered, 0d, 25d, 0d, kWhOffered);
+			System.out.println("Need: " + need);
+			System.out.println("V2G avaialble: " + this.v2gLoadAvailable);
+			System.out.println("V2G wanted: " + this.v2gLoadWanted);
+			//Double need = kWhOffered * 0.25;<
+			return need;
+		} else {
+			return 0d;
+		}
+		
+	}
+	
+	
+	public Double borrowFromAggregator (Double kWhOffered) {
+		System.out.println("kWh offered: " + kWhOffered);
+		if (kWhOffered > 0) {
+			Double tempNeed = determineNeedFromAggregator(kWhOffered);
+			this.v2gLoadAvailable += tempNeed;
+			return tempNeed;
+			
+		} else {
+			return 0d;
+		}
+		
+	}
+	
 	
 	public Double getSupply() {
 		return supply;
@@ -125,6 +173,7 @@ public class Market {
 	}
 	
 	public void setLoad() {
+
 		int time = Tools.getTime();
 		if(isInInterval(time, AM0)) {
 			if (!this.timeOfDay.equals("AM0")) {
@@ -277,14 +326,17 @@ public class Market {
 		}
 	}
 	
-
+	public void setkWhPrice() {
+		
+	}
 	
-	private boolean isInInterval(int n, int[] interval) {
-		return n >= interval[0] && n < interval[1];
+	private boolean isInInterval(double outputValue, int[] interval) {
+		return outputValue >= interval[0] && outputValue < interval[1];
 	}
 	public void setTotalLoad(Double totalLoad) {
 		this.totalLoad = totalLoad;
 		
 	}
+	
 }
 

@@ -12,6 +12,7 @@ import repast.simphony.space.grid.Grid;
 public class EV extends Car{
 	
 	public double charge;
+	public double distanceFromCentre = 0d;
 	
 
 	public EV(ContinuousSpace<Object> space, Grid<Object> grid, int occupantLimit, List<Road> parkingNexi, Spawner spawner) {
@@ -27,5 +28,8 @@ public class EV extends Car{
 	protected Double setCharge(int type) {
 		return (2*ThreadLocalRandom.current().nextDouble(0, 10));
 
+	}
+	public Double getChargeAvailableForV2G() {
+		return this.charge/4;
 	}
 }

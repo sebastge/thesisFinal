@@ -33,6 +33,7 @@ public class RegionalGridNode extends ElectricEntity{
 		this.space = space;
 		this.spawner = spawner;
 		this.loadPrice = 0d;
+		
 	}
 	
 	/**
@@ -43,8 +44,6 @@ public class RegionalGridNode extends ElectricEntity{
 		setTotalLoadForReporter();
 		setLoadPrice();
 		setLoadPriceForReporter();
-		//setWeatherProfileForReporter();
-		//System.out.println("Load price: " + this.loadPrice);
 		//System.out.println("Total load: " + this.totalLoad);
 	}
 	
