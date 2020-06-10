@@ -63,8 +63,6 @@ public class Building extends ElectricEntity{
 	private static final int[] PM10 = {7920, 8280}; 	//07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; 	//15:30 - 17:00
 	
-	
-	
 	private String timeOfDay;
 	public Spawner spawner;
 	
@@ -159,22 +157,27 @@ public class Building extends ElectricEntity{
 			occupants.add(p);
 			
 			spawner.getReporter().addParkedCar(v.type);
-			spawner.getMarket().setDemand();
+			//spawner.getMarket().setDemand();
 			spawner.getMarket().addNumV2G();
-			spawner.getMarket().addNumCars();
-			spawner.getMarket().addNumEV();
-			this.occupantEVs.add(v);
+			//spawner.getMarket().addNumCars();
+			//spawner.getMarket().addNumEV();
 			//spawner.getMarket().addV2GLoadAvailable(v.charge);
-			
-			if (spawner.getMarket().borrowFromAggregator(v.getChargeAvailableForV2G()) > 0d) {
-				//System.out.println("Charge before: " + v.charge);
-				v.charge -= spawner.getMarket().borrowFromAggregator(v.charge);
-				//System.out.println("Charge after: " + v.charge);
-			} 
+			double occupantCharge = v.getChargeAvailableForV2G();
+			//System.out.println("OccupantCharge: " + occupantCharge);
+			v.offeredCharge = occupantCharge;
+			//System.out.println("Avaialble v2g from vehicle: " + occupantCharge);
+			double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
+			//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
+			v.borrowedCharge = occupantBorrowedCharge;
+			v.charge -= occupantBorrowedCharge;
+			this.occupantEVs.add(v);
+
 		}
 	}
 	
 	public void removeOccupants(Person p, EV v) {
+		
+		spawner.getMarket().removeV2GLoadAvailable(v.borrowedCharge);
 		
 		if (v.buildingParkedIn == this) {
 			v.isParkedInBuilding = false;
@@ -194,12 +197,22 @@ public class Building extends ElectricEntity{
 			}
 			v.spaceParkedIn = null;
 			spawner.getReporter().removeParkedCar(v.type);
-			//update(v.charge*0.25);
+
 			update(3d);
 			spawner.getMarket().removeNumV2G();
 			spawner.getMarket().removeNumCars();
 			spawner.getMarket().removeNumEV();
-			spawner.getMarket().removeV2GLoadAvailable(v.charge/12);
+			System.out.println("Offered charge: " + v.offeredCharge);
+			System.out.println("BorrowedCharge charge: " + v.borrowedCharge);
+			
+//			if (v.borrowedCharge != 0) {
+//				spawner.getMarket().removeV2GLoadAvailable(v.borrowedCharge);
+//			} else {
+//				spawner.getMarket().removeV2GLoadAvailable((ThreadLocalRandom.current().nextDouble(1, 2)));
+//			}
+			
+			
+			v.charge += v.borrowedCharge;
 			this.occupantEVs.remove(v);
 		} else {
 			//System.out.println("Car is not aprked in this building");

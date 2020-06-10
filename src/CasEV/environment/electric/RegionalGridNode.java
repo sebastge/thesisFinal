@@ -13,6 +13,7 @@ public class RegionalGridNode extends ElectricEntity{
 
 	
 	private Spawner spawner;
+	private Market market;
 	
 	
 	private Double loadPrice;
@@ -44,7 +45,7 @@ public class RegionalGridNode extends ElectricEntity{
 		setTotalLoadForReporter();
 		setLoadPrice();
 		setLoadPriceForReporter();
-		//System.out.println("Total load: " + this.totalLoad);
+		System.out.println("Total load: " + this.totalLoad);
 	}
 	
 	public void setTotalLoadForReporter() {
@@ -62,6 +63,7 @@ public class RegionalGridNode extends ElectricEntity{
 	public void setLoadPriceForReporter() {
 		spawner.getReporter().setElPrice(this.loadPrice);
 	}
+
 	
 	public void setLoadPrice() {
 		int time = Tools.getTime();

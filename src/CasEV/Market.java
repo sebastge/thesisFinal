@@ -1,5 +1,7 @@
 package CasEV;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import repast.simphony.engine.schedule.ScheduledMethod;
 import utils.Tools;
 
@@ -12,16 +14,18 @@ public class Market {
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
 		
-		setLoad();
-		setPriceLevel();
+		//setLoad();
+		//setPriceLevel();
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
-//		System.out.println("Price level: " + this.priceLevel);
-//		System.out.println("Num EV: " + this.numEV);
-//		System.out.println("Num V2G: " + this.numV2G);
-//		System.out.println("Total load market: " + this.totalLoad);
+		setkWhSellingPrice();
+		setkWhBuyingPrice();
+		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
+		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
+		System.out.println("Total load market: " + this.totalLoad);
+		System.out.println("kWh selling price: " + this.kWhSellingPrice);
+		System.out.println("kWh buying price: " + this.kWhBuyingPrice);
 		
-//		this.tester(this.totalLoad);
-//		System.out.println("Output test: " + this.kWhPrice);
+	System.out.println("Output test: " + this.kWhPrice);
 
 	
 	}
@@ -64,12 +68,14 @@ public class Market {
 	private Double priceLevel = 0d;
 	private Double loadPrice = 0d;
 	private Double totalLoad = 0d;
+	private Double kWhSellingPrice = 1d;
+	private Double kWhBuyingPrice = 1d;
 	private int numCars = 0;
 	private int numEV = 0;
 	private int numV2G = 0;
 	
-	private Double v2gLoadAvailable = 0d;
-	private Double v2gLoadWanted = 0d;
+	private Double v2gLoadAvailable = 1d;
+	private Double v2gLoadWanted = 1d;
 	
 	private String timeOfDay = "";
 	
@@ -81,39 +87,65 @@ public class Market {
 	
 	private Double createDoubleInRange(Double inputVariable, Double input_start, Double input_end, Double output_start, Double output_end) {
 		return output_start + ((output_end - output_start) / (input_end - input_start)) * (inputVariable - input_start);
-
-		
 	}
 	
-	public Double determineNeedFromAggregator(Double kWhOffered) {
+	public void setPrices() {
+		if (v2gLoadAvailable > v2gLoadWanted) {
+			this.kWhSellingPrice --;
+			this.kWhBuyingPrice ++;
+		} else {
+			this.kWhSellingPrice ++;
+			this.kWhBuyingPrice --;			
+		}
+	}
+	
+	public Double determineDemand(Double kWhOffered) {
 		if (v2gLoadWanted > v2gLoadAvailable) {
 			Double need = createDoubleInRange(kWhOffered, 0d, 25d, 0d, kWhOffered);
-			System.out.println("Need: " + need);
-			System.out.println("V2G avaialble: " + this.v2gLoadAvailable);
-			System.out.println("V2G wanted: " + this.v2gLoadWanted);
+//			System.out.println("Need: " + need);
+//			System.out.println("V2G avaialble: " + this.v2gLoadAvailable);
+//			System.out.println("V2G wanted: " + this.v2gLoadWanted);
 			//Double need = kWhOffered * 0.25;<
 			return need;
 		} else {
-			return 0d;
-		}
-		
+			Double need = createDoubleInRange(kWhOffered, -25d, 0d, kWhOffered, 0d);
+			return need;
+		}	
 	}
 	
 	
 	public Double borrowFromAggregator (Double kWhOffered) {
-		System.out.println("kWh offered: " + kWhOffered);
-		if (kWhOffered > 0) {
-			Double tempNeed = determineNeedFromAggregator(kWhOffered);
-			this.v2gLoadAvailable += tempNeed;
-			return tempNeed;
-			
+		Double need = kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2);
+		if (v2gLoadWanted > v2gLoadAvailable) {
+			if(kWhOffered > 0) {
+				v2gLoadAvailable += need;
+				v2gLoadWanted -= need;
+				return need;
+			} else {
+				return 0d;
+			}
 		} else {
-			return 0d;
-		}
-		
+			if (kWhOffered < 0) {
+				v2gLoadAvailable += need;
+				v2gLoadWanted -= need;
+				return need;
+			} else {
+				return 0d;
+			}
+		}	
 	}
-	
-	
+	public void setkWhSellingPrice() {
+		this.kWhSellingPrice = Math.abs(this.v2gLoadWanted/this.v2gLoadAvailable);
+	}
+	public void setkWhBuyingPrice() {
+		this.kWhBuyingPrice = Math.abs(this.v2gLoadAvailable/this.v2gLoadWanted);
+	}
+	public Double getkWhSellingPrice() {
+		return this.kWhSellingPrice;
+	}
+	public Double getkWhBuyingPrice() {
+		return this.kWhBuyingPrice;
+	}
 	public Double getSupply() {
 		return supply;
 	}
@@ -138,6 +170,9 @@ public class Market {
 	public Double getV2GLoadAvailable() {
 		return v2gLoadAvailable;
 	}
+	public Double getV2GLoadWanted() {
+		return v2gLoadWanted;
+	}
 	public void setSupply() {
 		supply ++;
 	}
@@ -158,6 +193,7 @@ public class Market {
 	}
 	public void addV2GLoadAvailable(Double load) {
 		this.v2gLoadAvailable += load;
+		this.v2gLoadWanted -= load;
 	}
 	public void removeNumCars() {
 		numCars--;
@@ -169,6 +205,7 @@ public class Market {
 		numV2G--;
 	}
 	public void removeV2GLoadAvailable(Double load) {
+		System.out.println("Removed from market: " + load);
 		this.v2gLoadAvailable -= load;
 	}
 	

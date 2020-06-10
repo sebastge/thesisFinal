@@ -13,23 +13,39 @@ public class EV extends Car{
 	
 	public double charge;
 	public double distanceFromCentre = 0d;
+	public double borrowedCharge = 0d;
+	public double offeredCharge = 0d;
 	
-
+	private static final double chargeMax = 10d;
+	private static final double distanceMax = 60d;
+	
 	public EV(ContinuousSpace<Object> space, Grid<Object> grid, int occupantLimit, List<Road> parkingNexi, Spawner spawner) {
 		super(space, grid, occupantLimit, parkingNexi, spawner);
-		this.charge = setCharge(this.type);
+		setChargeAndDistance(this.type);
 
 	}
 	public void updateCharge(Double load) {
-		System.out.println("Ev update charge");
 		this.charge += load;
 	}
 	
-	protected Double setCharge(int type) {
-		return (2*ThreadLocalRandom.current().nextDouble(0, 10));
-
+	protected void setChargeAndDistance(int type) {
+		this.charge = (2*ThreadLocalRandom.current().nextDouble(0, chargeMax));
+		this.distanceFromCentre = ThreadLocalRandom.current().nextDouble(0, distanceMax);
 	}
+	
+	
 	public Double getChargeAvailableForV2G() {
-		return this.charge/4;
+		
+//		System.out.println("Distance: " + this.distanceFromCentre);
+//		System.out.println("Charge: " + this.charge);
+		
+		if (this.distanceFromCentre/this.charge > 3d ) {
+			//System.out.println("was bigger");
+			return (-(this.distanceFromCentre/this.charge)*2);
+		} else {
+			//System.out.println("was smaller");
+			return ((this.distanceFromCentre/this.charge)*2);
+		}
 	}
+
 }

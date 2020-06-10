@@ -105,6 +105,33 @@
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>V2GLoadWanted</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>V2GLoadWanted</id>
+        <className>CasEV.Market</className>
+        <methodName>getV2GLoadWanted</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>kWhSellingPrice</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>kWhSellingPrice</id>
+        <className>CasEV.Market</className>
+        <methodName>getkWhSellingPrice</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>kWhBuyingPrice</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>kWhBuyingPrice</id>
+        <className>CasEV.Market</className>
+        <methodName>getkWhBuyingPrice</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
