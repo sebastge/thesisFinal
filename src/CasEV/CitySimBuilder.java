@@ -70,6 +70,11 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	BufferedImage roadImg = null;
 	
 	RegionalGridNode globalNode;
+	RegionalGridNode globalNode2;
+	
+	private ArrayList<Building> buildingsCentre = new ArrayList<Building>();
+	private ArrayList<Building> buildingsOutside = new ArrayList<Building>();
+	
 
 	
 	
@@ -78,6 +83,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
+	private static final int EXPERIMENT = 1; 
+	
 	
 	/**
 	 * Builds the context for the Repast framework. This is where all the initialization happens
@@ -85,86 +92,186 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	@Override
 	public Context build(Context<Object> context) {
 		
-		//Reads the images
-		try {
-		    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2.png"));
-		} catch (IOException e) {
-			System.out.println("There was an error while loading the city traffic map: " + e);
-		}
-		try {
-		    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2.png"));
-		} catch (IOException e) {
-			System.out.println("There was an error while loading the city electric grid map: " + e);
-		}
-		try {
-			roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
-		} catch (IOException e) {
-			System.out.println("There was an error while loading the city road weight overlay map: " + e);
-		}
-		width = cityImg.getWidth();
-		height = cityImg.getHeight();
-		
-		
-		context.setId("CitySim");
-
-		//Setting up the networks
-		NetworkBuilder<Object> roadNetBuilder = new NetworkBuilder<Object>("road network", context, true);
-		NetworkBuilder<Object> debugNetBuilder = new NetworkBuilder<Object>("debug network", context, true);
-		NetworkBuilder<Object> gridNetBuilder = new NetworkBuilder<Object>("electric network", context, true);
-		roadNetBuilder.buildNetwork();
-		gridNetBuilder.buildNetwork();
-		debugNetBuilder.buildNetwork();
-		
-		
-		//Setting up the Euclidean space and grid
-		ContinuousSpaceFactory spaceFactory = 
-				ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null);
-		space = spaceFactory.createContinuousSpace(
-				"space", 
-				context, 
-				new SimpleCartesianAdder<Object>(), 
-				new repast.simphony.space.continuous.WrapAroundBorders(), 
-				width + 10, 
-				height + 10);
-		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
-		grid = gridFactory.createGrid(
-				"grid", 
-				context, 
-				new GridBuilderParameters<Object>(
-						new WrapAroundBorders(), 
-						new SimpleGridAdder<Object>(),//TODO: Change adder?
-						true,
-						width + 10, 
-						height + 10));
-		
-		readCityImage(space, grid, context);
-		
-		//This is the clock in the simulatino
-		InformationLabel info = new InformationLabel(space, grid, context);
-		context.add(info);
-		space.moveTo(info, width - 15, height - 15);
-		grid.moveTo(info, width - 15, height - 15);
-		
-		//This is the Electric meter in the simulation
-		globalNode = new RegionalGridNode(space, grid, spawner);
-		context.add(globalNode);
-		space.moveTo(globalNode, width - 50, height - 15);
-		grid.moveTo(globalNode, width - 50, height - 15);
-		
-		
-		
-		
-		//Read the images and do stuff with the pixels
-		
-		readGridImage(space, grid, context);
-		
-
-		//Initialize all the electric entities and have it propagate
-		for(Object o: context.getObjects(ElectricEntity.class)) {
-			if (o instanceof Building) {
-				((ElectricEntity)o).init();
+		if (this.EXPERIMENT == 1) {
+			
+			
+			//Reads the images
+			try {
+			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2_test2.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city traffic map: " + e);
 			}
+			try {
+			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2_test2.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city electric grid map: " + e);
+			}
+			try {
+				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city road weight overlay map: " + e);
+			}
+			width = cityImg.getWidth();
+			height = cityImg.getHeight();
+			
+			
+			context.setId("CitySim");
+
+			//Setting up the networks
+			NetworkBuilder<Object> roadNetBuilder = new NetworkBuilder<Object>("road network", context, true);
+			NetworkBuilder<Object> debugNetBuilder = new NetworkBuilder<Object>("debug network", context, true);
+			NetworkBuilder<Object> gridNetBuilder = new NetworkBuilder<Object>("electric network", context, true);
+			roadNetBuilder.buildNetwork();
+			gridNetBuilder.buildNetwork();
+			debugNetBuilder.buildNetwork();
+			
+			
+			//Setting up the Euclidean space and grid
+			ContinuousSpaceFactory spaceFactory = 
+					ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null);
+			space = spaceFactory.createContinuousSpace(
+					"space", 
+					context, 
+					new SimpleCartesianAdder<Object>(), 
+					new repast.simphony.space.continuous.WrapAroundBorders(), 
+					width + 10, 
+					height + 10);
+			GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+			grid = gridFactory.createGrid(
+					"grid", 
+					context, 
+					new GridBuilderParameters<Object>(
+							new WrapAroundBorders(), 
+							new SimpleGridAdder<Object>(),//TODO: Change adder?
+							true,
+							width + 10, 
+							height + 10));
+			
+			readCityImage(space, grid, context);
+			
+			//This is the clock in the simulatino
+			InformationLabel info = new InformationLabel(space, grid, context);
+			context.add(info);
+			space.moveTo(info, width - 15, height - 15);
+			grid.moveTo(info, width - 15, height - 15);
+			
+			//This is the Electric meter in the simulation
+			globalNode = new RegionalGridNode(space, grid, spawner);
+			context.add(globalNode);
+			space.moveTo(globalNode, width - 50, height - 15);
+			grid.moveTo(globalNode, width - 50, height - 15);
+			
+			//This is the Electric meter in the simulation
+			globalNode2 = new RegionalGridNode(space, grid, spawner);
+			context.add(globalNode2);
+			space.moveTo(globalNode2, width - 30, height - 35);
+			grid.moveTo(globalNode2, width - 30, height - 35);
+			
+			
+			System.out.println("before gird image");
+			
+			//Read the images and do stuff with the pixels
+			
+			readGridImage(space, grid, context);
+			System.out.println("after gird image");
+
+			//Initialize all the electric entities and have it propagate
+			for(Object o: context.getObjects(ElectricEntity.class)) {
+				if (o instanceof Building) {
+					((ElectricEntity)o).init();
+				}
+			}
+			
+
+			
+		} else {
+			
+			
+			//Reads the images
+			try {
+			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city traffic map: " + e);
+			}
+			try {
+			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city electric grid map: " + e);
+			}
+			try {
+				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
+			} catch (IOException e) {
+				System.out.println("There was an error while loading the city road weight overlay map: " + e);
+			}
+			width = cityImg.getWidth();
+			height = cityImg.getHeight();
+			
+			
+			context.setId("CitySim");
+
+			//Setting up the networks
+			NetworkBuilder<Object> roadNetBuilder = new NetworkBuilder<Object>("road network", context, true);
+			NetworkBuilder<Object> debugNetBuilder = new NetworkBuilder<Object>("debug network", context, true);
+			NetworkBuilder<Object> gridNetBuilder = new NetworkBuilder<Object>("electric network", context, true);
+			roadNetBuilder.buildNetwork();
+			gridNetBuilder.buildNetwork();
+			debugNetBuilder.buildNetwork();
+			
+			
+			//Setting up the Euclidean space and grid
+			ContinuousSpaceFactory spaceFactory = 
+					ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null);
+			space = spaceFactory.createContinuousSpace(
+					"space", 
+					context, 
+					new SimpleCartesianAdder<Object>(), 
+					new repast.simphony.space.continuous.WrapAroundBorders(), 
+					width + 10, 
+					height + 10);
+			GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+			grid = gridFactory.createGrid(
+					"grid", 
+					context, 
+					new GridBuilderParameters<Object>(
+							new WrapAroundBorders(), 
+							new SimpleGridAdder<Object>(),//TODO: Change adder?
+							true,
+							width + 10, 
+							height + 10));
+			
+			readCityImage(space, grid, context);
+			
+			//This is the clock in the simulatino
+			InformationLabel info = new InformationLabel(space, grid, context);
+			context.add(info);
+			space.moveTo(info, width - 15, height - 15);
+			grid.moveTo(info, width - 15, height - 15);
+			
+			//This is the Electric meter in the simulation
+			globalNode = new RegionalGridNode(space, grid, spawner);
+			context.add(globalNode);
+			space.moveTo(globalNode, width - 50, height - 15);
+			grid.moveTo(globalNode, width - 50, height - 15);
+			
+			
+			
+			
+			
+			
+			//Read the images and do stuff with the pixels
+			
+			readGridImage(space, grid, context);
+			
+
+			//Initialize all the electric entities and have it propagate
+			for(Object o: context.getObjects(ElectricEntity.class)) {
+				if (o instanceof Building) {
+					((ElectricEntity)o).init();
+				}
+			}
+			
 		}
+
 		
 		return context;
 	}
@@ -187,6 +294,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		List<Road> parkingNexiRoads = new ArrayList<Road>();
 		List<BusStop> busStops = new ArrayList<BusStop>();
 		List<Building> buildings = new ArrayList<Building>();
+		List<Building> buildings2 = new ArrayList<Building>();
 		
 		//Reading the image and creating objects
 		for (int i = 0; i < height; i++) {
@@ -319,13 +427,33 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 					}
 					
 
-					Building building = new Building(space, grid, spawner, psList);
+					Building building = new Building(space, grid, spawner, psList, 0);
 					context.add(building);
 					space.moveTo(building, x, y);
 					grid.moveTo(building, x, y);
 					buildings.add(building);
+					this.buildingsOutside.add(building);
 					
 					System.out.println("Building added: " + building + " Total buildings : " + buildings.size());
+					
+				}
+				else if(r == 128 && g == 128 && b == 0) {//Building2. Brown green
+					//TODO: make buildings be more than one pixel
+					List<ParkingSpace> psList = new ArrayList<ParkingSpace>();
+					for (int z = 0; z < 1; z++) {
+						ParkingSpace ps = new ParkingSpace(space, grid);
+						psList.add(ps);
+					}
+					
+
+					Building building2 = new Building(space, grid, spawner, psList, 1);
+					context.add(building2);
+					space.moveTo(building2, x, y);
+					grid.moveTo(building2, x, y);
+					buildings2.add(building2);
+					this.buildingsCentre.add(building2);
+					
+					System.out.println("Building 2 added: " + building2 + " Total buildings : " + buildings2.size());
 					
 				}
 				else if(r == 0 && g == 162 && b == 232) {//Parking nexus. Blue lightish
@@ -366,6 +494,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		//Builds the road network
 		buildCityGraph(grid, context);
 		
+		
 		//Sets up the spawner agent(handles all the spawning).
 		spawner = new Spawner(
 				space, 
@@ -375,10 +504,14 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				despawnPoints, 
 				parkingSpaces, 
 				buildings, 
+				buildings2,
 				busStops, 
 				parkingNexiRoads
 				);
 		for (Building b : buildings) {
+			b.spawner = spawner;
+		}
+		for (Building b : buildings2) {
 			b.spawner = spawner;
 		}
 		context.add(spawner);
@@ -400,6 +533,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		List<Charger> chargers = new ArrayList<Charger>();
 		List<Substation> substations = new ArrayList<Substation>();
 		List<Building> buildings = new ArrayList<Building>();
+		List<Building> buildings2 = new ArrayList<Building>();
 		
 		
 		//Reading the image
@@ -439,6 +573,12 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 					Building building = (Building) Tools.getObjectAt(grid, Building.class, x, y);
 					buildings.add(building);
 				}
+				else if(r == 128 && g == 128 && b == 0) {//Building 2
+					//Gets the building already added by the city reader
+					Building building = (Building) Tools.getObjectAt(grid, Building.class, x, y);
+					buildings2.add(building);
+					System.out.println("loooooopopol");
+				}
 				else {
 //					System.out.println("r: " + r + " g: " + g + " b: " + b);
 				}
@@ -451,9 +591,16 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		for(Building b: buildings) {
 			data.add(grid.getLocation(b));
 		}
+		for(Building b: buildings2) {
+			System.out.println("Building2 parent: " + b.parent);
+			data.add(grid.getLocation(b));
+		}
+		
 		for(Charger s: chargers) {
 			data.add(grid.getLocation(s));
 		}
+		
+		System.out.println("Buildings 222: " + buildings2);
 		
 		//Creating clusters for the placement of substations and adding members to them
 		Clustering c = new Clustering(data, 0, 0, width, height, 5);
@@ -465,7 +612,15 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			substations.add(substation);
 		}
 		
+
+		
+		
 		buildElectricGraph(grid, context, c.getClusters());
+		
+		for(Building b: buildings2) {
+			System.out.println("Building2 parent: " + b.parent);
+			//data.add(grid.getLocation(b));
+		}
 	}
 	
 	/**
@@ -590,6 +745,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		
 		//Substations
 		ArrayList<ElectricEntity> subs = new ArrayList<ElectricEntity>();
+		ArrayList<ElectricEntity> subs2 = new ArrayList<ElectricEntity>();
 		
 		//Goes through the clusters(which are grid points) and find the objects at their members' locations
 		//Creates spanning trees within and of these cluster and connects them together.
@@ -602,10 +758,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			
 			//The Substation located at the centroid
 			Substation s = (Substation) Tools.getObjectAt(grid, Substation.class, ps.getX(), ps.getY());
-			subs.add(s);
-
-			
-			
+			//subs.add(s);
+		
 			ElectricEntity closest = null;
 			double minDist = Double.MAX_VALUE;
 			//Goes through all the entities in the cluster and creates a minimal spanning tree of them based on distance
@@ -613,9 +767,15 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 
 				ElectricEntity e = null;
 				for(Object o: grid.getObjectsAt(p.getX(), p.getY())) {
-					if(!(o instanceof Substation) && o instanceof ElectricEntity) {
+					if(!(o instanceof Substation) && o instanceof ElectricEntity && this.buildingsOutside.contains(o)) {
+						subs.add(s);
 						e = (ElectricEntity) o;
 						e.setParent(s);
+					} else if (!(o instanceof Substation) && o instanceof ElectricEntity && this.buildingsCentre.contains(o)) {
+						System.out.println("Centre");
+						subs2.add(s);
+						e = (ElectricEntity) o;
+						e.setParent(s);						
 					}
 
 				}
@@ -633,6 +793,10 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		
 		for (ElectricEntity e: subs) {
 			e.setParent(globalNode);
+		}
+		
+		for (ElectricEntity e: subs2) {
+			e.setParent(globalNode2);
 		}
 		
 		return net;

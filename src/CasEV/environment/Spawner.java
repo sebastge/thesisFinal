@@ -44,6 +44,7 @@ public class Spawner {
 	private Road[] spawnPoints;
 	private List<Road> parkingNexi;
 	private List<Building> buildings;
+	private List<Building> buildings2;
 	private Network<Object> net;
 	private List<BusStop> busStops;
 
@@ -108,7 +109,8 @@ public class Spawner {
 			Road[] spawnPoints, 
 			List<Road> despawnPoints, 
 			List<Road> parkingSpaces, 
-			List<Building> buildings, 
+			List<Building> buildings,
+			List<Building> buildings2,
 			List<BusStop> busStops, 
 			List<Road> parkingNexiRoads) {
 		super();
@@ -116,6 +118,7 @@ public class Spawner {
 		this.grid = grid;
 		this.spawnPoints = spawnPoints;
 		this.buildings = buildings;
+		this.buildings2 = buildings2;
 		this.busStops = busStops;
 		this.parkingNexi = parkingNexiRoads;
 		this.reporter = new Reporter();
@@ -190,7 +193,16 @@ public class Spawner {
 		for(int i = 0; i < populationStartCount; i++) {
 			Person p = new Person(space, grid, this);
 			System.out.println("Person added: " + p);
-			p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+			
+			if (Math.random() > 0.5) {
+				//System.out.println("math random 1");
+				p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+			} else {
+				System.out.println("math random 2");
+				System.out.println(buildings2.size());
+				p.setWorkPlace(buildings2.get(RandomHelper.nextIntFromTo(0, buildings2.size() - 1)));
+			}
+			
 			population.add(p);
 			idleWorkers.add(p);
 			System.out.println(p + " has workpkace: " + p.workPlace);

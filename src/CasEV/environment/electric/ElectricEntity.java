@@ -15,7 +15,7 @@ import repast.simphony.space.grid.GridPoint;
 public abstract class ElectricEntity extends Entity{
 	
 	
-	protected ElectricEntity parent;
+	public ElectricEntity parent;
 	protected ContinuousSpace<Object> space;
 	protected Grid<Object> grid;
 	protected Double totalLoad;

@@ -68,12 +68,14 @@ public class Building extends ElectricEntity{
 	private static final int[] PM10 = {7920, 8280}; 	//07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; 	//15:30 - 17:00
 	
+	private int location;
+	
 	private String timeOfDay;
 	public Spawner spawner;
 	
 	private static final int[] buildingLoadRange = {0, 20}; 	//15:30 - 17:00
 	
-	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces) {
+	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces, int location) {
 		super(space, grid);
 		this.totalLoad = 1d;
 		this.parent = null;
@@ -85,6 +87,7 @@ public class Building extends ElectricEntity{
 		this.loadPrice = 0d;
 		this.timeOfDay = "";
 		this.spawner = spawner;
+		this.location = location;
 		
 	}
 	
