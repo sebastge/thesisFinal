@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>Weather</name>
+  <name>Total Load</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Total Load</yAxisLabel>
-  <chartTitle>Weather</chartTitle>
+  <yAxisLabel>Load</yAxisLabel>
+  <chartTitle>Total Load</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,18 +20,6 @@
   <showGrid>true</showGrid>
   <showLegend>true</showLegend>
   <seriesIds>
-    <entry>
-      <string>Weather</string>
-      <SeriesData>
-        <label>Weather</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
     <entry>
       <string>TotalLoad</string>
       <SeriesData>

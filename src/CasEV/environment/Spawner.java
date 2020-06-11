@@ -61,7 +61,11 @@ public class Spawner {
 	
 	private static final int[] BUS =  {2160, 7920};
 	
-	private static final int[] TEST = {0, 8640}; 
+	private static final int[] TEST1 = {0, 2160};
+	private static final int[] TEST2 = {6480, 8640};
+	
+	private static final int EXPERIMENT = 2; 
+	
 	
 	/**
 	 * The distribution between the spawn points
@@ -197,31 +201,6 @@ public class Spawner {
 	 * Sets up and spawns the agents of the simulation, and ads them to the queue of a(random) spawn point
 	 */
 	
-//	private void spawn() {
-//		//TODO: implement car pooling
-//		int spawnCount;
-//		int time = Tools.getTime();
-//
-//		if(isInInterval(time, NIGHT)) { //Spawn worker
-//			//98% of the workers are going to work over an hour and a half(2% are sick)
-//			Double workers = ((double) idleWorkers.size())*0.98d*(1d/540d);
-//			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
-//			spawnCount = valRem[0].intValue();
-//			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
-//				spawnCount++;
-//			}
-//			spawnAgent(true, spawnCount);
-//		}
-//		else { //Spawn shopper
-//			BigDecimal[] valRem = BigDecimal.valueOf(frequency).divideAndRemainder(BigDecimal.ONE);
-//			spawnCount = valRem[0].intValue();
-//			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
-//				spawnCount++;
-//			}
-//			spawnAgent(false, spawnCount);
-//		}
-//	}
-	
 	private void spawn() {
 		//TODO: implement car pooling
 		int spawnCount;
@@ -252,17 +231,45 @@ public class Spawner {
 				}
 				s.addToVehicleQueue(bus);
 		}
-		if(isInInterval(time, TEST)) { //Spawn worker
+		if(isInInterval(time, NIGHT)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
-			Double workers = ((double) idleWorkers.size())*0.98d*(1d/540d);
+			Double workers = ((double) idleWorkers.size())*0.50d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
 				spawnCount++;
 			}
-			spawnAgent(true, spawnCount);
+			spawnAgent(true, 1);
+		}else if(isInInterval(time, MORNING)) { //Spawn worker
+			//98% of the workers are going to work over an hour and a half(2% are sick)
+			Double workers = ((double) idleWorkers.size())*0.25d*(1d/540d);
+			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
+			spawnCount = valRem[0].intValue();
+			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
+				spawnCount++;
+			}
+			spawnAgent(true, 4);
+		} else if(isInInterval(time, AFTERNOON)) { //Spawn worker
+			//98% of the workers are going to work over an hour and a half(2% are sick)
+			Double workers = ((double) idleWorkers.size())*0.0d*(1d/540d);
+			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
+			spawnCount = valRem[0].intValue();
+			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
+				spawnCount++;
+			}
+			spawnAgent(true, 3);
+		} else if(isInInterval(time, EVENING)) { //Spawn worker
+			//98% of the workers are going to work over an hour and a half(2% are sick)
+			Double workers = ((double) idleWorkers.size())*0.25d*(1d/540d);
+			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
+			spawnCount = valRem[0].intValue();
+			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
+				spawnCount++;
+			}
+			spawnAgent(true, 1);
 		}
-		else { //Spawn shopper
+		
+		else if(isInInterval(time, TEST2)) { //Spawn shopper
 			BigDecimal[] valRem = BigDecimal.valueOf(frequency).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
@@ -278,31 +285,8 @@ public class Spawner {
 	 * @param isWorker is it a worker? if not, its a shopper
 	 * @param spawnCount The number of agents to spawn
 	 */
-//	private void spawnAgent(boolean isWorker, int spawnCount) {
-//		
-//		for (int i = 0; i < spawnCount; i++) {
-//			if(idleWorkers.size() == 0) {
-//				return;
-//			}
-//			Person p = idleWorkers.remove(0);
-//			
-//			//Start and goal
-//			Spawn start = getSpawnPoint();					
-//			Car car = new Car(space, grid, 5, parkingNexi, this);
-//			car.addOccupant(p);
-//			
-//			//Setup
-//			
-//			car.addGoal(p.getWorkPlace());
-//			car.setStart(start);
-//			car.setNet(net);
-//
-//			start.addToVehicleQueue(car);
-//		}
-//	}
 	
 	private void spawnAgent(boolean isWorker, int spawnCount) {
-		//System.out.println("Spawnagent called. Isworker:  " + isWorker + " .spawnCount: " + spawnCount);
 		if(isWorker) {
 			for (int i = 0; i < spawnCount; i++) {
 				//System.out.println("in wrorker for");
@@ -338,7 +322,7 @@ public class Spawner {
 				if(idleShoppers.size() == 0) {
 					continue;
 				}
-				System.out.println("Passed continue");
+
 				//Start and goal
 				Spawn start = getSpawnPoint();
 				Person p = idleShoppers.remove(0);
@@ -347,11 +331,10 @@ public class Spawner {
 				p.setShoppingPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
 				
 				if(p.getTravelChoice().equals("bus1")) {//Bus
-					System.out.println("bus is the choise lol");
 					start.addToBusQueue(p);
 				}
 				else {//car
-					System.out.println("Shopper in car");
+
 				
 					//Add the agent to the context
 					EV ev = new EV(space, grid, 5, parkingNexi, this);

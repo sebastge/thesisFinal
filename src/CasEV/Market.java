@@ -19,13 +19,13 @@ public class Market {
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
 		setkWhSellingPrice();
 		setkWhBuyingPrice();
-		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
-		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
-		System.out.println("Total load market: " + this.totalLoad);
-		System.out.println("kWh selling price: " + this.kWhSellingPrice);
-		System.out.println("kWh buying price: " + this.kWhBuyingPrice);
-		
-	System.out.println("Output test: " + this.kWhPrice);
+//		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
+//		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
+//		System.out.println("Total load market: " + this.totalLoad);
+//		System.out.println("kWh selling price: " + this.kWhSellingPrice);
+//		System.out.println("kWh buying price: " + this.kWhBuyingPrice);
+//		
+//	System.out.println("Output test: " + this.kWhPrice);
 
 	
 	}
@@ -61,6 +61,15 @@ public class Market {
 	private Double kWhPrice = 30d;
 
 	private static final int[] loadInterval = {15, 45};
+	
+	private static final Double maxkWhSellingPrice = 5d;
+	private static final Double minkWhSellingPrice = 0d;
+	private static final Double maxkWhBuyingPrice = 5d;
+	private static final Double minkWhBuyingPrice = 0d;
+	
+	private int v2gChargingBack = 0;
+	private int v2gChargingFrom = 0;
+	
 	
 	
 	private Double supply = 0d;
@@ -102,10 +111,7 @@ public class Market {
 	public Double determineDemand(Double kWhOffered) {
 		if (v2gLoadWanted > v2gLoadAvailable) {
 			Double need = createDoubleInRange(kWhOffered, 0d, 25d, 0d, kWhOffered);
-//			System.out.println("Need: " + need);
-//			System.out.println("V2G avaialble: " + this.v2gLoadAvailable);
-//			System.out.println("V2G wanted: " + this.v2gLoadWanted);
-			//Double need = kWhOffered * 0.25;<
+
 			return need;
 		} else {
 			Double need = createDoubleInRange(kWhOffered, -25d, 0d, kWhOffered, 0d);
@@ -135,16 +141,43 @@ public class Market {
 		}	
 	}
 	public void setkWhSellingPrice() {
-		this.kWhSellingPrice = Math.abs(this.v2gLoadWanted/this.v2gLoadAvailable);
+		double priceRatio = Math.abs(this.v2gLoadWanted/this.v2gLoadAvailable);
+		if (this.minkWhSellingPrice <= priceRatio && priceRatio <= this.maxkWhSellingPrice) {
+			this.kWhSellingPrice = priceRatio;
+		} 
+		
 	}
 	public void setkWhBuyingPrice() {
-		this.kWhBuyingPrice = Math.abs(this.v2gLoadAvailable/this.v2gLoadWanted);
+		double priceRatio = Math.abs(this.v2gLoadAvailable/this.v2gLoadWanted);
+		if (this.minkWhBuyingPrice <= priceRatio && priceRatio <= this.maxkWhBuyingPrice) {
+			this.kWhBuyingPrice = priceRatio;
+		} 
+	
 	}
+
 	public Double getkWhSellingPrice() {
 		return this.kWhSellingPrice;
 	}
 	public Double getkWhBuyingPrice() {
 		return this.kWhBuyingPrice;
+	}
+	public int getV2GChargingBack () {
+		return this.v2gChargingBack;
+	}
+	public int getV2GChargingFrom() {
+		return this.v2gChargingFrom;
+	}
+	public void addV2GChargingBack() {
+		this.v2gChargingBack ++;
+	}
+	public void addV2GChargingFrom() {
+		this.v2gChargingFrom ++;
+	}
+	public void removeV2GChargingBack() {
+		this.v2gChargingBack --;
+	}
+	public void removeV2GChargingFrom() {
+		this.v2gChargingFrom --;
 	}
 	public Double getSupply() {
 		return supply;
@@ -205,7 +238,6 @@ public class Market {
 		numV2G--;
 	}
 	public void removeV2GLoadAvailable(Double load) {
-		System.out.println("Removed from market: " + load);
 		this.v2gLoadAvailable -= load;
 	}
 	

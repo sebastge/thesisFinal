@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>Distance Home</name>
+  <name>Experiment 3</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel>V2G connected</yAxisLabel>
-  <chartTitle>Battery tech</chartTitle>
+  <chartTitle>Experiment 3</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>

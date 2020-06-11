@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>Load Price</name>
+  <name>Experiment 2</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Time</yAxisLabel>
-  <chartTitle>Load Price</chartTitle>
+  <yAxisLabel>V2G connected</yAxisLabel>
+  <chartTitle>Experiment 2</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,9 +21,9 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>CarsParked</string>
+      <string>numV2G</string>
       <SeriesData>
-        <label>CarsParked</label>
+        <label>numV2G</label>
         <color>
           <red>0</red>
           <green>255</green>
@@ -33,13 +33,25 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>LoadPrice</string>
+      <string>V2GChargingBack</string>
       <SeriesData>
-        <label>LoadPrice</label>
+        <label>V2GChargingBack</label>
         <color>
           <red>0</red>
           <green>0</green>
-          <blue>250</blue>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>V2GChargingFrom</string>
+      <SeriesData>
+        <label>V2GChargingFrom</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>00</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

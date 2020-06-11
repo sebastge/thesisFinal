@@ -1,6 +1,8 @@
 package CasEV.environment.electric;
 
 import java.util.ArrayList;
+
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,7 +19,15 @@ import utils.Tools;
 import CasEV.environment.roads.BusStop;
 
 public class Building extends ElectricEntity{
-
+	
+	//Time of day translation from ticks and schedule
+	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
+	private static final int[] MORNING = {2160, 4320}; 			//06:00 - 12:00
+	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
+	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
+	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
+	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
+	
 	private Double loadPrice;
 	private List<Person> occupants;
 	private List<EV> occupantEVs;
@@ -30,13 +40,8 @@ public class Building extends ElectricEntity{
 	 * 	1 hour = 360 ticks
 	 */
 	
-	//Time of day translation from ticks and schedule
-	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
-	private static final int[] MORNING = {2160, 4320}; 			//06:00 - 12:00
-	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
-	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
-	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
-	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
+
+
 	
 	private static final int[] AM0 = {0, 360}; 				//00:00 - 06:00
 	private static final int[] AM1 = {360, 720}; 			//06:00 - 12:00
@@ -107,18 +112,10 @@ public class Building extends ElectricEntity{
 	public void update(Double delta) {
 		
 		
-		double outputValue = output_start + ((output_end - output_start) / (input_end - input_start)) * (delta - input_start);
+		this.totalLoad += delta;
+		updateParent(delta);
 		
-		if (isInInterval2((this.totalLoad + delta), buildingLoadRange)) {
-			//System.out.println("In taht range");
-			this.totalLoad += delta;
-			updateParent(delta);
-		} else {
-//			System.out.println("Not in taht range");
-//			System.out.println("delta: " + delta);
-//			System.out.println("Total load: " + this.totalLoad);
-			
-		}
+
 		
 		//this.totalLoad += delta;
 		//updateParent(delta);
@@ -135,11 +132,16 @@ public class Building extends ElectricEntity{
 	
 	public void addOccupants(Person p, EV v, Boolean parkingDecision) {
 
+		//update(-3d);
+		
+		update(-ThreadLocalRandom.current().nextDouble(1, 3));
+		spawner.getReporter().addParkedCar(v.type);
+		
+		
+		
 		if (v instanceof EV && parkingDecision == true) {
 
 			
-			//update(-v.charge*0.25);
-			update(-3d);
 			
 		
 			for (ParkingSpace ps: this.parkingSpaces) {
@@ -154,11 +156,13 @@ public class Building extends ElectricEntity{
 				}
 			}
 			
+			
+			
 			occupants.add(p);
 			
-			spawner.getReporter().addParkedCar(v.type);
+			//spawner.getReporter().addParkedCar(v.type);
 			//spawner.getMarket().setDemand();
-			spawner.getMarket().addNumV2G();
+			//spawner.getMarket().addNumV2G();
 			//spawner.getMarket().addNumCars();
 			//spawner.getMarket().addNumEV();
 			//spawner.getMarket().addV2GLoadAvailable(v.charge);
@@ -169,6 +173,13 @@ public class Building extends ElectricEntity{
 			double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
 			//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
 			v.borrowedCharge = occupantBorrowedCharge;
+			if (v.borrowedCharge < 0) {
+				spawner.getMarket().addV2GChargingFrom();
+				spawner.getMarket().addNumV2G();
+			} else if (v.borrowedCharge > 0) {
+				spawner.getMarket().addV2GChargingBack();
+				spawner.getMarket().addNumV2G();
+			}
 			v.charge -= occupantBorrowedCharge;
 			this.occupantEVs.add(v);
 
@@ -177,7 +188,25 @@ public class Building extends ElectricEntity{
 	
 	public void removeOccupants(Person p, EV v) {
 		
+		if (v.borrowedCharge < 0) {
+			spawner.getMarket().removeNumV2G();
+			spawner.getMarket().removeV2GChargingFrom();
+		} else if(v.borrowedCharge > 0) {
+			spawner.getMarket().removeV2GChargingBack();
+			spawner.getMarket().removeNumV2G();
+		}
+		
 		spawner.getMarket().removeV2GLoadAvailable(v.borrowedCharge);
+		//update(3d);
+		
+		spawner.getReporter().removeParkedCar(v.type);
+
+		
+		//spawner.getMarket().removeNumV2G();
+		spawner.getMarket().removeNumCars();
+		spawner.getMarket().removeNumEV();
+		
+		update(ThreadLocalRandom.current().nextDouble(1, 3));
 		
 		if (v.buildingParkedIn == this) {
 			v.isParkedInBuilding = false;
@@ -196,15 +225,15 @@ public class Building extends ElectricEntity{
 				}
 			}
 			v.spaceParkedIn = null;
-			spawner.getReporter().removeParkedCar(v.type);
-
-			update(3d);
-			spawner.getMarket().removeNumV2G();
-			spawner.getMarket().removeNumCars();
-			spawner.getMarket().removeNumEV();
-			System.out.println("Offered charge: " + v.offeredCharge);
-			System.out.println("BorrowedCharge charge: " + v.borrowedCharge);
-			
+//			spawner.getReporter().removeParkedCar(v.type);
+//
+//			
+//			spawner.getMarket().removeNumV2G();
+//			spawner.getMarket().removeNumCars();
+//			spawner.getMarket().removeNumEV();
+//			System.out.println("Offered charge: " + v.offeredCharge);
+//			System.out.println("BorrowedCharge charge: " + v.borrowedCharge);
+//			
 //			if (v.borrowedCharge != 0) {
 //				spawner.getMarket().removeV2GLoadAvailable(v.borrowedCharge);
 //			} else {

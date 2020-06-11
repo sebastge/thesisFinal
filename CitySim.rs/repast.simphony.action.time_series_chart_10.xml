@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.6.0">
-  <name>vs.</name>
+  <name>Market prices</name>
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Load Price vs Total Load</yAxisLabel>
-  <chartTitle>vs.</chartTitle>
+  <yAxisLabel>Buying vs. selling price</yAxisLabel>
+  <chartTitle>Market prices</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,37 +21,25 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>TotalLoad</string>
+      <string>kWhSellingPrice</string>
       <SeriesData>
-        <label>TotalLoad</label>
+        <label>kWhSellingPrice</label>
         <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
+          <red>255</red>
+          <green>153</green>
+          <blue>25</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>V2GLoadAvailable</string>
+      <string>kWhBuyingPrice</string>
       <SeriesData>
-        <label>V2GLoadAvailable</label>
+        <label>kWhBuyingPrice</label>
         <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>V2GLoadWanted</string>
-      <SeriesData>
-        <label>V2GLoadWanted</label>
-        <color>
-          <red>255</red>
-          <green>253</green>
-          <blue>250</blue>
+          <red>155</red>
+          <green>103</green>
+          <blue>200</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

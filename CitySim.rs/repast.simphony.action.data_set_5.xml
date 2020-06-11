@@ -132,6 +132,33 @@
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>V2GChargingBack</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>V2GChargingBack</id>
+        <className>CasEV.Market</className>
+        <methodName>getV2GChargingBack</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>V2GChargingFrom</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>V2GChargingFrom</id>
+        <className>CasEV.Market</className>
+        <methodName>getV2GChargingFrom</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>numV2G</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>numV2G</id>
+        <className>CasEV.Market</className>
+        <methodName>getNumV2G</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
