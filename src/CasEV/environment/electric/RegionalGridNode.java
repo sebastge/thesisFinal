@@ -14,6 +14,7 @@ public class RegionalGridNode extends ElectricEntity{
 	
 	private Spawner spawner;
 	private Market market;
+	private int experimentNum;
 	
 	
 	private Double loadPrice;
@@ -25,16 +26,17 @@ public class RegionalGridNode extends ElectricEntity{
 	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
 	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
 	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
+
 	
 	
-	public RegionalGridNode(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
+	public RegionalGridNode(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, int experimentNum) {
 		super(space, grid);
 		this.totalLoad = 0d;
 		this.grid = grid;
 		this.space = space;
 		this.spawner = spawner;
 		this.loadPrice = 0d;
-		
+		this.experimentNum = experimentNum;
 	}
 	
 	/**
@@ -42,15 +44,15 @@ public class RegionalGridNode extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		setTotalLoadForReporter();
+		setTotalLoadForReporter(this.experimentNum);
 		setLoadPrice();
 		setLoadPriceForReporter();
-		System.out.println("Total load: " + this + " " +  this.totalLoad);
+		//System.out.println("Total load: " + this + " " +  this.totalLoad);
 	}
 	
-	public void setTotalLoadForReporter() {
+	public void setTotalLoadForReporter(int experimentNum) {
 
-		spawner.getReporter().setTotalLoad(this.totalLoad);
+		spawner.getReporter().setTotalLoad(this.totalLoad, experimentNum);
 		spawner.getMarket().setTotalLoad(this.totalLoad);
 		
 		

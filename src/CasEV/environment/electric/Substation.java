@@ -8,15 +8,17 @@ import repast.simphony.space.grid.GridPoint;
 
 public class Substation extends ElectricEntity{
 
-GridPoint location; //Location of the top-right GridPoint
-private Spawner spawner;
+	GridPoint location; //Location of the top-right GridPoint
+	private Spawner spawner;
+	private int experimentNum;
 	
-	public Substation(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
+	public Substation(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, int experimentNum) {
 		super(space, grid);
 		this.totalLoad = 0d;
 		this.grid = grid;
 		this.space = space;
 		this.spawner = spawner;
+		this.experimentNum = experimentNum;
 	}
 	
 	/**
@@ -28,6 +30,6 @@ private Spawner spawner;
 	}
 	
 	public void setSubsationLoadForReporter() {
-		spawner.getReporter().setTotalLoad(this.totalLoad);
+		spawner.getReporter().setTotalLoad(this.totalLoad, this.experimentNum);
 	}
 }

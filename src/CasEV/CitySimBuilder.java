@@ -156,16 +156,16 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			grid.moveTo(info, width - 15, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode = new RegionalGridNode(space, grid, spawner);
+			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT);
 			context.add(globalNode);
 			space.moveTo(globalNode, width - 50, height - 15);
 			grid.moveTo(globalNode, width - 50, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode2 = new RegionalGridNode(space, grid, spawner);
+			globalNode2 = new RegionalGridNode(space, grid, spawner,this.EXPERIMENT);
 			context.add(globalNode2);
-			space.moveTo(globalNode2, width - 30, height - 35);
-			grid.moveTo(globalNode2, width - 30, height - 35);
+			space.moveTo(globalNode2, width - 130, height - 15);
+			grid.moveTo(globalNode2, width - 130, height - 15);
 			
 			
 			System.out.println("before gird image");
@@ -248,7 +248,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			grid.moveTo(info, width - 15, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode = new RegionalGridNode(space, grid, spawner);
+			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT);
 			context.add(globalNode);
 			space.moveTo(globalNode, width - 50, height - 15);
 			grid.moveTo(globalNode, width - 50, height - 15);
@@ -605,7 +605,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		//Creating clusters for the placement of substations and adding members to them
 		Clustering c = new Clustering(data, 0, 0, width, height, 5);
 		for(GridPoint p: c.kMeans()) {
-			Substation substation = new Substation(space, grid, spawner);
+			Substation substation = new Substation(space, grid, spawner, this.EXPERIMENT);
 			context.add(substation);
 			space.moveTo(substation, p.getX(), p.getY());
 			grid.moveTo(substation, p.getX(), p.getY());

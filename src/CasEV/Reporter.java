@@ -53,6 +53,8 @@ public class Reporter {
 	
 	
 	
+	
+	
 	//===============================================================
 	//Getters
 	//===============================================================
@@ -252,7 +254,7 @@ public class Reporter {
 		}
 	}
 	
-	public void setTotalLoad(Double totalLoad) {
+	public void setTotalLoad(Double totalLoad, int experimentNum) {
 		this.totalLoad = totalLoad;
 	}
 	
