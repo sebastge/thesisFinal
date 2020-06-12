@@ -37,8 +37,6 @@ public class Person extends Agent{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		this.travelTime++;
-		System.out.println("Travel time loool: " + this.travelTime);
 		//setSubsationLoadForReporter();
 	}
 

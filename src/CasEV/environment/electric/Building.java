@@ -96,7 +96,7 @@ public class Building extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		System.out.println("Travel time: " + spawner.getReporter().getAverageTravelTime());
+		//System.out.println("Travel time: " + spawner.getReporter().getAverageTravelTime());
 	}
 	
 	@Override
