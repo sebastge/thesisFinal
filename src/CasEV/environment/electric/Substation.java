@@ -21,13 +21,7 @@ public class Substation extends ElectricEntity{
 		this.experimentNum = experimentNum;
 	}
 	
-	/**
-	 * Runs every step
-	 */
-	@ScheduledMethod(start = 1, interval = 1)
-	public void step(){
-		//setSubsationLoadForReporter();
-	}
+
 	
 	public void setSubsationLoadForReporter() {
 		//spawner.getReporter().setTotalLoad(this.totalLoad);

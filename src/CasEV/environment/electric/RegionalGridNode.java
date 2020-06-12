@@ -49,11 +49,14 @@ public class RegionalGridNode extends ElectricEntity{
 		setTotalLoadForReporter();
 		setLoadPrice();
 		setLoadPriceForReporter();
-		//System.out.println("Total load: " + this + " " +  this.totalLoad);
+		//System.out.println(this + " v2g: " + this.v2gCharging );
 	}
 	
 	public int getV2GCharging () {
 		return this.v2gCharging;
+	}
+	public void setV2GCharging (int v2gCharging) {
+		 this.v2gCharging = v2gCharging;
 	}
 	
 	public void setTotalLoadForReporter() {

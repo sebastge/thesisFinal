@@ -295,16 +295,16 @@ public class Reporter {
 			
 			if (rgn == this.rgnCentre) {
 				setTotalLoadCentre(totalLoad);
-				System.out.println("wooohooo");
+
 			} else if (rgn == this.rgnOutside) {
 				setTotalLoadOutside(totalLoad);
-				System.out.println("wooohooo2");
+
 			}
 			
 		} else {
 			this.totalLoad = totalLoad;
 		}
-		System.out.println("experiemtnNum: " + experimentNum);
+
 
 	}
 	public void setTotalLoadCentre(Double totalLoad) {

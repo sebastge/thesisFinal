@@ -1,7 +1,10 @@
 package CasEV;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import CasEV.environment.roads.Road;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import utils.Tools;
 
@@ -19,6 +22,7 @@ public class Market {
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
 		setkWhSellingPrice();
 		setkWhBuyingPrice();
+		setAverageTravelTime(this.avgTravelTimeList);
 //		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
 //		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
 //		System.out.println("Total load market: " + this.totalLoad);
@@ -57,6 +61,13 @@ public class Market {
 	private static final int[] PM10 = {7920, 8280}; //07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; //15:30 - 17:00
 	
+	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
+	private static final int[] MORNING = {2160, 4320}; 			//06:00 - 12:00
+	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
+	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
+	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
+	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
+	
 	private static final int[] kWhPriceRange = {15, 45};
 	private Double kWhPrice = 30d;
 
@@ -88,15 +99,48 @@ public class Market {
 	
 	private String timeOfDay = "";
 	
+	private Double avgTravelTime;
+	private List<Double> avgTravelTimeList = new ArrayList<Double>();
+	
 //	Double input_start = 0d; // The lowest number of the range input.
 //	Double input_end = 300d; // The lowest number of the range input.
 //	Double output_start = 15d; // The lowest number of the range output.
 //	Double output_end = 45d; // The largest number of the range output.
 	
+	public void addToAvgTravelTimeList(Double time) {
+		System.out.println("Time added: " + time);
+		this.avgTravelTimeList.add(time);
+	}
+
+	
 	
 	private Double createDoubleInRange(Double inputVariable, Double input_start, Double input_end, Double output_start, Double output_end) {
 		return output_start + ((output_end - output_start) / (input_end - input_start)) * (inputVariable - input_start);
 	}
+	
+
+
+	private double setAverageTravelTime(List <Double> marks) {
+		  Double sum = 0d;
+		  if(!marks.isEmpty()) {
+		    for (Double mark : marks) {
+		        sum += mark;
+		    }
+		    this.avgTravelTime = sum.doubleValue() / marks.size();
+		    return sum.doubleValue() / marks.size();
+		  }
+		  this.avgTravelTime = sum;
+		  return sum;
+	}
+	
+	public Double getAverageTravelTime() {
+		return this.avgTravelTime;
+	}
+	
+	private boolean isInInterval(int n, int[] interval) {
+		return n >= interval[0] && n < interval[1];
+	}
+	
 	
 	public void setPrices() {
 		if (v2gLoadAvailable > v2gLoadWanted) {
@@ -119,10 +163,27 @@ public class Market {
 		}	
 	}
 	
+	public double multiplyWithPeriodValue(double load) {
+		int time = Tools.getTime();
+		if (this.isInInterval(time, NIGHT)) {
+			return load*0.8;
+		} else if (this.isInInterval(time, MORNING)) {
+			return load*1.2;
+		} else if (this.isInInterval(time, AFTERNOON)) {
+			return load*0.5;
+		} else if (this.isInInterval(time, EVENING)) {
+			return load*2.0;
+		}
+		else {
+			return 0d;
+		}
+	}
+	
 	
 	public Double borrowFromAggregator (Double kWhOffered) {
-		Double need = kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2);
+		
 		if (v2gLoadWanted > v2gLoadAvailable) {
+			Double need = this.multiplyWithPeriodValue(kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2));
 			if(kWhOffered > 0) {
 				v2gLoadAvailable += need;
 				v2gLoadWanted -= need;
@@ -131,6 +192,7 @@ public class Market {
 				return 0d;
 			}
 		} else {
+			Double need = kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2);
 			if (kWhOffered < 0) {
 				v2gLoadAvailable += need;
 				v2gLoadWanted -= need;

@@ -85,7 +85,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	
 	private static final int EXPERIMENT = 1;
 	private static final int CENTRE_CHARGING = 1;
-	private static final int OUTSIDE_CHARGING = 0;
+	private static final int OUTSIDE_CHARGING = 1;
 	
 	
 	
@@ -817,9 +817,17 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			e.setParent(globalNode2);
 		}
 		
+		if (this.EXPERIMENT == 1) {
+			globalNode.setV2GCharging(this.CENTRE_CHARGING);
+			globalNode2.setV2GCharging(this.OUTSIDE_CHARGING);
+		} else {
+			globalNode.setV2GCharging(1);
+		}
 		
 		
+
 		spawner.getReporter().setRgn(this.globalNode, this.globalNode2);
+		
 		
 		return net;
 	}

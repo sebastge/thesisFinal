@@ -3,6 +3,7 @@ package CasEV.agent;
 import CasEV.environment.Spawner;
 import CasEV.environment.electric.Building;
 import CasEV.environment.roads.BusStop;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
@@ -18,6 +19,7 @@ public class Person extends Agent{
 	private Spawner spawner;
 	private int lastTimeUse = 0;
 	private int parkedTimer = 0;
+	private Double travelTime = 0d;
 	
 	private BusStop nearestBusStop;
 	
@@ -28,6 +30,16 @@ public class Person extends Agent{
 		this.workPlace = null;
 		this.spawner = spawner;
 
+	}
+	
+	/**
+	 * Runs every step
+	 */
+	@ScheduledMethod(start = 1, interval = 1)
+	public void step(){
+		this.travelTime++;
+		System.out.println("Travel time loool: " + this.travelTime);
+		//setSubsationLoadForReporter();
 	}
 
 	/**
@@ -66,6 +78,8 @@ public class Person extends Agent{
 	 */
 	public void setParked(int time) {
 		parkedTimer = time;
+		//System.out.println("Travel time: " + this.travelTime);
+		spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
 	}
 	
 	public String getTravelChoice() {

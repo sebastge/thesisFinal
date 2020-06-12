@@ -100,6 +100,8 @@ public class Vehicle extends Agent{
 	public Building buildingParkedIn;
 	public ParkingSpace spaceParkedIn;
 	
+	private Double travelTime = 0d;
+	
 	public Vehicle(ContinuousSpace<Object> space, Grid<Object> grid, int occupantLimit, List<Road> parkingNexi, Spawner spawner) {
 		super(space, grid);
 		this.occupantLimit = occupantLimit;
@@ -138,6 +140,8 @@ public class Vehicle extends Agent{
 		
 		//Moves one step along the path
 		move();	
+		
+		this.travelTime++;
 		
 		
 	}
@@ -292,6 +296,7 @@ public class Vehicle extends Agent{
 				for(Person p : occupants) {
 					p.setReachedGoal(this, false);
 					p.setParked(100);
+					spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
 					this.parked = true;
 				}
 				goals.next(); //Sets the goal to be the next one
