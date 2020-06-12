@@ -87,4 +87,8 @@ public abstract class ElectricEntity extends Entity{
 	public String getOccupants() {
 		return totalOccupants.toString();
 	}
+
+	protected abstract int getV2GCharging();
+
+
 }

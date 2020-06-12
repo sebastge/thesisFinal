@@ -5,5 +5,6 @@
 <repast.simphony.action.time_series_chart context="CitySim" file="repast.simphony.action.time_series_chart_6.xml" />
 <repast.simphony.action.time_series_chart context="CitySim" file="repast.simphony.action.time_series_chart_7.xml" />
 <repast.simphony.action.time_series_chart context="CitySim" file="repast.simphony.action.time_series_chart_8.xml" />
+<repast.simphony.action.time_series_chart context="CitySim" file="repast.simphony.action.time_series_chart_13.xml" />
 <repast.simphony.action.display context="CitySim" file="repast.simphony.action.display_6.xml" />
 </Scenario>

@@ -96,32 +96,13 @@ public class Building extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		//setLoad3();
-		//changeLoad();
-		//setLoadPrice();
-		//spawner.getMarket().getPriceLevel();
-		//System.out.println(this + " building has a total load of: " + this.totalLoad);
-		//System.out.println("Occupants EV: " + this.occupantEVs);
-
-	
-	}
-	
-	
-	private boolean isInInterval2(double outputValue, int[] interval) {
-		return outputValue >= interval[0] && outputValue < interval[1];
 	}
 	
 	@Override
 	public void update(Double delta) {
 		
-		
 		this.totalLoad += delta;
 		updateParent(delta);
-		
-
-		
-		//this.totalLoad += delta;
-		//updateParent(delta);
 
 	}
 	
@@ -163,27 +144,33 @@ public class Building extends ElectricEntity{
 			
 			occupants.add(p);
 			
+			if (this.parent.parent.getV2GCharging() == 1) {
+				
+				double occupantCharge = v.getChargeAvailableForV2G();
+				//System.out.println("OccupantCharge: " + occupantCharge);
+				v.offeredCharge = occupantCharge;
+				//System.out.println("Avaialble v2g from vehicle: " + occupantCharge);
+				double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
+				//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
+				v.borrowedCharge = occupantBorrowedCharge;
+				if (v.borrowedCharge < 0) {
+					spawner.getMarket().addV2GChargingFrom();
+					spawner.getMarket().addNumV2G();
+				} else if (v.borrowedCharge > 0) {
+					spawner.getMarket().addV2GChargingBack();
+					spawner.getMarket().addNumV2G();
+				}
+				v.charge -= occupantBorrowedCharge;
+			}
+			
 			//spawner.getReporter().addParkedCar(v.type);
 			//spawner.getMarket().setDemand();
 			//spawner.getMarket().addNumV2G();
 			//spawner.getMarket().addNumCars();
 			//spawner.getMarket().addNumEV();
 			//spawner.getMarket().addV2GLoadAvailable(v.charge);
-			double occupantCharge = v.getChargeAvailableForV2G();
-			//System.out.println("OccupantCharge: " + occupantCharge);
-			v.offeredCharge = occupantCharge;
-			//System.out.println("Avaialble v2g from vehicle: " + occupantCharge);
-			double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
-			//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
-			v.borrowedCharge = occupantBorrowedCharge;
-			if (v.borrowedCharge < 0) {
-				spawner.getMarket().addV2GChargingFrom();
-				spawner.getMarket().addNumV2G();
-			} else if (v.borrowedCharge > 0) {
-				spawner.getMarket().addV2GChargingBack();
-				spawner.getMarket().addNumV2G();
-			}
-			v.charge -= occupantBorrowedCharge;
+
+			
 			this.occupantEVs.add(v);
 
 		}
@@ -493,6 +480,12 @@ public class Building extends ElectricEntity{
 			}
 		}
 		return nearest;
+	}
+
+	@Override
+	protected int getV2GCharging() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

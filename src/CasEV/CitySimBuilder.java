@@ -83,7 +83,10 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 1; 
+	private static final int EXPERIMENT = 1;
+	private static final int CENTRE_CHARGING = 1;
+	private static final int OUTSIDE_CHARGING = 0;
+	
 	
 	
 	/**
@@ -156,13 +159,13 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			grid.moveTo(info, width - 15, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT);
+			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT, this.OUTSIDE_CHARGING);
 			context.add(globalNode);
 			space.moveTo(globalNode, width - 50, height - 15);
 			grid.moveTo(globalNode, width - 50, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode2 = new RegionalGridNode(space, grid, spawner,this.EXPERIMENT);
+			globalNode2 = new RegionalGridNode(space, grid, spawner,this.EXPERIMENT, this.CENTRE_CHARGING);
 			context.add(globalNode2);
 			space.moveTo(globalNode2, width - 130, height - 15);
 			grid.moveTo(globalNode2, width - 130, height - 15);
@@ -182,7 +185,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				}
 			}
 			
-
+			
 			
 		} else {
 			
@@ -248,7 +251,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			grid.moveTo(info, width - 15, height - 15);
 			
 			//This is the Electric meter in the simulation
-			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT);
+			globalNode = new RegionalGridNode(space, grid, spawner, this.EXPERIMENT, 1);
 			context.add(globalNode);
 			space.moveTo(globalNode, width - 50, height - 15);
 			grid.moveTo(globalNode, width - 50, height - 15);
@@ -506,7 +509,10 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				buildings, 
 				buildings2,
 				busStops, 
-				parkingNexiRoads
+				parkingNexiRoads,
+				this.EXPERIMENT,
+				this.CENTRE_CHARGING,
+				this.OUTSIDE_CHARGING
 				);
 		for (Building b : buildings) {
 			b.spawner = spawner;
@@ -514,9 +520,14 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		for (Building b : buildings2) {
 			b.spawner = spawner;
 		}
+		
+		
 		context.add(spawner);
 		context.add(spawner.getReporter());
 		context.add(spawner.getMarket());
+		
+		
+	
 		
 	}
 	
@@ -591,16 +602,23 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		for(Building b: buildings) {
 			data.add(grid.getLocation(b));
 		}
-		for(Building b: buildings2) {
-			System.out.println("Building2 parent: " + b.parent);
-			data.add(grid.getLocation(b));
+		
+		if (this.EXPERIMENT == 1) {
+			
+			for(Building b: buildings2) {
+				System.out.println("Building2 parent: " + b.parent);
+				data.add(grid.getLocation(b));
+				
+				System.out.println("Buildings 222: " + buildings2);
+			}
+			
 		}
+
 		
 		for(Charger s: chargers) {
 			data.add(grid.getLocation(s));
 		}
 		
-		System.out.println("Buildings 222: " + buildings2);
 		
 		//Creating clusters for the placement of substations and adding members to them
 		Clustering c = new Clustering(data, 0, 0, width, height, 5);
@@ -798,6 +816,10 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		for (ElectricEntity e: subs2) {
 			e.setParent(globalNode2);
 		}
+		
+		
+		
+		spawner.getReporter().setRgn(this.globalNode, this.globalNode2);
 		
 		return net;
 	}

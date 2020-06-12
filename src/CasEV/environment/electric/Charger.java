@@ -58,4 +58,11 @@ public class Charger extends ElectricEntity{
 			}
 		}
 	}
+
+
+	@Override
+	protected int getV2GCharging() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

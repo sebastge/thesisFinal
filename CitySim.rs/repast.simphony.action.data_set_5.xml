@@ -25,6 +25,24 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
+      <string>TotalLoadCentre</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>TotalLoadCentre</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getTotalLoadCentre</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>TotalLoadOutside</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>TotalLoadOutside</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getTotalLoadOutside</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
       <string>CarsParked</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>CarsParked</id>

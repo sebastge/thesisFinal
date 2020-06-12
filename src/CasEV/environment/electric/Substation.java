@@ -30,6 +30,12 @@ public class Substation extends ElectricEntity{
 	}
 	
 	public void setSubsationLoadForReporter() {
-		spawner.getReporter().setTotalLoad(this.totalLoad, this.experimentNum);
+		//spawner.getReporter().setTotalLoad(this.totalLoad);
+	}
+
+	@Override
+	protected int getV2GCharging() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

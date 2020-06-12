@@ -13,6 +13,7 @@ import CasEV.agent.Bus;
 import CasEV.agent.Person;
 import CasEV.environment.electric.Building;
 import CasEV.environment.electric.ElectricEntity;
+import CasEV.environment.electric.RegionalGridNode;
 import CasEV.environment.roads.BusStop;
 import CasEV.environment.roads.Road;
 import CasEV.environment.roads.Spawn;
@@ -65,7 +66,9 @@ public class Spawner {
 	private static final int[] TEST1 = {0, 2160};
 	private static final int[] TEST2 = {6480, 8640};
 	
-	private static final int EXPERIMENT = 2; 
+
+	
+	
 	
 	
 	/**
@@ -98,8 +101,10 @@ public class Spawner {
 	private Reporter reporter;
 	private Market market;
 	
+	private int experimentNum;
+	private int CENTRE_CHARGING;
+	private int OUTSIDE_CHARGING; 
 
-	
 	
 	@SuppressWarnings("unchecked")
 	public Spawner(
@@ -112,7 +117,10 @@ public class Spawner {
 			List<Building> buildings,
 			List<Building> buildings2,
 			List<BusStop> busStops, 
-			List<Road> parkingNexiRoads) {
+			List<Road> parkingNexiRoads,
+			int experimentNum,
+			int CENTRE_CHARGING,
+			int OUTSIDE_CHARGING) {
 		super();
 		this.space = space;
 		this.grid = grid;
@@ -121,12 +129,15 @@ public class Spawner {
 		this.buildings2 = buildings2;
 		this.busStops = busStops;
 		this.parkingNexi = parkingNexiRoads;
-		this.reporter = new Reporter();
+		this.experimentNum = experimentNum;
+		this.reporter = new Reporter(this.experimentNum);
 		this.market = new Market();
 		if(spawnPoints.length == 0 || despawnPoints.size() == 0) {
 			throw new IllegalArgumentException("no spawn or goal");
 		}
-		
+		this.experimentNum = experimentNum;
+		this.CENTRE_CHARGING = CENTRE_CHARGING;
+		this.OUTSIDE_CHARGING = OUTSIDE_CHARGING;
 		
 		net = (Network<Object>)context.getProjection("road network");
 		
@@ -185,6 +196,7 @@ public class Spawner {
 			RunEnvironment.getInstance().endRun();
 		}
 	}
+	
 		
 	/**
 	 * Generates the population and splits it into workers and shoppers
@@ -194,14 +206,22 @@ public class Spawner {
 			Person p = new Person(space, grid, this);
 			System.out.println("Person added: " + p);
 			
-			if (Math.random() > 0.5) {
-				//System.out.println("math random 1");
-				p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+			if (this.experimentNum == 1) {
+				
+				if (Math.random() > 0.5) {
+					//System.out.println("math random 1");
+					p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+				} else {
+					System.out.println("math random 2");
+					System.out.println(buildings2.size());
+					p.setWorkPlace(buildings2.get(RandomHelper.nextIntFromTo(0, buildings2.size() - 1)));
+				}
+				
 			} else {
-				System.out.println("math random 2");
-				System.out.println(buildings2.size());
-				p.setWorkPlace(buildings2.get(RandomHelper.nextIntFromTo(0, buildings2.size() - 1)));
+				p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
 			}
+			
+
 			
 			population.add(p);
 			idleWorkers.add(p);

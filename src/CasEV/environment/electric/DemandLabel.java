@@ -18,5 +18,11 @@ public class DemandLabel extends ElectricEntity{
 		this.space = space;
 
 	}
+
+	@Override
+	protected int getV2GCharging() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

@@ -1,8 +1,29 @@
 package CasEV;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import CasEV.environment.Spawner;
+import CasEV.environment.electric.Building;
+import CasEV.environment.electric.RegionalGridNode;
+import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.grid.Grid;
+
 public class Reporter {
+	
+	private int experimentNum;
+	
+	private ArrayList<RegionalGridNode> rgList = new ArrayList<RegionalGridNode>();
+	
+	private RegionalGridNode rgnCentre;
+	private RegionalGridNode rgnOutside;
+	
+	
+	public Reporter(int experimentNum) {
+
+		this.experimentNum = experimentNum;
+
+	}
 
 	
 	//General
@@ -50,6 +71,8 @@ public class Reporter {
 	private int weatherProfile = 0;
 	
 	private int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
+	private Double totalLoadCentre = 0d;
+	private Double totalLoadOutside = 0d;
 	
 	
 	
@@ -88,6 +111,12 @@ public class Reporter {
 	public Double getTotalLoad() {
 		return totalLoad;
 	}
+	public Double getTotalLoadCentre() {
+		return totalLoadCentre;
+	}
+	public Double getTotalLoadOutside() {
+		return totalLoadOutside;
+	}
 	public Double getCarsParked() {
 		return parkedCars;
 	}
@@ -108,6 +137,12 @@ public class Reporter {
 	}
 	public int getWeatherProfile() {
 		return weatherProfile;
+	}
+	
+	
+	public void setRgn(RegionalGridNode rgnCentre, RegionalGridNode rgnOutside) {
+		this.rgnCentre =rgnCentre;
+		this.rgnOutside = rgnOutside;
 	}
 	
 	
@@ -254,8 +289,31 @@ public class Reporter {
 		}
 	}
 	
-	public void setTotalLoad(Double totalLoad, int experimentNum) {
-		this.totalLoad = totalLoad;
+	public void setTotalLoad(Double totalLoad, RegionalGridNode rgn) {
+		
+		if (this.experimentNum == 1) {
+			
+			if (rgn == this.rgnCentre) {
+				setTotalLoadCentre(totalLoad);
+				System.out.println("wooohooo");
+			} else if (rgn == this.rgnOutside) {
+				setTotalLoadOutside(totalLoad);
+				System.out.println("wooohooo2");
+			}
+			
+		} else {
+			this.totalLoad = totalLoad;
+		}
+		System.out.println("experiemtnNum: " + experimentNum);
+
+	}
+	public void setTotalLoadCentre(Double totalLoad) {
+
+		this.totalLoadCentre = totalLoad;
+	}
+	public void setTotalLoadOutside(Double totalLoad) {
+
+		this.totalLoadOutside = totalLoad;
 	}
 	
 	public void setElPrice(Double elPrice) {
