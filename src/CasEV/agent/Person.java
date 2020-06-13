@@ -64,7 +64,7 @@ public class Person extends Agent{
 			return true;
 			
 		} else {
-			workPlace.removeOccupants(this, (EV) v);
+			workPlace.removeOccupants(this, v);
 			//spawner.getReporter().removeParkedCar(v.type);
 			return true;	
 		}
@@ -130,23 +130,30 @@ public class Person extends Agent{
 	 * @param isEndGoal, Boolean, True if the goal reach is the despawn.
 	 */
 	public void setReachedGoal(Vehicle v, boolean isEndGoal) {
+		System.out.println(v + " caled setReachedGoal");
 		if(isEndGoal) {
 			if (workPlace == null) {
 				spawner.returnShopper(this);
 			} else {
-				spawner.returnWorker(this);
+				spawner.returnWorker(this); 
 			}
 
 			return;
 		}
 		if(workPlace != null && v instanceof EV) {
 				workPlace.addOccupants(this, (EV) v, determineParkingWorth((EV) v, workPlace));
+		} else if (workPlace != null && v instanceof Car) {
+
+			workPlace.addOccupants(this, (Car) v, true);
 		}
 	}
 	
-	public boolean determineParkingWorth(EV v, Building workPlace) {
+	public boolean determineParkingWorth(Vehicle v, Building workPlace) {
 		
-		if (v.charge > 7 && spawner.getMarket().getPriceLevel() < 50d) {
+		
+		double priceLevel = Math.abs(spawner.getMarket().getPriceLevel());
+	
+		if (((EV)v).charge > 7 && priceLevel < 50d) {
 			return true;
 		} else {
 			return false;

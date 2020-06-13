@@ -83,8 +83,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 1;
-	private static final int CENTRE_CHARGING = 1;
+	private static final int EXPERIMENT = 2;
+	private static final int CENTRE_CHARGING = 0;
 	private static final int OUTSIDE_CHARGING = 1;
 	
 	
@@ -424,7 +424,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				else if(r == 128 && g == 64 && b == 0) {//Building. Brown
 					//TODO: make buildings be more than one pixel
 					List<ParkingSpace> psList = new ArrayList<ParkingSpace>();
-					for (int z = 0; z < 1; z++) {
+					for (int z = 0; z < 3; z++) {
 						ParkingSpace ps = new ParkingSpace(space, grid);
 						psList.add(ps);
 					}
@@ -639,6 +639,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 			System.out.println("Building2 parent: " + b.parent);
 			//data.add(grid.getLocation(b));
 		}
+		
+		System.out.println("Substation size: " + substations.size());
 	}
 	
 	/**

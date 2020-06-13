@@ -97,6 +97,15 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
+      <string>normalCar</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>normalCar</id>
+        <className>CasEV.Reporter</className>
+        <methodName>getCarsParked4</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
       <string>Weather</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Weather</id>
@@ -174,6 +183,15 @@
         <id>numV2G</id>
         <className>CasEV.Market</className>
         <methodName>getNumV2G</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>avgTravelTime</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>avgTravelTime</id>
+        <className>CasEV.Market</className>
+        <methodName>getAverageTravelTime</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

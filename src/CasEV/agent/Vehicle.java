@@ -116,7 +116,11 @@ public class Vehicle extends Agent{
 		this.blockingCar = null;
 		this.deadlockTimer = deadlockTime;
 		this.moved = true;
-		this.type = ThreadLocalRandom.current().nextInt(0, 4);
+		if (this instanceof EV) {
+			this.type = ThreadLocalRandom.current().nextInt(0, 4);
+		} else {
+			this.type = 4;
+		}
 		this.occupants = new ArrayList<Person>(occupantLimit);
 		this.spawner = spawner;
 		//this.charge = ThreadLocalRandom.current().nextDouble(0, 10);
@@ -276,6 +280,8 @@ public class Vehicle extends Agent{
 	 * @return
 	 */
 	private boolean isReachedGoal() {
+
+		//System.out.println(this + " called isReachedGal()");
 		GridPoint pt = grid.getLocation(this);//Current location
 		Entity goal = goals.getCurrent();//current goal
 		double triggerDistance; //The goal is defined to be reached within this distance
@@ -296,12 +302,13 @@ public class Vehicle extends Agent{
 				for(Person p : occupants) {
 					p.setReachedGoal(this, false);
 					p.setParked(100);
-					spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
+					
 					this.parked = true;
 				}
 				goals.next(); //Sets the goal to be the next one
 				closed.clear();
 				open.clear();
+				spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
 				
 			}
 
@@ -312,6 +319,7 @@ public class Vehicle extends Agent{
 					p.setReachedGoal(this, true);
 				}
 				die("");
+				
 				return true;
 			}
 			else if (goal instanceof BusStop) {

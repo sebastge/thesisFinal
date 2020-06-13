@@ -18,11 +18,12 @@ public class Market {
 	public void step(){
 		
 		//setLoad();
-		//setPriceLevel();
+		setPriceLevel();
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
 		setkWhSellingPrice();
 		setkWhBuyingPrice();
 		setAverageTravelTime(this.avgTravelTimeList);
+		//System.out.println("Average: " + this.getAverageTravelTime());
 //		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
 //		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
 //		System.out.println("Total load market: " + this.totalLoad);
@@ -108,7 +109,7 @@ public class Market {
 //	Double output_end = 45d; // The largest number of the range output.
 	
 	public void addToAvgTravelTimeList(Double time) {
-		System.out.println("Time added: " + time);
+		//System.out.println("Time added: " + time);
 		this.avgTravelTimeList.add(time);
 	}
 
@@ -257,7 +258,7 @@ public class Market {
 		return numEV;
 	}
 	public int getNumV2G() {
-		return numV2G;
+		return numV2G*2;
 	}
 	public Double getLoadPrice() {
 		return loadPrice;

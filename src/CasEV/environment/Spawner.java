@@ -334,16 +334,37 @@ public class Spawner {
 				}
 				else {//Car
 					
-					EV ev = new EV(space, grid, 5, parkingNexi, this);
-					ev.addOccupant(p);
+					//Percentage EV-adjust accordingly
 					
-					//Setup
+					if (Math.random() > 0.5) {
+						//System.out.println("A EV is spawneds");
+
+						EV ev = new EV(space, grid, 5, parkingNexi, this);
+						ev.addOccupant(p);
+						
+						//Setup
+						  
+						ev.addGoal(p.getWorkPlace());
+						ev.setStart(start);
+						ev.setNet(net);
+						
+						start.addToVehicleQueue(ev);
+					} else {
+						//System.out.println("A car is spawneds");
+						Car car = new Car(space, grid, 5, parkingNexi, this);
+						car.addOccupant(p);
+						
+						//Setup
+						
+						car.addGoal(p.getWorkPlace());
+						car.setStart(start);
+						car.setNet(net);
+						
+						start.addToVehicleQueue(car);
+
+					}
 					
-					ev.addGoal(p.getWorkPlace());
-					ev.setStart(start);
-					ev.setNet(net);
-					
-					start.addToVehicleQueue(ev);
+
 				}
 			}
 		}
@@ -366,21 +387,40 @@ public class Spawner {
 					start.addToBusQueue(p);
 				}
 				else {//car
+					
+					if (Math.random() > 0.5) {
+						//Add the agent to the context
+						EV ev = new EV(space, grid, 5, parkingNexi, this);
+						
+						ev.addOccupant(p);
+						
+						//Setup
+						
+//						car.addGoal(parkingSpaces.get(RandomHelper.nextIntFromTo(0, parkingSpaces.size() - 1)));//Random parking space as a goal
+						ev.addGoal(p.getShoppingPlace());
+						ev.setStart(start);
+						ev.setNet(net);
+						
+						start.addToVehicleQueue(ev);
+					} else {
+						//Add the agent to the context
+						Car car = new Car(space, grid, 5, parkingNexi, this);
+						
+						car.addOccupant(p);
+						
+						//Setup
+						
+//						car.addGoal(parkingSpaces.get(RandomHelper.nextIntFromTo(0, parkingSpaces.size() - 1)));//Random parking space as a goal
+						car.addGoal(p.getShoppingPlace());
+						car.setStart(start);
+						car.setNet(net);
+						
+						start.addToVehicleQueue(car);
+
+					}
 
 				
-					//Add the agent to the context
-					EV ev = new EV(space, grid, 5, parkingNexi, this);
-					
-					ev.addOccupant(p);
-					
-					//Setup
-					
-//					car.addGoal(parkingSpaces.get(RandomHelper.nextIntFromTo(0, parkingSpaces.size() - 1)));//Random parking space as a goal
-					ev.addGoal(p.getShoppingPlace());
-					ev.setStart(start);
-					ev.setNet(net);
-					
-					start.addToVehicleQueue(ev);
+
 				}
 			}
 		}

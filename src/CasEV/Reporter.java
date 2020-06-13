@@ -67,6 +67,7 @@ public class Reporter {
 	private int parkedCars1 = 0;
 	private int parkedCars2 = 0;
 	private int parkedCars3 = 0;
+	private int parkedCars4 = 0;
 	
 	private int weatherProfile = 0;
 	
@@ -131,6 +132,9 @@ public class Reporter {
 	}
 	public int getCarsParked3() {
 		return parkedCars3;
+	}
+	public int getCarsParked4() {
+		return parkedCars4;
 	}
 	public Double getElPrice() {
 		return elPrice;
@@ -269,9 +273,11 @@ public class Reporter {
 			this.parkedCars1++;
 		} else if (type == 2) {
 			this.parkedCars2++;
-		} else {
+		} else if (type == 3) {
 			this.parkedCars3++;
-		}	
+		} else {
+			this.parkedCars4++;
+		}
 	}
 	
 	public void removeParkedCar(int type) {
@@ -284,8 +290,10 @@ public class Reporter {
 			this.parkedCars1--;
 		} else if (type == 2) {
 			this.parkedCars2--;
-		} else {
+		} else if (type == 3) {
 			this.parkedCars3--;
+		} else {
+			this.parkedCars4--;
 		}
 	}
 	
