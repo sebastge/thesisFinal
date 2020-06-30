@@ -53,7 +53,7 @@ import utils.Kruskal.EDGE;
  * @author andrfo
  *
  */
-public class CitySimBuilder implements ContextBuilder<Object> {
+public class casEVBuilder implements ContextBuilder<Object> {
 
 	int width;
 	int height;
