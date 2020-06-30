@@ -2,7 +2,7 @@ package CasEV.physical.electric;
 
 import java.util.List;
 
-import CasEV.agent.Person;
+import CasEV.agent.Prosumer;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;

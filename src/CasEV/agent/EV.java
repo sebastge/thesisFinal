@@ -19,6 +19,9 @@ public class EV extends Car{
 	private static final double chargeMax = 10d;
 	private static final double distanceMax = 60d;
 	
+	private static final double distanceChargeRatio = 5d;
+	private static final double chargeMultiplier = 3d;
+	
 	public EV(ContinuousSpace<Object> space, Grid<Object> grid, int occupantLimit, List<Road> parkingNexi, Spawner spawner) {
 		super(space, grid, occupantLimit, parkingNexi, spawner);
 		setChargeAndDistance(this.type);
@@ -27,6 +30,9 @@ public class EV extends Car{
 	public void updateCharge(Double load) {
 		this.charge += load;
 	}
+	
+	
+	//Set based on type and random variable to acvcount for differences in distance and charge
 	
 	protected void setChargeAndDistance(int type) {
 		this.charge = ((this.type+1)*ThreadLocalRandom.current().nextDouble(0, chargeMax));
@@ -37,12 +43,13 @@ public class EV extends Car{
 	public Double getChargeAvailableForV2G() {
 		
 
-		if (this.distanceFromCentre/this.charge > 3d) {
+		if (this.distanceFromCentre/this.charge > distanceChargeRatio) {
+			return ((this.distanceFromCentre/this.charge)*chargeMultiplier);
+		} else if (this.distanceFromCentre/this.charge < distanceChargeRatio) {
 
-			return ((this.distanceFromCentre/this.charge)*3);
+			return (-(this.distanceFromCentre/this.charge)*chargeMultiplier);
 		} else {
-
-			return (-(this.distanceFromCentre/this.charge)*3);
+			return 0d;
 		}
 	}
 

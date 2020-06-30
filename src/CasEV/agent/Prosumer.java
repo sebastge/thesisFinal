@@ -1,5 +1,7 @@
 package CasEV.agent;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import CasEV.Spawner;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.roads.BusStop;
@@ -12,7 +14,7 @@ import repast.simphony.space.grid.Grid;
  * @author andrfo
  *
  */
-public class Person extends Agent{
+public class Prosumer extends Agent{
 
 	public Aggregator workPlace;
 	private Aggregator shop;
@@ -21,14 +23,22 @@ public class Person extends Agent{
 	private int parkedTimer = 0;
 	private Double travelTime = 0d;
 	
+	private Double experiment2ProsumerConfidence = 1.0d;
+	
+	private Double experiment2Mulitplier = 1.0d;
+	
+	private Double prosumerMinPriceLevel;
+	
 	private BusStop nearestBusStop;
 	
-	public Person(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
+	public Prosumer(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
 		super(space, grid);
 		this.space = space;
 		this.grid = grid;
 		this.workPlace = null;
 		this.spawner = spawner;
+		//randomized to account for unknowns
+		this.prosumerMinPriceLevel = ThreadLocalRandom.current().nextDouble(35, 50);
 
 	}
 	
@@ -142,17 +152,23 @@ public class Person extends Agent{
 		if(workPlace != null && v instanceof EV) {
 				workPlace.connectProsumer(this, (EV) v, determineParkingWorth((EV) v, workPlace));
 		} else if (workPlace != null && v instanceof Car) {
-
 			workPlace.connectProsumer(this, (Car) v, true);
 		}
 	}
 	
 	public boolean determineParkingWorth(Vehicle v, Aggregator workPlace) {
 		
+
+		double priceLevel = (Math.abs(spawner.getMarket().getPriceLevel()) * this.experiment2Mulitplier);
 		
-		double priceLevel = Math.abs(spawner.getMarket().getPriceLevel());
-	
-		if (((EV)v).charge > 7 && priceLevel < 50d) {
+		System.out.println("Price level: " + priceLevel);
+//		if (((EV)v).charge > this.experiment2ProsumerConfidence && priceLevel > this.prosumerMinPriceLevel) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		if (priceLevel > this.prosumerMinPriceLevel) {
 			return true;
 		} else {
 			return false;

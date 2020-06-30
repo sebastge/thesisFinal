@@ -139,33 +139,20 @@ public class Reporter {
 		return parkedCars;
 	}
 	public int getCarsParked0() {
-		if (this.parkedCars0 < 0) {
-			return 0;
-		}
+
 		return parkedCars0;
 	}
 	public int getCarsParked1() {
-		if (this.parkedCars1 < 0) {
-			return 0;
-		}
+
 		return parkedCars1;
 	}
 	public int getCarsParked2() {
-		
-		if (this.parkedCars2 < 0) {
-			return 0;
-		}
+
 		return parkedCars2;
 	}
 	public int getCarsParked3() {
-		
-	if (this.parkedCars3 < 0) {
-		return 0;
-	}
 
-	return parkedCars3;
-	
-
+		return parkedCars3;
 		
 	}
 	public int getCarsParked4() {
@@ -305,26 +292,26 @@ public class Reporter {
 		this.parkedCars ++;
 
 		if (type == 0) {
-			this.parkedCars0 += ThreadLocalRandom.current().nextInt(2, 3);;
+			this.parkedCars0 ++;
 			if (this.biggestParkedCars0 < this.parkedCars0) {
 				this.biggestParkedCars0 = this.parkedCars0;
 				//System.out.println("new biggestcar0: " + this.biggestParkedCars0);
 			}
 		} else if (type == 1) {
-			this.parkedCars1 += ThreadLocalRandom.current().nextInt(2, 6);
+			this.parkedCars1 ++;
 			if (this.biggestParkedCars1 < this.parkedCars1) {
 				this.biggestParkedCars1 = this.parkedCars1;
 				//System.out.println("new biggestcar1: " + this.biggestParkedCars1);
 			}
 		} else if (type == 2) {
-			this.parkedCars2 += ThreadLocalRandom.current().nextInt(2, 5);
+			this.parkedCars2 ++;
 			if (this.biggestParkedCars2 < this.parkedCars2) {
 				this.biggestParkedCars2 = this.parkedCars2;
 				//System.out.println("new biggestcar2: " + this.biggestParkedCars2);
 			}
 		} else if (type == 3) {
 			
-			this.parkedCars3 += ThreadLocalRandom.current().nextInt(2, 4);
+			this.parkedCars3 ++;
 			if (this.biggestParkedCars3 < this.parkedCars3) {
 				this.biggestParkedCars3 = this.parkedCars3;
 				//System.out.println("new biggestcar3: " + this.biggestParkedCars3);
@@ -352,13 +339,13 @@ public class Reporter {
 		this.parkedCars--;
 		
 		if (type == 0) {
-			this.parkedCars0 -= ThreadLocalRandom.current().nextInt(2, 3);
+			this.parkedCars0 --;
 		} else if (type == 1) {
-			this.parkedCars1 -= ThreadLocalRandom.current().nextInt(2, 6);
+			this.parkedCars1 --;
 		} else if (type == 2) {
-			this.parkedCars2 -= ThreadLocalRandom.current().nextInt(2, 5);
+			this.parkedCars2 --;
 		} else if (type == 3) {
-			this.parkedCars3 -= ThreadLocalRandom.current().nextInt(2, 4);
+			this.parkedCars3 --;
 		} else {
 			this.parkedCars++;
 			this.parkedCars4--;

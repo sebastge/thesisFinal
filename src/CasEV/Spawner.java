@@ -8,7 +8,7 @@ import java.util.Random;
 import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Bus;
-import CasEV.agent.Person;
+import CasEV.agent.Prosumer;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.electric.ElectricEntity;
 import CasEV.physical.electric.RegionalGridNode;
@@ -51,10 +51,10 @@ public class Spawner {
 	//private static final int[] NIGHT = {0, 8640};
 	
 	//Time of day translation from ticks and schedule
-	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
-	private static final int[] MORNING = {2160, 4320}; 			//06:00 - 12:00
-	private static final int[] AFTERNOON = {4320, 6480}; 		//12:00 - 18:00
-	private static final int[] EVENING = {6480, 8640}; 			//18:00 - 00:00
+	private static final int[] NIGHT = {0, 1080}; 				//00:00 - 06:00
+	private static final int[] MORNING = {1080, 2160}; 			//06:00 - 12:00
+	private static final int[] AFTERNOON = {2160, 3240}; 		//12:00 - 18:00
+	private static final int[] EVENING = {3240, 4320}; 			//18:00 - 00:00
 	
 	private static final int[] MORNING_RUSH = {0, 3060}; 	//07:00 - 08:30
 	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
@@ -62,7 +62,7 @@ public class Spawner {
 	private static final int[] BUS =  {2160, 7920};
 	
 	private static final int[] TEST1 = {0, 2160};
-	private static final int[] TEST2 = {6480, 8640};
+
 	
 
 	
@@ -89,13 +89,13 @@ public class Spawner {
 	private int personsPerCar;
 
 	
-	private List<Person> population;
+	private List<Prosumer> population;
 	
 	private static final int DAYS_TO_RUN = 7;
 	
 	private double frequency; //Spawns per tick
-	private ArrayList<Person> idleWorkers;
-	private ArrayList<Person> idleShoppers;
+	private ArrayList<Prosumer> idleWorkers;
+	private ArrayList<Prosumer> idleShoppers;
 	private Reporter reporter;
 	private Market market;
 	
@@ -155,9 +155,9 @@ public class Spawner {
 		loadDistribution[2] = params.getDouble("load_on_entry_3");
 		loadDistribution[3] = params.getDouble("load_on_entry_4");
 		
-		this.population = new ArrayList<Person>(populationStartCount);
-		this.idleWorkers = new ArrayList<Person>();
-		this.idleShoppers = new ArrayList<Person>();
+		this.population = new ArrayList<Prosumer>(populationStartCount);
+		this.idleWorkers = new ArrayList<Prosumer>();
+		this.idleShoppers = new ArrayList<Prosumer>();
 		generatePopulation();
 		
 		//Create a cumulative probabilities list
@@ -200,8 +200,9 @@ public class Spawner {
 	 * Generates the population and splits it into workers and shoppers
 	 */
 	private void generatePopulation() {
+		System.out.println("Generatepop called: " + populationStartCount);
 		for(int i = 0; i < populationStartCount; i++) {
-			Person p = new Person(space, grid, this);
+			Prosumer p = new Prosumer(space, grid, this);
 			System.out.println("Person added: " + p);
 			
 			//In case of experiment 1. Spawn agents with goals at both parts of town at 50/50 ratio. TODO: add to official parameters
@@ -267,43 +268,45 @@ public class Spawner {
 		}
 		if(isInInterval(time, NIGHT)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
-			Double workers = ((double) idleWorkers.size())*0.50d*(1d/540d);
+			Double workers = ((double) idleWorkers.size())*0.2d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
 				spawnCount++;
 			}
-			spawnAgent(true, 1);
-		}else if(isInInterval(time, MORNING)) { //Spawn worker
+			spawnAgent(true, spawnCount);
+		} else if(isInInterval(time, MORNING)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
-			Double workers = ((double) idleWorkers.size())*0.25d*(1d/540d);
+			Double workers = ((double) idleWorkers.size())*0.4d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
 				spawnCount++;
 			}
-			spawnAgent(true, 4);
+			spawnAgent(true, spawnCount);
+
 		} else if(isInInterval(time, AFTERNOON)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
-			Double workers = ((double) idleWorkers.size())*0.0d*(1d/540d);
+			Double workers = ((double) idleWorkers.size())*0.2d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
 				spawnCount++;
 			}
-			spawnAgent(true, 3);
+			spawnAgent(true, spawnCount);
+
 		} else if(isInInterval(time, EVENING)) { //Spawn worker
 			//98% of the workers are going to work over an hour and a half(2% are sick)
-			Double workers = ((double) idleWorkers.size())*0.25d*(1d/540d);
+			Double workers = ((double) idleWorkers.size())*0.2d*(1d/540d);
 			BigDecimal[] valRem = BigDecimal.valueOf(workers).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
 				spawnCount++;
 			}
-			spawnAgent(true, 1);
-		}
-		
-		else if(isInInterval(time, TEST2)) { //Spawn shopper
+			spawnAgent(true, spawnCount);
+
+		} 
+		else {
 			BigDecimal[] valRem = BigDecimal.valueOf(frequency).divideAndRemainder(BigDecimal.ONE);
 			spawnCount = valRem[0].intValue();
 			if(Tools.isTrigger(valRem[1].doubleValue())) { //Uses the remainder as a probability for an extra spawn
@@ -311,6 +314,7 @@ public class Spawner {
 			}
 			spawnAgent(false, spawnCount);
 		}
+		
 	}
 
 
@@ -328,7 +332,7 @@ public class Spawner {
 				if(idleWorkers.size() == 0) {
 					return;
 				}
-				Person p = idleWorkers.remove(0);
+				Prosumer p = idleWorkers.remove(0);
 				
 				//Start and goal
 				Spawn start = getSpawnPoint();
@@ -381,7 +385,7 @@ public class Spawner {
 
 				//Start and goal
 				Spawn start = getSpawnPoint();
-				Person p = idleShoppers.remove(0);
+				Prosumer p = idleShoppers.remove(0);
 				
 				//Random shopping place each trip
 				p.setShoppingPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
@@ -509,7 +513,7 @@ public class Spawner {
 	 * Returns a shopper to the pool of shopper
 	 * @param p, Person
 	 */
-	public void returnShopper(Person p) {
+	public void returnShopper(Prosumer p) {
 		idleShoppers.add(p);
 	}
 	
@@ -517,7 +521,7 @@ public class Spawner {
 	 * Returns are worker to the pool of workers
 	 * @param p, Person
 	 */
-	public void returnWorker(Person p) {
+	public void returnWorker(Prosumer p) {
 		idleWorkers.add(p);
 	}
 }

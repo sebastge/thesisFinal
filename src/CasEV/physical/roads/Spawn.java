@@ -8,7 +8,7 @@ import CasEV.agent.Agent;
 import CasEV.agent.Bus;
 import CasEV.agent.Car;
 import CasEV.agent.EV;
-import CasEV.agent.Person;
+import CasEV.agent.Prosumer;
 import CasEV.agent.Vehicle;
 import repast.simphony.query.space.grid.GridCell;
 import repast.simphony.context.Context;
@@ -31,7 +31,7 @@ import utils.Tools;
 public class Spawn extends Road {
 	
 	private List<Vehicle> vehicleQueue;
-	private List<Person> busQueue;
+	private List<Prosumer> busQueue;
 	
 	private Despawn despawn;
 	private ContinuousSpace<Object> space;
@@ -46,7 +46,7 @@ public class Spawn extends Road {
 		this.grid = grid;
 		this.context = context;
 		vehicleQueue = new ArrayList<Vehicle>();
-		busQueue = new ArrayList<Person>();
+		busQueue = new ArrayList<Prosumer>();
 		despawn = null;
 		net = (Network<Object>)context.getProjection("road network");
 	}
@@ -63,7 +63,7 @@ public class Spawn extends Road {
 	 * Ads a person to the list of persons waiting for a bus
 	 * @param p, Person
 	 */
-	public void addToBusQueue(Person p) {
+	public void addToBusQueue(Prosumer p) {
 		System.out.println(p.workPlace);
 		System.out.println("person added to bus queu");
 		this.busQueue.add(p);

@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import CasEV.Spawner;
 import CasEV.agent.Car;
 import CasEV.agent.EV;
-import CasEV.agent.Person;
+import CasEV.agent.Prosumer;
 import CasEV.agent.Vehicle;
 import CasEV.physical.roads.BusStop;
 import CasEV.physical.roads.ParkingSpace;
@@ -29,7 +29,7 @@ public class Aggregator extends ElectricEntity{
 	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
 	
 	private Double loadPrice;
-	private List<Person> occupants;
+	private List<Prosumer> occupants;
 	private List<EV> occupantEVs;
 	private List<Car> occupantCars;
 	private List<ParkingSpace> parkingSpaces;
@@ -81,7 +81,7 @@ public class Aggregator extends ElectricEntity{
 		super(space, grid);
 		this.totalLoad = 10d;
 		this.parent = null;
-		this.occupants = new ArrayList<Person>();
+		this.occupants = new ArrayList<Prosumer>();
 		this.occupantEVs = new ArrayList<EV>();
 		this.grid = grid;
 		this.space = space;
@@ -118,13 +118,14 @@ public class Aggregator extends ElectricEntity{
 	}
 
 	
-	public void connectProsumer(Person p, Vehicle v, Boolean parkingDecision) {
+	public void connectProsumer(Prosumer p, Vehicle v, Boolean parkingDecision) {
+		v.buildingParkedIn = this;
 	
 		for (ParkingSpace ps: this.parkingSpaces) {
 			if (!ps.isReserved()) {
 				ps.reserve();
 				v.isParkedInBuilding = true;
-				v.buildingParkedIn = this;
+				
 				v.spaceParkedIn = ps;
 				break;
 			} else {
@@ -135,7 +136,7 @@ public class Aggregator extends ElectricEntity{
 		occupants.add(p);
 		
 		
-		if (v instanceof EV) {
+		if (v instanceof EV && parkingDecision) {
 
 			if (this.parent.parent.getV2GCharging() == 1) {
 				
@@ -145,8 +146,12 @@ public class Aggregator extends ElectricEntity{
 				//System.out.println("Avaialble v2g from vehicle: " + occupantCharge);
 				double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
 				//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
-				((EV) v).borrowedCharge = occupantBorrowedCharge;
-				if (Math.abs(occupantBorrowedCharge) < this.borrowMax) {
+				
+				if(Math.abs(occupantBorrowedCharge) < borrowMax) {
+					
+					((EV) v).borrowedCharge = occupantBorrowedCharge;
+					
+					
 					
 					if (((EV) v).borrowedCharge < 0) {
 						//update(-((EV) v).borrowedCharge);
@@ -163,8 +168,11 @@ public class Aggregator extends ElectricEntity{
 						
 					}
 					((EV) v).charge -= occupantBorrowedCharge;
+						
 					
 				}
+
+				
 				
 			}
 			this.occupantEVs.add(((EV) v));
@@ -174,9 +182,8 @@ public class Aggregator extends ElectricEntity{
 
 	}
 	
-	public void removeOccupants(Person p, Vehicle v) {
+	public void removeOccupants(Prosumer p, Vehicle v) {
 		
-		//update(ThreadLocalRandom.current().nextDouble(1, 3));
 		
 		if (v.buildingParkedIn == this) {
 			v.isParkedInBuilding = false;
@@ -196,13 +203,10 @@ public class Aggregator extends ElectricEntity{
 			
 			
 			
-			
-			
 			if (v instanceof EV) {
-				
 				if (this.parent.parent.getV2GCharging() == 1) {
 					((EV) v).charge += ((EV) v).borrowedCharge;
-					if (Math.abs(((EV) v).borrowedCharge) < 10) {
+
 						if (((EV) v).borrowedCharge < 0) {
 							//update(((EV) v).borrowedCharge);
 							update(((EV) v).borrowedCharge);
@@ -217,26 +221,11 @@ public class Aggregator extends ElectricEntity{
 							spawner.getReporter().removeParkedCar(v.type);
 						}
 						spawner.getMarket().removeV2GLoadAvailable(((EV) v).borrowedCharge);
-					}
-					
-
-				
-
 				}
 				
 				this.occupantEVs.remove(((EV) v));
-
-				
-				
-
 			}
 		}
-//		
-//		if (v instanceof EV) {
-//			update(ThreadLocalRandom.current().nextDouble(1, 3)*((EV) v).charge);
-//		} else {
-//			update(ThreadLocalRandom.current().nextDouble(1, 3));
-//		}
 		
 	}
 

@@ -35,7 +35,7 @@ import utils.Tools;
 public class Vehicle extends Agent{
 
 	private int occupantLimit = 5;
-	protected List<Person> occupants;
+	protected List<Prosumer> occupants;
 	
 	private ContinuousSpace<Object> space;
 	private Grid<Object> grid;
@@ -98,6 +98,7 @@ public class Vehicle extends Agent{
 	protected int scanWait = 0;
 	protected int calcWait = 0;
 	protected int scWaitTime = 1;
+	public int v2g;
 	
 	private HashSet<Road> open;
 	protected HashSet<Road> closed;
@@ -123,8 +124,9 @@ public class Vehicle extends Agent{
 		this.blockingCar = null;
 		this.deadlockTimer = deadlockTime;
 		this.moved = true;
+		this.v2g = 0;
 		if (this instanceof EV) {
-//			double d = Math.random();
+			double d = Math.random();
 //			if (d < 0.25) {
 //				this.type = 0;
 //			} else if (d < 0.50) {
@@ -138,7 +140,7 @@ public class Vehicle extends Agent{
 		} else {
 			this.type = 4;
 		}
-		this.occupants = new ArrayList<Person>(occupantLimit);
+		this.occupants = new ArrayList<Prosumer>(occupantLimit);
 		this.spawner = spawner;
 		//this.charge = ThreadLocalRandom.current().nextDouble(0, 10);
 		
@@ -315,9 +317,9 @@ public class Vehicle extends Agent{
 				stop();
 				space.moveTo(this, space.getLocation(goal).getX(), space.getLocation(goal).getY());
 				grid.moveTo(this, pt.getX(), pt.getY());
-				for(Person p : occupants) {
+				for(Prosumer p : occupants) {
 					p.setReachedGoal(this, false);
-					p.setParked(100);
+					p.setParked(500);
 					
 					this.parked = true;
 				}
@@ -331,9 +333,10 @@ public class Vehicle extends Agent{
 			//Reached the exit of the model. Updates the measurements and destroys the vehicle
 			else if (goal instanceof Despawn) {
 				
-				for(Person p : occupants) {
+				for(Prosumer p : occupants) {
 					p.setReachedGoal(this, true);
 				}
+				
 				die("");
 				
 				return true;
@@ -342,7 +345,7 @@ public class Vehicle extends Agent{
 				stop();
 				space.moveTo(this, space.getLocation(goal).getX(), space.getLocation(goal).getY());
 				grid.moveTo(this, pt.getX(), pt.getY());
-				for(Person p : occupants) {
+				for(Prosumer p : occupants) {
 					if(p.getNearestBusStop() == goal) {
 						p.setReachedGoal(this, false);						
 					}
@@ -454,7 +457,7 @@ public class Vehicle extends Agent{
 	private void gatherOccupants() {
 		@SuppressWarnings("unchecked")
 		Context<Object> context = ContextUtils.getContext(this);
-		for(Person p : occupants) {
+		for(Prosumer p : occupants) {
 			if(p.isWantToLeave(this, false)) {
 				context.remove(p);				
 			}
@@ -519,7 +522,7 @@ public class Vehicle extends Agent{
 			}
 			//Iterates through the nearby agents
 			for(Agent a : cell.items()) {
-				if(a instanceof Person) {//Run over people, for now
+				if(a instanceof Prosumer) {//Run over people, for now
 					continue;
 				}
 				Vehicle c = (Vehicle)a;
@@ -867,11 +870,11 @@ public class Vehicle extends Agent{
 		this.net = net;
 	}
 	
-	public boolean removeOccupant(Person p) {
+	public boolean removeOccupant(Prosumer p) {
 		return occupants.remove(p);
 	}
 
-	public boolean addOccupant(Person p) {
+	public boolean addOccupant(Prosumer p) {
 		if(occupants.size() < occupantLimit) {
 			this.occupants.add(p);
 			return true;
