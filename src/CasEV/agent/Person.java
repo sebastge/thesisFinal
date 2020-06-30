@@ -1,8 +1,8 @@
 package CasEV.agent;
 
-import CasEV.environment.Spawner;
-import CasEV.environment.electric.Aggregator;
-import CasEV.environment.roads.BusStop;
+import CasEV.physical.Spawner;
+import CasEV.physical.electric.Aggregator;
+import CasEV.physical.roads.BusStop;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;

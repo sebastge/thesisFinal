@@ -3,9 +3,9 @@ package CasEV;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import CasEV.environment.Spawner;
-import CasEV.environment.electric.Aggregator;
-import CasEV.environment.electric.RegionalGridNode;
+import CasEV.physical.Spawner;
+import CasEV.physical.electric.Aggregator;
+import CasEV.physical.electric.RegionalGridNode;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 

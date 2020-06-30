@@ -1,4 +1,4 @@
-package CasEV.environment;
+package CasEV.physical;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,12 +11,12 @@ import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Bus;
 import CasEV.agent.Person;
-import CasEV.environment.electric.Aggregator;
-import CasEV.environment.electric.ElectricEntity;
-import CasEV.environment.electric.RegionalGridNode;
-import CasEV.environment.roads.BusStop;
-import CasEV.environment.roads.Road;
-import CasEV.environment.roads.Spawn;
+import CasEV.physical.electric.Aggregator;
+import CasEV.physical.electric.ElectricEntity;
+import CasEV.physical.electric.RegionalGridNode;
+import CasEV.physical.roads.BusStop;
+import CasEV.physical.roads.Road;
+import CasEV.physical.roads.Spawn;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;

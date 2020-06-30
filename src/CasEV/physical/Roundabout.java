@@ -1,10 +1,10 @@
-package CasEV.environment;
+package CasEV.physical;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import CasEV.agent.Vehicle;
-import CasEV.environment.roads.Road;
+import CasEV.physical.roads.Road;
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.query.space.grid.GridCell;

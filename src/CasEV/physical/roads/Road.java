@@ -1,11 +1,11 @@
-package CasEV.environment.roads;
+package CasEV.physical.roads;
 
 import java.util.List;
 
 import CasEV.agent.Vehicle;
-import CasEV.environment.Entity;
-import CasEV.environment.Junction;
-import CasEV.environment.Roundabout;
+import CasEV.physical.Entity;
+import CasEV.physical.Junction;
+import CasEV.physical.Roundabout;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.engine.schedule.ScheduleParameters;

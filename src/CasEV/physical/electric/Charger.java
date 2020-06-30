@@ -1,4 +1,4 @@
-package CasEV.environment.electric;
+package CasEV.physical.electric;
 
 import java.util.List;
 

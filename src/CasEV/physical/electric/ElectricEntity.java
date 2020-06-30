@@ -1,7 +1,7 @@
-package CasEV.environment.electric;
+package CasEV.physical.electric;
 
 
-import CasEV.environment.Entity;
+import CasEV.physical.Entity;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;

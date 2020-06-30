@@ -15,17 +15,17 @@ import javax.media.protocol.SourceTransferHandler;
 
 import CasEV.agent.Bus;
 import CasEV.agent.Vehicle;
-import CasEV.environment.*;
-import CasEV.environment.electric.*;
-import CasEV.environment.roads.BusStop;
-import CasEV.environment.roads.Despawn;
-import CasEV.environment.roads.NorthEastRoad;
-import CasEV.environment.roads.ParkingSpace;
-import CasEV.environment.roads.Road;
-import CasEV.environment.roads.RoundaboutRoad;
-import CasEV.environment.roads.SideWalk;
-import CasEV.environment.roads.SouthWestRoad;
-import CasEV.environment.roads.Spawn;
+import CasEV.physical.*;
+import CasEV.physical.electric.*;
+import CasEV.physical.roads.BusStop;
+import CasEV.physical.roads.Despawn;
+import CasEV.physical.roads.NorthEastRoad;
+import CasEV.physical.roads.ParkingSpace;
+import CasEV.physical.roads.Road;
+import CasEV.physical.roads.RoundaboutRoad;
+import CasEV.physical.roads.SideWalk;
+import CasEV.physical.roads.SouthWestRoad;
+import CasEV.physical.roads.Spawn;
 import utils.Tools;
 import utils.Vector2D;
 import repast.simphony.context.Context;
@@ -118,7 +118,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			height = cityImg.getHeight();
 			
 			
-			context.setId("CitySim");
+			context.setId("casEV");
 
 			//Setting up the networks
 			NetworkBuilder<Object> roadNetBuilder = new NetworkBuilder<Object>("road network", context, true);

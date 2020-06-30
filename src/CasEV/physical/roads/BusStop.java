@@ -1,11 +1,11 @@
-package CasEV.environment.roads;
+package CasEV.physical.roads;
 
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
-public class Despawn extends Road{
+public class BusStop extends Road{
 
-	public Despawn(ContinuousSpace<Object> space, Grid<Object> grid) {
+	public BusStop(ContinuousSpace<Object> space, Grid<Object> grid) {
 		super(space, grid);
 		// TODO Auto-generated constructor stub
 	}

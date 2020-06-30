@@ -2,8 +2,8 @@ package CasEV.agent;
 
 import java.util.List;
 
-import CasEV.environment.Spawner;
-import CasEV.environment.roads.Road;
+import CasEV.physical.Spawner;
+import CasEV.physical.roads.Road;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;

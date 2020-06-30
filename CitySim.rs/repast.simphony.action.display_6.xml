@@ -3,7 +3,7 @@
   <type>2D</type>
   <styles>
     <entry>
-      <string>CasEV.environment.electric.Charger</string>
+      <string>CasEV.physical.electric.Charger</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
@@ -11,11 +11,11 @@
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.RoundaboutRoad</string>
+      <string>CasEV.physical.roads.RoundaboutRoad</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SideWalk</string>
+      <string>CasEV.physical.roads.SideWalk</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
@@ -23,15 +23,15 @@
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SouthWestRoad</string>
+      <string>CasEV.physical.roads.SouthWestRoad</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Substation</string>
+      <string>CasEV.physical.electric.Substation</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Spawn</string>
+      <string>CasEV.physical.roads.Spawn</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
@@ -39,98 +39,98 @@
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.ParkingSpace</string>
+      <string>CasEV.physical.roads.ParkingSpace</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.RegionalGridNode</string>
+      <string>CasEV.physical.electric.RegionalGridNode</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.NorthEastRoad</string>
+      <string>CasEV.physical.roads.NorthEastRoad</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.BusStop</string>
+      <string>CasEV.physical.roads.BusStop</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Despawn</string>
+      <string>CasEV.physical.roads.Despawn</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.InformationLabel</string>
+      <string>CasEV.physical.InformationLabel</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Aggregator</string>
+      <string>CasEV.physical.electric.Aggregator</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
-      <string>CasEV.environment.electric.Charger</string>
-      <string>CasEV.environment.electric.Charger.style_2.xml</string>
+      <string>CasEV.physical.electric.Charger</string>
+      <string>CasEV.physical.electric.Charger.style_2.xml</string>
     </entry>
     <entry>
       <string>CasEV.agent.Person</string>
       <string>CasEV.agent.Person.style_5.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.RoundaboutRoad</string>
-      <string>CasEV.environment.roads.RoundaboutRoad.style_2.xml</string>
+      <string>CasEV.physical.roads.RoundaboutRoad</string>
+      <string>CasEV.physical.roads.RoundaboutRoad.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SideWalk</string>
-      <string>CasEV.environment.roads.SideWalk.style_2.xml</string>
+      <string>CasEV.physical.roads.SideWalk</string>
+      <string>CasEV.physical.roads.SideWalk.style_2.xml</string>
     </entry>
     <entry>
       <string>CasEV.agent.Bus</string>
       <string>CasEV.agent.Bus.style_5.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SouthWestRoad</string>
-      <string>CasEV.environment.roads.SouthWestRoad.style_2.xml</string>
+      <string>CasEV.physical.roads.SouthWestRoad</string>
+      <string>CasEV.physical.roads.SouthWestRoad.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Substation</string>
-      <string>CasEV.environment.electric.Substation.style_2.xml</string>
+      <string>CasEV.physical.electric.Substation</string>
+      <string>CasEV.physical.electric.Substation.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Spawn</string>
-      <string>CasEV.environment.roads.Spawn.style_2.xml</string>
+      <string>CasEV.physical.roads.Spawn</string>
+      <string>CasEV.physical.roads.Spawn.style_2.xml</string>
     </entry>
     <entry>
       <string>CasEV.agent.Car</string>
       <string>CasEV.agent.Car.style_11.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.ParkingSpace</string>
-      <string>CasEV.environment.roads.ParkingSpace.style_3.xml</string>
+      <string>CasEV.physical.roads.ParkingSpace</string>
+      <string>CasEV.physical.roads.ParkingSpace.style_3.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.RegionalGridNode</string>
-      <string>CasEV.environment.electric.RegionalGridNode.style_4.xml</string>
+      <string>CasEV.physical.electric.RegionalGridNode</string>
+      <string>CasEV.physical.electric.RegionalGridNode.style_4.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.NorthEastRoad</string>
-      <string>CasEV.environment.roads.NorthEastRoad.style_2.xml</string>
+      <string>CasEV.physical.roads.NorthEastRoad</string>
+      <string>CasEV.physical.roads.NorthEastRoad.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.BusStop</string>
-      <string>CasEV.environment.roads.BusStop.style_2.xml</string>
+      <string>CasEV.physical.roads.BusStop</string>
+      <string>CasEV.physical.roads.BusStop.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Despawn</string>
-      <string>CasEV.environment.roads.Despawn.style_2.xml</string>
+      <string>CasEV.physical.roads.Despawn</string>
+      <string>CasEV.physical.roads.Despawn.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.InformationLabel</string>
-      <string>CasEV.environment.InformationLabel.style_6.xml</string>
+      <string>CasEV.physical.InformationLabel</string>
+      <string>CasEV.physical.InformationLabel.style_6.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Aggregator</string>
-      <string>CasEV.environment.electric.Building.style_2.xml</string>
+      <string>CasEV.physical.electric.Aggregator</string>
+      <string>CasEV.physical.electric.Building.style_2.xml</string>
     </entry>
   </editedStyles>
   <netStyles>
@@ -176,7 +176,7 @@
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>CasEV.environment.electric.Charger</string>
+      <string>CasEV.physical.electric.Charger</string>
       <int>13</int>
     </entry>
     <entry>
@@ -184,11 +184,11 @@
       <int>6</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.RoundaboutRoad</string>
+      <string>CasEV.physical.roads.RoundaboutRoad</string>
       <int>4</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SideWalk</string>
+      <string>CasEV.physical.roads.SideWalk</string>
       <int>3</int>
     </entry>
     <entry>
@@ -196,15 +196,15 @@
       <int>14</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.SouthWestRoad</string>
+      <string>CasEV.physical.roads.SouthWestRoad</string>
       <int>0</int>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Substation</string>
+      <string>CasEV.physical.electric.Substation</string>
       <int>1</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Spawn</string>
+      <string>CasEV.physical.roads.Spawn</string>
       <int>2</int>
     </entry>
     <entry>
@@ -212,31 +212,31 @@
       <int>15</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.ParkingSpace</string>
+      <string>CasEV.physical.roads.ParkingSpace</string>
       <int>7</int>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.RegionalGridNode</string>
+      <string>CasEV.physical.electric.RegionalGridNode</string>
       <int>5</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.NorthEastRoad</string>
+      <string>CasEV.physical.roads.NorthEastRoad</string>
       <int>8</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.BusStop</string>
+      <string>CasEV.physical.roads.BusStop</string>
       <int>12</int>
     </entry>
     <entry>
-      <string>CasEV.environment.roads.Despawn</string>
+      <string>CasEV.physical.roads.Despawn</string>
       <int>10</int>
     </entry>
     <entry>
-      <string>CasEV.environment.InformationLabel</string>
+      <string>CasEV.physical.InformationLabel</string>
       <int>9</int>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Aggregator</string>
+      <string>CasEV.physical.electric.Aggregator</string>
       <int>11</int>
     </entry>
   </layerOrder>

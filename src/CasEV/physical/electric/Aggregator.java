@@ -1,4 +1,4 @@
-package CasEV.environment.electric;
+package CasEV.physical.electric;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Person;
 import CasEV.agent.Vehicle;
-import CasEV.environment.Spawner;
-import CasEV.environment.roads.ParkingSpace;
+import CasEV.physical.Spawner;
+import CasEV.physical.roads.BusStop;
+import CasEV.physical.roads.ParkingSpace;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import utils.Tools;
-import CasEV.environment.roads.BusStop;
 
 public class Aggregator extends ElectricEntity{
 	

@@ -1,6 +1,6 @@
-package CasEV.environment.electric;
+package CasEV.physical.electric;
 
-import CasEV.environment.Spawner;
+import CasEV.physical.Spawner;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import CasEV.agent.Vehicle;
-import CasEV.environment.electric.Substation;
-import CasEV.environment.roads.Road;
+import CasEV.physical.electric.Substation;
+import CasEV.physical.roads.Road;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.graph.Network;

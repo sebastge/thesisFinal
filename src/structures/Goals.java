@@ -3,7 +3,7 @@ package structures;
 import java.util.ArrayList;
 import java.util.List;
 
-import CasEV.environment.Entity;
+import CasEV.physical.Entity;
 
 public class Goals {
 	

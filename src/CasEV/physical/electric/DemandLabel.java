@@ -1,4 +1,4 @@
-package CasEV.environment.electric;
+package CasEV.physical.electric;
 
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.graph.Network;
