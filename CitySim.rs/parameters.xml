@@ -19,7 +19,7 @@
 
 		/>
 				<parameter name="population_start_count" displayName="AB Population start count" type="int"
-						defaultValue="100"
+						defaultValue="500"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 
