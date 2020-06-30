@@ -182,7 +182,7 @@ public class Aggregator extends ElectricEntity{
 
 	}
 	
-	public void removeOccupants(Prosumer p, Vehicle v) {
+	public void disconnectProsumer(Prosumer p, Vehicle v) {
 		
 		
 		if (v.buildingParkedIn == this) {

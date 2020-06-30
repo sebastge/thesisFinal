@@ -488,6 +488,8 @@ public class Spawner {
 		else if(isInInterval(time, EVENING)) {
 			frequency += eveningFrequency;
 		}
+
+		
 		
 	}
 	

@@ -26,11 +26,12 @@ public class Prosumer extends Agent{
 	private Double travelTime = 0d;
 	Parameters params = RunEnvironment.getInstance().getParameters();
 
+
 	
 	private Double experiment2ProsumerConfidence = 1.0d;
+
 	
 	private Double experiment2Mulitplier = params.getDouble("price_multiplication");
-
 	
 	private Double prosumerMinPriceLevel;
 	
@@ -45,6 +46,8 @@ public class Prosumer extends Agent{
 		this.spawner = spawner;
 		//randomized to account for unknowns
 		this.prosumerMinPriceLevel = ThreadLocalRandom.current().nextDouble(35, 50);
+		Parameters params = RunEnvironment.getInstance().getParameters();
+
 
 	}
 	
@@ -80,7 +83,7 @@ public class Prosumer extends Agent{
 			return true;
 			
 		} else {
-			workPlace.removeOccupants(this, v);
+			workPlace.disconnectProsumer(this, v);
 			//spawner.getReporter().removeParkedCar(v.type);
 			return true;	
 		}

@@ -75,7 +75,9 @@ public class RegionalGridNode extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-
+		
+		setTotalLoadForReporter();	
+		setLoadPriceForReporter();
 		setLoad(this.totalLoad);
 		
 		//System.out.println(this + " v2g: " + this.v2gCharging );
@@ -282,6 +284,14 @@ public class RegionalGridNode extends ElectricEntity{
 			//setLoad2(1d);
 		}
 		
+	}
+	
+	public void setWeatherProfileForReporter() {	
+		spawner.getReporter().setWeatherProfile(ThreadLocalRandom.current().nextInt(1, 4 + 1));	
+	}	
+
+	public void setLoadPriceForReporter() {	
+		spawner.getReporter().setElPrice(this.loadPrice);	
 	}
 	
 	
