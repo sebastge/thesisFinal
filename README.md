@@ -1,4 +1,4 @@
-# caseEV
+# casEV
 
 To run casEV you will need Repast Simphony and Java installed locally. Installation instruction can be found at: https://repast.github.io/
 
