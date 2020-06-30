@@ -83,7 +83,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 1;
+	private static final int EXPERIMENT = 2;
 	private static final int CENTRE_CHARGING = 1;
 	private static final int OUTSIDE_CHARGING = 1;
 	

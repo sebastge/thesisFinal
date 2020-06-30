@@ -7,7 +7,7 @@
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.agent.Person</string>
+      <string>CasEV.agent.Prosumer</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
@@ -73,8 +73,8 @@
       <string>CasEV.physical.electric.Charger.style_2.xml</string>
     </entry>
     <entry>
-      <string>CasEV.agent.Person</string>
-      <string>CasEV.agent.Person.style_5.xml</string>
+      <string>CasEV.agent.Prosumer</string>
+      <string>CasEV.agent.Prosumer.style_5.xml</string>
     </entry>
     <entry>
       <string>CasEV.physical.roads.RoundaboutRoad</string>
@@ -180,7 +180,7 @@
       <int>13</int>
     </entry>
     <entry>
-      <string>CasEV.agent.Person</string>
+      <string>CasEV.agent.Prosumer</string>
       <int>6</int>
     </entry>
     <entry>
