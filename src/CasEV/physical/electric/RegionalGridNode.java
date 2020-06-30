@@ -1,7 +1,7 @@
 package CasEV.physical.electric;
 
 import CasEV.Market;
-import CasEV.physical.Spawner;
+import CasEV.Spawner;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;

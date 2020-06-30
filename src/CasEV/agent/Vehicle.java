@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import CasEV.Spawner;
 import CasEV.physical.*;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.roads.BusStop;

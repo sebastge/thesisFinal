@@ -83,7 +83,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 1;
+	private static final int EXPERIMENT = 2;
 	private static final int CENTRE_CHARGING = 1;
 	private static final int OUTSIDE_CHARGING = 0;
 	
@@ -210,7 +210,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			height = cityImg.getHeight();
 			
 			
-			context.setId("CitySim");
+			context.setId("casEV");
 
 			//Setting up the networks
 			NetworkBuilder<Object> roadNetBuilder = new NetworkBuilder<Object>("road network", context, true);
@@ -424,7 +424,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 				else if(r == 128 && g == 64 && b == 0) {//Building. Brown
 					//TODO: make buildings be more than one pixel
 					List<ParkingSpace> psList = new ArrayList<ParkingSpace>();
-					for (int z = 0; z < 3; z++) {
+					for (int z = 0; z < 1; z++) {
 						ParkingSpace ps = new ParkingSpace(space, grid);
 						psList.add(ps);
 					}

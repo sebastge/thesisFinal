@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import CasEV.Spawner;
 import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Person;
 import CasEV.agent.Vehicle;
-import CasEV.physical.Spawner;
 import CasEV.physical.roads.BusStop;
 import CasEV.physical.roads.ParkingSpace;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -40,8 +40,6 @@ public class Aggregator extends ElectricEntity{
 	 * 	24h = 8640 ticks
 	 * 	1 hour = 360 ticks
 	 */
-	
-
 
 	
 	private static final int[] AM0 = {0, 360}; 				//00:00 - 06:00
@@ -120,8 +118,7 @@ public class Aggregator extends ElectricEntity{
 	}
 
 	
-	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
-		//update(-ThreadLocalRandom.current().nextDouble(1, 3));
+	public void connectProsumer(Person p, Vehicle v, Boolean parkingDecision) {
 	
 		for (ParkingSpace ps: this.parkingSpaces) {
 			if (!ps.isReserved()) {
@@ -137,27 +134,9 @@ public class Aggregator extends ElectricEntity{
 		
 		occupants.add(p);
 		
-		if (v instanceof Car) {
-			
-			//update(-ThreadLocalRandom.current().nextDouble(1, 3));
-			
-			
-			
-		}
-
-		
-		
-		
-		
-		//update(-ThreadLocalRandom.current().nextDouble(1, 3));
 		
 		if (v instanceof EV) {
 
-			
-			//update(-ThreadLocalRandom.current().nextDouble(1, 3));
-			//update(-ThreadLocalRandom.current().nextDouble(1, 3)*((EV) v).charge);
-			
-			
 			if (this.parent.parent.getV2GCharging() == 1) {
 				
 				double occupantCharge = ((EV) v).getChargeAvailableForV2G();
@@ -171,13 +150,13 @@ public class Aggregator extends ElectricEntity{
 					
 					if (((EV) v).borrowedCharge < 0) {
 						//update(-((EV) v).borrowedCharge);
-						update(-((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+						update(-((EV) v).borrowedCharge);
 						spawner.getMarket().addV2GChargingBack();
 						spawner.getMarket().addNumV2G();
 						spawner.getReporter().addParkedCar(v.type);
 						
 					} else if (((EV) v).borrowedCharge > 0) {
-						update(((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+						update(((EV) v).borrowedCharge);
 						spawner.getMarket().addV2GChargingFrom();
 						spawner.getMarket().addNumV2G();
 						spawner.getReporter().addParkedCar(v.type);
@@ -226,13 +205,13 @@ public class Aggregator extends ElectricEntity{
 					if (Math.abs(((EV) v).borrowedCharge) < 10) {
 						if (((EV) v).borrowedCharge < 0) {
 							//update(((EV) v).borrowedCharge);
-							update(((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+							update(((EV) v).borrowedCharge);
 							spawner.getMarket().removeV2GChargingBack();
 							spawner.getMarket().removeNumV2G();
 							spawner.getReporter().removeParkedCar(v.type);
 						} else if(((EV) v).borrowedCharge > 0) {
 							//update(-((EV) v).borrowedCharge);
-							update(-((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+							update(-((EV) v).borrowedCharge);
 							spawner.getMarket().removeV2GChargingFrom();
 							spawner.getMarket().removeNumV2G();
 							spawner.getReporter().removeParkedCar(v.type);

@@ -4,7 +4,7 @@ package CasEV.agent;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import CasEV.physical.Spawner;
+import CasEV.Spawner;
 import CasEV.physical.roads.Road;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;

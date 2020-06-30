@@ -1,12 +1,10 @@
-package CasEV.physical;
+package CasEV;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import CasEV.Reporter;
-import CasEV.Market;
 import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Bus;
@@ -206,6 +204,8 @@ public class Spawner {
 			Person p = new Person(space, grid, this);
 			System.out.println("Person added: " + p);
 			
+			//In case of experiment 1. Spawn agents with goals at both parts of town at 50/50 ratio. TODO: add to official parameters
+			
 			if (this.experimentNum == 1) {
 				
 				if (Math.random() > 0.5) {
@@ -217,6 +217,8 @@ public class Spawner {
 					p.setWorkPlace(aggreagators2.get(RandomHelper.nextIntFromTo(0, aggreagators2.size() - 1)));
 				}
 				
+				
+				//If not experiment 1, normal goals are added
 			} else {
 				p.setWorkPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
 			}
@@ -335,7 +337,7 @@ public class Spawner {
 				}
 				else {//Car
 					
-					//Percentage EV-adjust accordingly
+					//Percentage EV-adjust accordingly. Currently at 0.2 to 0.8 normal cars. TODO: add to official parameters
 					
 					if (Math.random() > 0.8) {
 						//System.out.println("A EV is spawneds");
@@ -387,9 +389,11 @@ public class Spawner {
 				if(p.getTravelChoice().equals("bus1")) {//Bus
 					start.addToBusQueue(p);
 				}
+				
+				//Percentage EV-adjust accordingly. Currently at 0.2 to 0.8 normal cars. TODO: add to official parameters
 				else {//car
 					
-					if (Math.random() > 0.5) {
+					if (Math.random() > 0.8) {
 						//Add the agent to the context
 						EV ev = new EV(space, grid, 5, parkingNexi, this);
 						

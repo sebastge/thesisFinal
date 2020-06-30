@@ -3,7 +3,7 @@
   <dataSet>Trip Data</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel>Amount</yAxisLabel>
-  <chartTitle>Num v2g</chartTitle>
+  <chartTitle>Experiement 2</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>

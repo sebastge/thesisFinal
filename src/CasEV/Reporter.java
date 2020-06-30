@@ -3,7 +3,6 @@ package CasEV;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import CasEV.physical.Spawner;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.electric.RegionalGridNode;
 import repast.simphony.space.continuous.ContinuousSpace;

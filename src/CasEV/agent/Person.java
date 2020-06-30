@@ -1,6 +1,6 @@
 package CasEV.agent;
 
-import CasEV.physical.Spawner;
+import CasEV.Spawner;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.roads.BusStop;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -140,10 +140,10 @@ public class Person extends Agent{
 			return;
 		}
 		if(workPlace != null && v instanceof EV) {
-				workPlace.addOccupants(this, (EV) v, determineParkingWorth((EV) v, workPlace));
+				workPlace.connectProsumer(this, (EV) v, determineParkingWorth((EV) v, workPlace));
 		} else if (workPlace != null && v instanceof Car) {
 
-			workPlace.addOccupants(this, (Car) v, true);
+			workPlace.connectProsumer(this, (Car) v, true);
 		}
 	}
 	

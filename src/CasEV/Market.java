@@ -16,21 +16,10 @@ public class Market {
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		
-		//setLoad();
+
 		setPriceLevel();
-//		System.out.println("V2G load available: " + this.v2gLoadAvailable);
-//		setkWhSellingPrice();
-//		setkWhBuyingPrice();
 		setAverageTravelTime(this.avgTravelTimeList);
-		//System.out.println("Average: " + this.getAverageTravelTime());
-//		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
-//		System.out.println("Total v2gload wanted: " + this.v2gLoadWanted);
-//		System.out.println("Total load market: " + this.totalLoad);
-//		System.out.println("kWh selling price: " + this.kWhSellingPrice);
-//		System.out.println("kWh buying price: " + this.kWhBuyingPrice);
-//		
-//	System.out.println("Output test: " + this.kWhPrice);
+
 
 	
 	}
@@ -190,7 +179,7 @@ public class Market {
 
 		
 		if (v2gLoadWanted > v2gLoadAvailable) {
-			Double need = this.multiplyWithPeriodValue(kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2));
+			Double need = this.multiplyWithPeriodValue(kWhOffered);
 
 			if(kWhOffered > 0) {
 				v2gLoadAvailable += need;
@@ -200,7 +189,8 @@ public class Market {
 				return 0d;
 			}
 		} else {
-			Double need = kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2);
+			//Double need = kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2);
+			Double need = this.multiplyWithPeriodValue(kWhOffered);
 			if (kWhOffered < 0) {
 				v2gLoadAvailable += need;
 				v2gLoadWanted -= need;
