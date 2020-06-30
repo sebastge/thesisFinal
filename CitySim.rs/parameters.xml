@@ -18,7 +18,7 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="population_start_count" displayName="population start count" type="int"
+				<parameter name="population_start_count" displayName="AB Population start count" type="int"
 						defaultValue="100"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
@@ -74,6 +74,54 @@
 		/>
 				<parameter name="Car_frequency_in_the_Afternoon" displayName="Car frequency in the Afternoon" type="double"
 						defaultValue="0.6"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="experiment_num" displayName="AA Experiment number" type="double"
+						defaultValue="2"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="price_multiplication" displayName="AC kWh price level multiplication" type="double"
+						defaultValue="1.0"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="traffic_load_night" displayName="AD Traffic load night: " type="double"
+						defaultValue="0.2"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="traffic_load_morning" displayName="AE Traffic load morning: " type="double"
+						defaultValue="0.4"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="traffic_load_afternoon" displayName="AF Traffic load afternoon: " type="double"
+						defaultValue="0.2"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="traffic_load_night" displayName="AG Traffic load night: " type="double"
+						defaultValue="0.2"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="v2g_chargers" displayName="AH V2G chargers: " type="double"
+						defaultValue="0.2"
+						isReadOnly="false"
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+
+		/>
+		<parameter name="ev_percentage" displayName="AI EV percentage: " type="double"
+						defaultValue="0.2"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 

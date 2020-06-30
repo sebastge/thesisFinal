@@ -5,7 +5,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import CasEV.Spawner;
 import CasEV.physical.electric.Aggregator;
 import CasEV.physical.roads.BusStop;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
@@ -22,14 +24,18 @@ public class Prosumer extends Agent{
 	private int lastTimeUse = 0;
 	private int parkedTimer = 0;
 	private Double travelTime = 0d;
+	Parameters params = RunEnvironment.getInstance().getParameters();
+
 	
 	private Double experiment2ProsumerConfidence = 1.0d;
 	
-	private Double experiment2Mulitplier = 1.0d;
+	private Double experiment2Mulitplier = params.getDouble("price_multiplication");
+
 	
 	private Double prosumerMinPriceLevel;
 	
 	private BusStop nearestBusStop;
+	
 	
 	public Prosumer(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner) {
 		super(space, grid);

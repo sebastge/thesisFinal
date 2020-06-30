@@ -28,4 +28,4 @@ CP=$CP:$PWD/groovylib/$Groovy_All_Jar
 cd CitySim
 
 # Start the Model
-java -Xss10M -Xmx400M -cp $CP repast.simphony.runtime.RepastMain  ./CitySim.rs
+java -Xss10M -Xmx400M -cp $CP repast.simphony.runtime.RepastMain  ./casEV.rs

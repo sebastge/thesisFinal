@@ -1,9 +1,9 @@
 @ECHO OFF
-TITLE CitySim
+TITLE casEV
 
 REM Repast Simphony Model Starter
 REM By Michael J. North
-REM 
+REM
 REM Please note that the paths given below use
 REM a unusual Linux-like notation. This is a
 REM unfortunate requirement of the Java Plugin

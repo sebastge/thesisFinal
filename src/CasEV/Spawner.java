@@ -489,14 +489,6 @@ public class Spawner {
 			frequency += eveningFrequency;
 		}
 		
-//		if(isInInterval(time, MORNING_RUSH)) {
-//			frequency += rushFrequency;
-//		}
-//		else if(isInInterval(time, AFTERNOON_RUSH)) {
-//			frequency += rushFrequency;
-//		}
-		
-		
 	}
 	
 	/**

@@ -35,6 +35,8 @@ import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.query.space.grid.GridCell;
 import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.space.continuous.ContinuousSpace;
@@ -83,7 +85,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 2;
+	private int EXPERIMENT;
 	private static final int CENTRE_CHARGING = 1;
 	private static final int OUTSIDE_CHARGING = 1;
 	
@@ -94,6 +96,10 @@ public class casEVBuilder implements ContextBuilder<Object> {
 	 */
 	@Override
 	public Context build(Context<Object> context) {
+		
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		this.EXPERIMENT =  params.getDouble("experiment_num").intValue();
+
 		
 		if (this.EXPERIMENT == 1) {
 			
@@ -606,10 +612,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 		if (this.EXPERIMENT == 1) {
 			
 			for(Aggregator b: buildings2) {
-				System.out.println("Building2 parent: " + b.parent);
 				data.add(grid.getLocation(b));
-				
-				System.out.println("Buildings 222: " + buildings2);
 			}
 			
 		}
