@@ -43,21 +43,21 @@ public class Charger extends ElectricEntity{
 		this.isCharging = isCharging;
 	}
 	
-	/**
-	 * Runs every step
-	 */
-	@ScheduledMethod(start = 1, interval = 1)
-	public void step(){
-		System.out.println("Charger step called");
-		if(isCharging) {
-			if(chargeTime > 0) {
-				chargeTime--;
-			}
-			else {
-				setIsCharging(false);
-			}
-		}
-	}
+//	/**
+//	 * Runs every step
+//	 */
+//	@ScheduledMethod(start = 1, interval = 1)
+//	public void step(){
+//		System.out.println("Charger step called");
+//		if(isCharging) {
+//			if(chargeTime > 0) {
+//				chargeTime--;
+//			}
+//			else {
+//				setIsCharging(false);
+//			}
+//		}
+//	}
 
 
 	@Override

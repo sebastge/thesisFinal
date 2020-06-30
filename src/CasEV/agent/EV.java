@@ -29,22 +29,20 @@ public class EV extends Car{
 	}
 	
 	protected void setChargeAndDistance(int type) {
-		this.charge = (2*ThreadLocalRandom.current().nextDouble(0, chargeMax));
+		this.charge = ((this.type+1)*ThreadLocalRandom.current().nextDouble(0, chargeMax));
 		this.distanceFromCentre = ThreadLocalRandom.current().nextDouble(0, distanceMax);
 	}
 	
 	
 	public Double getChargeAvailableForV2G() {
 		
-//		System.out.println("Distance: " + this.distanceFromCentre);
-//		System.out.println("Charge: " + this.charge);
-		
-		if (this.distanceFromCentre/this.charge > 3d ) {
-			//System.out.println("was bigger");
-			return (-(this.distanceFromCentre/this.charge)*2);
+
+		if (this.distanceFromCentre/this.charge > 3d) {
+
+			return ((this.distanceFromCentre/this.charge)*3);
 		} else {
-			//System.out.println("was smaller");
-			return ((this.distanceFromCentre/this.charge)*2);
+
+			return (-(this.distanceFromCentre/this.charge)*3);
 		}
 	}
 

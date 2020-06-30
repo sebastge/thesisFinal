@@ -63,7 +63,7 @@
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Building</string>
+      <string>CasEV.environment.electric.Aggregator</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
@@ -129,7 +129,7 @@
       <string>CasEV.environment.InformationLabel.style_6.xml</string>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Building</string>
+      <string>CasEV.environment.electric.Aggregator</string>
       <string>CasEV.environment.electric.Building.style_2.xml</string>
     </entry>
   </editedStyles>
@@ -236,7 +236,7 @@
       <int>9</int>
     </entry>
     <entry>
-      <string>CasEV.environment.electric.Building</string>
+      <string>CasEV.environment.electric.Aggregator</string>
       <int>11</int>
     </entry>
   </layerOrder>

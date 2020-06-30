@@ -18,7 +18,7 @@ import repast.simphony.space.grid.Grid;
 import utils.Tools;
 import CasEV.environment.roads.BusStop;
 
-public class Building extends ElectricEntity{
+public class Aggregator extends ElectricEntity{
 	
 	//Time of day translation from ticks and schedule
 	private static final int[] NIGHT = {0, 2160}; 				//00:00 - 06:00
@@ -69,16 +69,19 @@ public class Building extends ElectricEntity{
 	private static final int[] PM10 = {7920, 8280}; 	//07:00 - 08:30
 	private static final int[] PM11 = {8280, 8640}; 	//15:30 - 17:00
 	
+	private final double borrowMax = 10d;
+	
 	private int location;
 	
 	private String timeOfDay;
 	public Spawner spawner;
+
 	
 	private static final int[] buildingLoadRange = {0, 20}; 	//15:30 - 17:00
 	
-	public Building(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces, int location) {
+	public Aggregator(ContinuousSpace<Object> space, Grid<Object> grid, Spawner spawner, List<ParkingSpace> parkingSpaces, int location) {
 		super(space, grid);
-		this.totalLoad = 1d;
+		this.totalLoad = 10d;
 		this.parent = null;
 		this.occupants = new ArrayList<Person>();
 		this.occupantEVs = new ArrayList<EV>();
@@ -89,6 +92,7 @@ public class Building extends ElectricEntity{
 		this.timeOfDay = "";
 		this.spawner = spawner;
 		this.location = location;
+
 		
 	}
 	
@@ -97,7 +101,7 @@ public class Building extends ElectricEntity{
 	 */
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step(){
-		//System.out.println("Travel time: " + spawner.getReporter().getAverageTravelTime());
+	
 	}
 	
 	@Override
@@ -117,8 +121,8 @@ public class Building extends ElectricEntity{
 
 	
 	public void addOccupants(Person p, Vehicle v, Boolean parkingDecision) {
-		
-		System.out.println("System called and thats a fact!! still by: " + v);
+		//update(-ThreadLocalRandom.current().nextDouble(1, 3));
+	
 		for (ParkingSpace ps: this.parkingSpaces) {
 			if (!ps.isReserved()) {
 				ps.reserve();
@@ -135,25 +139,23 @@ public class Building extends ElectricEntity{
 		
 		if (v instanceof Car) {
 			
-
+			//update(-ThreadLocalRandom.current().nextDouble(1, 3));
 			
 			
 			
 		}
 
-		//update(-3d);
-		
-		//System.out.println("Vehicle added: " + v);
-		
-		
-		spawner.getReporter().addParkedCar(v.type);
 		
 		
 		
-		if (v instanceof EV && parkingDecision == true) {
+		
+		//update(-ThreadLocalRandom.current().nextDouble(1, 3));
+		
+		if (v instanceof EV) {
 
 			
-			update(-ThreadLocalRandom.current().nextDouble(1, 3));
+			//update(-ThreadLocalRandom.current().nextDouble(1, 3));
+			//update(-ThreadLocalRandom.current().nextDouble(1, 3)*((EV) v).charge);
 			
 			
 			if (this.parent.parent.getV2GCharging() == 1) {
@@ -165,36 +167,41 @@ public class Building extends ElectricEntity{
 				double occupantBorrowedCharge = spawner.getMarket().borrowFromAggregator(occupantCharge);
 				//System.out.println("Borrowed v2g charge from vehicle: " + occupantBorrowedCharge);
 				((EV) v).borrowedCharge = occupantBorrowedCharge;
-				if (((EV) v).borrowedCharge < 0) {
-					spawner.getMarket().addV2GChargingFrom();
-					spawner.getMarket().addNumV2G();
-				} else if (((EV) v).borrowedCharge > 0) {
-					spawner.getMarket().addV2GChargingBack();
-					spawner.getMarket().addNumV2G();
+				if (Math.abs(occupantBorrowedCharge) < this.borrowMax) {
+					
+					if (((EV) v).borrowedCharge < 0) {
+						//update(-((EV) v).borrowedCharge);
+						update(-((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+						spawner.getMarket().addV2GChargingBack();
+						spawner.getMarket().addNumV2G();
+						spawner.getReporter().addParkedCar(v.type);
+						
+					} else if (((EV) v).borrowedCharge > 0) {
+						update(((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+						spawner.getMarket().addV2GChargingFrom();
+						spawner.getMarket().addNumV2G();
+						spawner.getReporter().addParkedCar(v.type);
+						
+					}
+					((EV) v).charge -= occupantBorrowedCharge;
+					
 				}
-				((EV) v).charge -= occupantBorrowedCharge;
+				
 			}
-			
-			//spawner.getReporter().addParkedCar(v.type);
-			//spawner.getMarket().setDemand();
-			//spawner.getMarket().addNumV2G();
-			//spawner.getMarket().addNumCars();
-			//spawner.getMarket().addNumEV();
-			//spawner.getMarket().addV2GLoadAvailable(v.charge);
-
-			
 			this.occupantEVs.add(((EV) v));
-
+			
 		}
+		
+
 	}
 	
 	public void removeOccupants(Person p, Vehicle v) {
 		
+		//update(ThreadLocalRandom.current().nextDouble(1, 3));
+		
 		if (v.buildingParkedIn == this) {
 			v.isParkedInBuilding = false;
 			v.buildingParkedIn = null;
-			
-			
 			for (ParkingSpace ps: this.parkingSpaces) {
 				if (v.spaceParkedIn == ps) {
 					ps.vacate();
@@ -209,39 +216,48 @@ public class Building extends ElectricEntity{
 			v.spaceParkedIn = null;
 			
 			
-
-			spawner.getReporter().removeParkedCar(v.type);
-		} else {
-			//System.out.println("Car is not aprked in this building");
-		}
-		
-		if (v instanceof EV) {
 			
-			((EV) v).charge += ((EV) v).borrowedCharge;
-			this.occupantEVs.remove(((EV) v));
-		
-			if (((EV) v).borrowedCharge < 0) {
-				spawner.getMarket().removeNumV2G();
-				spawner.getMarket().removeV2GChargingFrom();
-			} else if(((EV) v).borrowedCharge > 0) {
-				spawner.getMarket().removeV2GChargingBack();
-				spawner.getMarket().removeNumV2G();
+			
+			
+			if (v instanceof EV) {
+				
+				if (this.parent.parent.getV2GCharging() == 1) {
+					((EV) v).charge += ((EV) v).borrowedCharge;
+					if (Math.abs(((EV) v).borrowedCharge) < 10) {
+						if (((EV) v).borrowedCharge < 0) {
+							//update(((EV) v).borrowedCharge);
+							update(((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+							spawner.getMarket().removeV2GChargingBack();
+							spawner.getMarket().removeNumV2G();
+							spawner.getReporter().removeParkedCar(v.type);
+						} else if(((EV) v).borrowedCharge > 0) {
+							//update(-((EV) v).borrowedCharge);
+							update(-((EV) v).borrowedCharge*ThreadLocalRandom.current().nextDouble(0.8, 1.1));
+							spawner.getMarket().removeV2GChargingFrom();
+							spawner.getMarket().removeNumV2G();
+							spawner.getReporter().removeParkedCar(v.type);
+						}
+						spawner.getMarket().removeV2GLoadAvailable(((EV) v).borrowedCharge);
+					}
+					
+
+				
+
+				}
+				
+				this.occupantEVs.remove(((EV) v));
+
+				
+				
+
 			}
-			
-			spawner.getMarket().removeV2GLoadAvailable(((EV) v).borrowedCharge);
-			//update(3d);
-			
-			//spawner.getReporter().removeParkedCar(((EV) v).type);
-	
-			
-			//spawner.getMarket().removeNumV2G();
-			spawner.getMarket().removeNumCars();
-			spawner.getMarket().removeNumEV();
-			
-			update(ThreadLocalRandom.current().nextDouble(1, 3));
-			
-
 		}
+//		
+//		if (v instanceof EV) {
+//			update(ThreadLocalRandom.current().nextDouble(1, 3)*((EV) v).charge);
+//		} else {
+//			update(ThreadLocalRandom.current().nextDouble(1, 3));
+//		}
 		
 	}
 

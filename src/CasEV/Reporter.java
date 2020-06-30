@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import CasEV.environment.Spawner;
-import CasEV.environment.electric.Building;
+import CasEV.environment.electric.Aggregator;
 import CasEV.environment.electric.RegionalGridNode;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
@@ -24,6 +24,17 @@ public class Reporter {
 		this.experimentNum = experimentNum;
 
 	}
+	
+	private int peakCars0Parked = 0;
+	private int peakCars1Parked = 0;
+	private int peakCars2Parked = 0;
+	private int peakCars3Parked = 0;
+	
+	private Double biggestLoadCentre = 0d;
+	private Double biggestLoadOutside = 0d;
+	
+	private Double smallestLoadCentre = 0d;
+	private Double smallestLoadOutside = 0d;
 
 	
 	//General
@@ -59,7 +70,7 @@ public class Reporter {
 	
 	private Double totalLoad = 0d;
 
-	private Double parkedCars = 0d;
+	private int parkedCars = 0;
 	
 	private Double elPrice = 0d;
 	
@@ -68,6 +79,13 @@ public class Reporter {
 	private int parkedCars2 = 0;
 	private int parkedCars3 = 0;
 	private int parkedCars4 = 0;
+	
+	private int biggestParkedCars0 = 0;
+	private int biggestParkedCars1 = 0;
+	private int biggestParkedCars2 = 0;
+	private int biggestParkedCars3 = 0;
+	private int biggestParkedCars4 = 0;
+	private int biggestTotalCars = 0;
 	
 	private int weatherProfile = 0;
 	
@@ -118,20 +136,38 @@ public class Reporter {
 	public Double getTotalLoadOutside() {
 		return totalLoadOutside;
 	}
-	public Double getCarsParked() {
+	public int getCarsParked() {
 		return parkedCars;
 	}
 	public int getCarsParked0() {
+		if (this.parkedCars0 < 0) {
+			return 0;
+		}
 		return parkedCars0;
 	}
 	public int getCarsParked1() {
+		if (this.parkedCars1 < 0) {
+			return 0;
+		}
 		return parkedCars1;
 	}
 	public int getCarsParked2() {
+		
+		if (this.parkedCars2 < 0) {
+			return 0;
+		}
 		return parkedCars2;
 	}
 	public int getCarsParked3() {
-		return parkedCars3;
+		
+	if (this.parkedCars3 < 0) {
+		return 0;
+	}
+
+	return parkedCars3;
+	
+
+		
 	}
 	public int getCarsParked4() {
 		return parkedCars4;
@@ -264,20 +300,52 @@ public class Reporter {
 	}
 	
 	public void addParkedCar(int type) {
+		
+		//int adder = ThreadLocalRandom.current().nextInt(1, 3);
 
-		this.parkedCars++;
+		this.parkedCars ++;
 
 		if (type == 0) {
-			this.parkedCars0++;
+			this.parkedCars0 += ThreadLocalRandom.current().nextInt(2, 3);;
+			if (this.biggestParkedCars0 < this.parkedCars0) {
+				this.biggestParkedCars0 = this.parkedCars0;
+				//System.out.println("new biggestcar0: " + this.biggestParkedCars0);
+			}
 		} else if (type == 1) {
-			this.parkedCars1++;
+			this.parkedCars1 += ThreadLocalRandom.current().nextInt(2, 6);
+			if (this.biggestParkedCars1 < this.parkedCars1) {
+				this.biggestParkedCars1 = this.parkedCars1;
+				//System.out.println("new biggestcar1: " + this.biggestParkedCars1);
+			}
 		} else if (type == 2) {
-			this.parkedCars2++;
+			this.parkedCars2 += ThreadLocalRandom.current().nextInt(2, 5);
+			if (this.biggestParkedCars2 < this.parkedCars2) {
+				this.biggestParkedCars2 = this.parkedCars2;
+				//System.out.println("new biggestcar2: " + this.biggestParkedCars2);
+			}
 		} else if (type == 3) {
-			this.parkedCars3++;
+			
+			this.parkedCars3 += ThreadLocalRandom.current().nextInt(2, 4);
+			if (this.biggestParkedCars3 < this.parkedCars3) {
+				this.biggestParkedCars3 = this.parkedCars3;
+				//System.out.println("new biggestcar3: " + this.biggestParkedCars3);
+			}
 		} else {
+			this.parkedCars --;
 			this.parkedCars4++;
+			if (this.biggestParkedCars4 < this.parkedCars4) {
+				this.biggestParkedCars4 = this.parkedCars4;
+				//System.out.println("new biggestcar4: " + this.biggestParkedCars4);
+			}
 		}
+		
+		if (this.biggestTotalCars < this.parkedCars) {
+			this.biggestTotalCars = this.parkedCars;
+			//System.out.println("New biggest total cars: " + this.biggestTotalCars);
+
+		}
+			
+		
 	}
 	
 	public void removeParkedCar(int type) {
@@ -285,14 +353,15 @@ public class Reporter {
 		this.parkedCars--;
 		
 		if (type == 0) {
-			this.parkedCars0--;
+			this.parkedCars0 -= ThreadLocalRandom.current().nextInt(2, 3);
 		} else if (type == 1) {
-			this.parkedCars1--;
+			this.parkedCars1 -= ThreadLocalRandom.current().nextInt(2, 6);
 		} else if (type == 2) {
-			this.parkedCars2--;
+			this.parkedCars2 -= ThreadLocalRandom.current().nextInt(2, 5);
 		} else if (type == 3) {
-			this.parkedCars3--;
+			this.parkedCars3 -= ThreadLocalRandom.current().nextInt(2, 4);
 		} else {
+			this.parkedCars++;
 			this.parkedCars4--;
 		}
 	}
@@ -300,11 +369,25 @@ public class Reporter {
 	public void setTotalLoad(Double totalLoad, RegionalGridNode rgn) {
 		
 		if (this.experimentNum == 1) {
-			
 			if (rgn == this.rgnCentre) {
+				if (totalLoad > this.biggestLoadCentre) {
+					this.biggestLoadCentre = totalLoad;
+					System.out.println("New biggest load centre: " + this.biggestLoadCentre);
+				}
+				if (totalLoad < this.smallestLoadCentre || this.smallestLoadCentre == 0) {
+					this.smallestLoadCentre = totalLoad;
+					System.out.println("New smallest load centre: " + this.smallestLoadCentre);
+				}
 				setTotalLoadCentre(totalLoad);
-
 			} else if (rgn == this.rgnOutside) {
+				if (totalLoad > this.biggestLoadOutside) {
+					this.biggestLoadOutside = totalLoad;
+					System.out.println("New biggest load outside: " + this.biggestLoadOutside);
+				}
+				if (totalLoad < this.smallestLoadOutside || this.smallestLoadOutside == 0) {
+					this.smallestLoadOutside = totalLoad;
+					System.out.println("New smallest load outside: " + this.smallestLoadOutside);
+				}
 				setTotalLoadOutside(totalLoad);
 
 			}

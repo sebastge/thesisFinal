@@ -21,9 +21,9 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>10-25kWh</string>
+      <string>Low</string>
       <SeriesData>
-        <label>10-25kWh</label>
+        <label>Low</label>
         <color>
           <red>0</red>
           <green>255</green>
@@ -33,9 +33,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>25-50kWh</string>
+      <string>Medium_low</string>
       <SeriesData>
-        <label>25-50kWh</label>
+        <label>Medium_low</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -45,9 +45,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>50-75kWh</string>
+      <string>numV2G</string>
       <SeriesData>
-        <label>50-75kWh</label>
+        <label>Medium_high</label>
         <color>
           <red>0</red>
           <green>0</green>
@@ -57,26 +57,14 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>75-100kWh</string>
+      <string>High</string>
       <SeriesData>
-        <label>75-100kWh</label>
+        <label>High</label>
         <color>
           <red>0</red>
           <green>255</green>
           <blue>255</blue>
           <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>normalCar</string>
-      <SeriesData>
-        <label>normalCar</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
-          <blue>25</blue>
-          <alpha>155</alpha>
         </color>
       </SeriesData>
     </entry>

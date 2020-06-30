@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <parameters>
-					<parameter name="randomSeed" displayName="Default Random Seed" type="int"
+					<parameter name="randomSeed" displayName="Population count" type="int"
 						defaultValue="__NULL__"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 
 		/>
-				<parameter name="Car_frequency_at_Night" displayName="Car frequency at Night" type="double"
+				<parameter name="Car_frequency_at_Night" displayName="Traffic load mid-day" type="double"
 						defaultValue="0.01"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="Car_frequency_at_Night2" displayName="Car frequency at Night2" type="double"
+				<parameter name="Car_frequency_at_Night2" displayName="Traffic load morning" type="double"
 						defaultValue="0.02"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="population_start_count" displayName="population start count" type="int"
+				<parameter name="population_start_count" displayName="Traffic load evening" type="int"
 						defaultValue="100"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 
 		/>
-				<parameter name="Car_frequency_in_Rushhour" displayName="Car frequency in Rushhour" type="double"
+				<parameter name="Car_frequency_in_Rushhour" displayName="Traffic load night" type="double"
 						defaultValue="2.0"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="Car_frequency_in_the_Evening" displayName="Car frequency in the Evening" type="double"
+				<parameter name="Car_frequency_in_the_Evening" displayName="V2G chargers" type="double"
 						defaultValue="0.3"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="load_on_entry_4" displayName="Load on entry 4" type="double"
+				<parameter name="load_on_entry_4" displayName="EV percentage" type="double"
 						defaultValue="0.25"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="load_on_entry_1" displayName="Load on entry 1" type="double"
+				<parameter name="load_on_entry_1" displayName="Workforce percentage" type="double"
 						defaultValue="0.25"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="load_on_entry_3" displayName="Load on entry 3" type="double"
+				<parameter name="load_on_entry_3" displayName="Average distance from city" type="double"
 						defaultValue="0.25"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="toll_cost" displayName="toll_cost" type="int"
+				<parameter name="toll_cost" displayName="kWh price level multiplication" type="int"
 						defaultValue="40"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 
 		/>
-				<parameter name="load_on_entry_2" displayName="Load on entry 2" type="double"
+				<parameter name="load_on_entry_2" displayName="zLoad on entry 2" type="double"
 						defaultValue="0.25"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="Car_frequency_in_the_Morning" displayName="Car frequency in the Morning" type="double"
+				<parameter name="Car_frequency_in_the_Morning" displayName="zCar frequency in the Morning" type="double"
 						defaultValue="0.3"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 
 		/>
-				<parameter name="Car_frequency_in_the_Afternoon" displayName="Car frequency in the Afternoon" type="double"
+				<parameter name="Car_frequency_in_the_Afternoon" displayName="zCar frequency in the Afternoon" type="double"
 						defaultValue="0.6"
 						isReadOnly="false"
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"

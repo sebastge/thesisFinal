@@ -11,7 +11,7 @@ import CasEV.agent.Car;
 import CasEV.agent.EV;
 import CasEV.agent.Bus;
 import CasEV.agent.Person;
-import CasEV.environment.electric.Building;
+import CasEV.environment.electric.Aggregator;
 import CasEV.environment.electric.ElectricEntity;
 import CasEV.environment.electric.RegionalGridNode;
 import CasEV.environment.roads.BusStop;
@@ -44,8 +44,8 @@ public class Spawner {
 	private Grid<Object> grid;
 	private Road[] spawnPoints;
 	private List<Road> parkingNexi;
-	private List<Building> buildings;
-	private List<Building> buildings2;
+	private List<Aggregator> aggregators;
+	private List<Aggregator> aggreagators2;
 	private Network<Object> net;
 	private List<BusStop> busStops;
 
@@ -114,8 +114,8 @@ public class Spawner {
 			Road[] spawnPoints, 
 			List<Road> despawnPoints, 
 			List<Road> parkingSpaces, 
-			List<Building> buildings,
-			List<Building> buildings2,
+			List<Aggregator> aggregators,
+			List<Aggregator> aggreagators2,
 			List<BusStop> busStops, 
 			List<Road> parkingNexiRoads,
 			int experimentNum,
@@ -125,8 +125,8 @@ public class Spawner {
 		this.space = space;
 		this.grid = grid;
 		this.spawnPoints = spawnPoints;
-		this.buildings = buildings;
-		this.buildings2 = buildings2;
+		this.aggregators = aggregators;
+		this.aggreagators2 = aggreagators2;
 		this.busStops = busStops;
 		this.parkingNexi = parkingNexiRoads;
 		this.experimentNum = experimentNum;
@@ -210,15 +210,15 @@ public class Spawner {
 				
 				if (Math.random() > 0.5) {
 					//System.out.println("math random 1");
-					p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+					p.setWorkPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
 				} else {
 					System.out.println("math random 2");
-					System.out.println(buildings2.size());
-					p.setWorkPlace(buildings2.get(RandomHelper.nextIntFromTo(0, buildings2.size() - 1)));
+					System.out.println(aggreagators2.size());
+					p.setWorkPlace(aggreagators2.get(RandomHelper.nextIntFromTo(0, aggreagators2.size() - 1)));
 				}
 				
 			} else {
-				p.setWorkPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+				p.setWorkPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
 			}
 			
 
@@ -320,6 +320,7 @@ public class Spawner {
 	
 	private void spawnAgent(boolean isWorker, int spawnCount) {
 		if(isWorker) {
+			
 			for (int i = 0; i < spawnCount; i++) {
 				//System.out.println("in wrorker for");
 				if(idleWorkers.size() == 0) {
@@ -336,7 +337,7 @@ public class Spawner {
 					
 					//Percentage EV-adjust accordingly
 					
-					if (Math.random() > 0.5) {
+					if (Math.random() > 0.8) {
 						//System.out.println("A EV is spawneds");
 
 						EV ev = new EV(space, grid, 5, parkingNexi, this);
@@ -381,7 +382,7 @@ public class Spawner {
 				Person p = idleShoppers.remove(0);
 				
 				//Random shopping place each trip
-				p.setShoppingPlace(buildings.get(RandomHelper.nextIntFromTo(0, buildings.size() - 1)));
+				p.setShoppingPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
 				
 				if(p.getTravelChoice().equals("bus1")) {//Bus
 					start.addToBusQueue(p);

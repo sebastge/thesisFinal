@@ -17,7 +17,7 @@ import repast.simphony.space.grid.GridPoint;
 public class Tools {
 	
 	//The amount of ticks defined to be one day(24h)
-	public static final int TICKS_PER_DAY = 8640;
+	public static final int TICKS_PER_DAY = 4320;
 	
 	
 	//The integers mapped to the different moore directions

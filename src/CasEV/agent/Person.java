@@ -1,7 +1,7 @@
 package CasEV.agent;
 
 import CasEV.environment.Spawner;
-import CasEV.environment.electric.Building;
+import CasEV.environment.electric.Aggregator;
 import CasEV.environment.roads.BusStop;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;
@@ -14,8 +14,8 @@ import repast.simphony.space.grid.Grid;
  */
 public class Person extends Agent{
 
-	public Building workPlace;
-	private Building shop;
+	public Aggregator workPlace;
+	private Aggregator shop;
 	private Spawner spawner;
 	private int lastTimeUse = 0;
 	private int parkedTimer = 0;
@@ -44,7 +44,7 @@ public class Person extends Agent{
 	 * Gets the assigned work place for this person
 	 * @return Building, the work place
 	 */
-	public Building getWorkPlace() {
+	public Aggregator getWorkPlace() {
 		return workPlace;
 	}
 	
@@ -88,11 +88,11 @@ public class Person extends Agent{
 		
 	}
 	
-	public void setShoppingPlace(Building shop) {
+	public void setShoppingPlace(Aggregator shop) {
 		this.shop = shop;
 	}
 	
-	public Building getShoppingPlace() {
+	public Aggregator getShoppingPlace() {
 		return shop;
 	}
 	
@@ -119,7 +119,7 @@ public class Person extends Agent{
 	 * Sets the nearest busstop and find the nearest busstop
 	 * @param workPlace
 	 */
-	public void setWorkPlace(Building workPlace) {
+	public void setWorkPlace(Aggregator workPlace) {
 		this.workPlace = workPlace;
 		this.nearestBusStop = workPlace.getNearestBusStop();
 	}
@@ -130,7 +130,6 @@ public class Person extends Agent{
 	 * @param isEndGoal, Boolean, True if the goal reach is the despawn.
 	 */
 	public void setReachedGoal(Vehicle v, boolean isEndGoal) {
-		System.out.println(v + " caled setReachedGoal");
 		if(isEndGoal) {
 			if (workPlace == null) {
 				spawner.returnShopper(this);
@@ -148,7 +147,7 @@ public class Person extends Agent{
 		}
 	}
 	
-	public boolean determineParkingWorth(Vehicle v, Building workPlace) {
+	public boolean determineParkingWorth(Vehicle v, Aggregator workPlace) {
 		
 		
 		double priceLevel = Math.abs(spawner.getMarket().getPriceLevel());

@@ -72,8 +72,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	RegionalGridNode globalNode;
 	RegionalGridNode globalNode2;
 	
-	private ArrayList<Building> buildingsCentre = new ArrayList<Building>();
-	private ArrayList<Building> buildingsOutside = new ArrayList<Building>();
+	private ArrayList<Aggregator> buildingsCentre = new ArrayList<Aggregator>();
+	private ArrayList<Aggregator> buildingsOutside = new ArrayList<Aggregator>();
 	
 
 	
@@ -83,9 +83,9 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 	
 	Spawner spawner;
 	
-	private static final int EXPERIMENT = 2;
-	private static final int CENTRE_CHARGING = 0;
-	private static final int OUTSIDE_CHARGING = 1;
+	private static final int EXPERIMENT = 1;
+	private static final int CENTRE_CHARGING = 1;
+	private static final int OUTSIDE_CHARGING = 0;
 	
 	
 	
@@ -180,7 +180,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 
 			//Initialize all the electric entities and have it propagate
 			for(Object o: context.getObjects(ElectricEntity.class)) {
-				if (o instanceof Building) {
+				if (o instanceof Aggregator) {
 					((ElectricEntity)o).init();
 				}
 			}
@@ -268,7 +268,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 
 			//Initialize all the electric entities and have it propagate
 			for(Object o: context.getObjects(ElectricEntity.class)) {
-				if (o instanceof Building) {
+				if (o instanceof Aggregator) {
 					((ElectricEntity)o).init();
 				}
 			}
@@ -296,8 +296,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		List<Road> parkingNexi = new ArrayList<Road>();
 		List<Road> parkingNexiRoads = new ArrayList<Road>();
 		List<BusStop> busStops = new ArrayList<BusStop>();
-		List<Building> buildings = new ArrayList<Building>();
-		List<Building> buildings2 = new ArrayList<Building>();
+		List<Aggregator> buildings = new ArrayList<Aggregator>();
+		List<Aggregator> buildings2 = new ArrayList<Aggregator>();
 		
 		//Reading the image and creating objects
 		for (int i = 0; i < height; i++) {
@@ -430,7 +430,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 					}
 					
 
-					Building building = new Building(space, grid, spawner, psList, 0);
+					Aggregator building = new Aggregator(space, grid, spawner, psList, 0);
 					context.add(building);
 					space.moveTo(building, x, y);
 					grid.moveTo(building, x, y);
@@ -443,13 +443,13 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				else if(r == 128 && g == 128 && b == 0) {//Building2. Brown green
 					//TODO: make buildings be more than one pixel
 					List<ParkingSpace> psList = new ArrayList<ParkingSpace>();
-					for (int z = 0; z < 1; z++) {
+					for (int z = 0; z < 3; z++) {
 						ParkingSpace ps = new ParkingSpace(space, grid);
 						psList.add(ps);
 					}
 					
 
-					Building building2 = new Building(space, grid, spawner, psList, 1);
+					Aggregator building2 = new Aggregator(space, grid, spawner, psList, 1);
 					context.add(building2);
 					space.moveTo(building2, x, y);
 					grid.moveTo(building2, x, y);
@@ -514,10 +514,10 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				this.CENTRE_CHARGING,
 				this.OUTSIDE_CHARGING
 				);
-		for (Building b : buildings) {
+		for (Aggregator b : buildings) {
 			b.spawner = spawner;
 		}
-		for (Building b : buildings2) {
+		for (Aggregator b : buildings2) {
 			b.spawner = spawner;
 		}
 		
@@ -543,8 +543,8 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		//Temp lists
 		List<Charger> chargers = new ArrayList<Charger>();
 		List<Substation> substations = new ArrayList<Substation>();
-		List<Building> buildings = new ArrayList<Building>();
-		List<Building> buildings2 = new ArrayList<Building>();
+		List<Aggregator> buildings = new ArrayList<Aggregator>();
+		List<Aggregator> buildings2 = new ArrayList<Aggregator>();
 		
 		
 		//Reading the image
@@ -581,12 +581,12 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 				}
 				else if(r == 128 && g == 64 && b == 0) {//Building
 					//Gets the building already added by the city reader
-					Building building = (Building) Tools.getObjectAt(grid, Building.class, x, y);
+					Aggregator building = (Aggregator) Tools.getObjectAt(grid, Aggregator.class, x, y);
 					buildings.add(building);
 				}
 				else if(r == 128 && g == 128 && b == 0) {//Building 2
 					//Gets the building already added by the city reader
-					Building building = (Building) Tools.getObjectAt(grid, Building.class, x, y);
+					Aggregator building = (Aggregator) Tools.getObjectAt(grid, Aggregator.class, x, y);
 					buildings2.add(building);
 					System.out.println("loooooopopol");
 				}
@@ -599,13 +599,13 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		
 		//Gathers the entities into a single list for clustering
 		List<GridPoint> data = new ArrayList<GridPoint>();
-		for(Building b: buildings) {
+		for(Aggregator b: buildings) {
 			data.add(grid.getLocation(b));
 		}
 		
 		if (this.EXPERIMENT == 1) {
 			
-			for(Building b: buildings2) {
+			for(Aggregator b: buildings2) {
 				System.out.println("Building2 parent: " + b.parent);
 				data.add(grid.getLocation(b));
 				
@@ -635,7 +635,7 @@ public class CitySimBuilder implements ContextBuilder<Object> {
 		
 		buildElectricGraph(grid, context, c.getClusters());
 		
-		for(Building b: buildings2) {
+		for(Aggregator b: buildings2) {
 			System.out.println("Building2 parent: " + b.parent);
 			//data.add(grid.getLocation(b));
 		}

@@ -19,7 +19,7 @@
       <string>TotalLoad</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>TotalLoad</id>
-        <className>CasEV.Reporter</className>
+        <className>CasEV.Market</className>
         <methodName>getTotalLoad</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
@@ -43,86 +43,42 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>CarsParked</string>
+      <string>Low</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>CarsParked</id>
-        <className>CasEV.Reporter</className>
-        <methodName>getCarsParked</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>LoadPrice2</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>LoadPrice2</id>
-        <className>CasEV.Reporter</className>
-        <methodName>getElPrice</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>10-25kWh</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>10-25kWh</id>
+        <id>Low</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked0</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>25-50kWh</string>
+      <string>Medium_low</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>25-50kWh</id>
+        <id>Medium_low</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked1</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>50-75kWh</string>
+      <string>Medium_high</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>50-75kWh</id>
+        <id>Medium_high</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked2</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>75-100kWh</string>
+      <string>High</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>75-100kWh</id>
+        <id>High</id>
         <className>CasEV.Reporter</className>
         <methodName>getCarsParked3</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
-    <entry>
-      <string>normalCar</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>normalCar</id>
-        <className>CasEV.Reporter</className>
-        <methodName>getCarsParked4</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>Weather</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Weather</id>
-        <className>CasEV.Reporter</className>
-        <methodName>getWeatherProfile</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>LoadPrice</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>LoadPrice</id>
-        <className>CasEV.Market</className>
-        <methodName>getLoadPrice</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
+
     <entry>
       <string>V2GLoadAvailable</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
@@ -138,24 +94,6 @@
         <id>V2GLoadWanted</id>
         <className>CasEV.Market</className>
         <methodName>getV2GLoadWanted</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>kWhSellingPrice</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>kWhSellingPrice</id>
-        <className>CasEV.Market</className>
-        <methodName>getkWhSellingPrice</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>kWhBuyingPrice</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>kWhBuyingPrice</id>
-        <className>CasEV.Market</className>
-        <methodName>getkWhBuyingPrice</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import CasEV.environment.*;
-import CasEV.environment.electric.Building;
+import CasEV.environment.electric.Aggregator;
+import CasEV.environment.electric.Aggregator;
 import CasEV.environment.roads.BusStop;
 import CasEV.environment.roads.Despawn;
 import CasEV.environment.roads.ParkingSpace;
@@ -48,7 +49,12 @@ public class Vehicle extends Agent{
 	private Road start;
 	private Road localGoal;
 	private Road currentRoad;
-
+	
+	private Double car0Ratio = 0.25d;
+	private Double car1Ratio = 0.25d;
+	private Double car2Ratio = 0.25d;
+	private Double car3Ratio = 0.25d;
+	
 	
 	private int viewDistance = 8;
 	
@@ -97,7 +103,8 @@ public class Vehicle extends Agent{
 	protected HashSet<Road> closed;
 	private int deadlockTime = 100;
 	
-	public Building buildingParkedIn;
+	public Aggregator buildingParkedIn;
+	public Aggregator aggregatorConnectedTo;
 	public ParkingSpace spaceParkedIn;
 	
 	private Double travelTime = 0d;
@@ -117,7 +124,17 @@ public class Vehicle extends Agent{
 		this.deadlockTimer = deadlockTime;
 		this.moved = true;
 		if (this instanceof EV) {
-			this.type = ThreadLocalRandom.current().nextInt(0, 4);
+//			double d = Math.random();
+//			if (d < 0.25) {
+//				this.type = 0;
+//			} else if (d < 0.50) {
+//				this.type = 1;
+//			} else if (d < 0.75) {
+//				this.type = 2;
+//			} else {
+//				this.type = 3;
+//			}
+			this.type = 2;
 		} else {
 			this.type = 4;
 		}
@@ -281,13 +298,12 @@ public class Vehicle extends Agent{
 	 */
 	private boolean isReachedGoal() {
 
-		//System.out.println(this + " called isReachedGal()");
 		GridPoint pt = grid.getLocation(this);//Current location
 		Entity goal = goals.getCurrent();//current goal
 		double triggerDistance; //The goal is defined to be reached within this distance
 		
 		//Buildings are triggered further away as it needs to find parking and buildings are some distance from the roads.
-		if(goal instanceof Building) {
+		if(goal instanceof Aggregator) {
 			triggerDistance = 10;
 		}
 		else {
@@ -295,7 +311,7 @@ public class Vehicle extends Agent{
 		}
 		if(Tools.gridDistance(pt, grid.getLocation(goal)) < triggerDistance) {
 			//Reached the intended building, now find parking.
-			if(goal instanceof Building) {
+			if(goal instanceof Aggregator) {
 				stop();
 				space.moveTo(this, space.getLocation(goal).getX(), space.getLocation(goal).getY());
 				grid.moveTo(this, pt.getX(), pt.getY());

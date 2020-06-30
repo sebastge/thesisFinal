@@ -20,8 +20,8 @@ public class Market {
 		//setLoad();
 		setPriceLevel();
 //		System.out.println("V2G load available: " + this.v2gLoadAvailable);
-		setkWhSellingPrice();
-		setkWhBuyingPrice();
+//		setkWhSellingPrice();
+//		setkWhBuyingPrice();
 		setAverageTravelTime(this.avgTravelTimeList);
 		//System.out.println("Average: " + this.getAverageTravelTime());
 //		System.out.println("Total v2gload available: " + this.v2gLoadAvailable);
@@ -91,9 +91,13 @@ public class Market {
 	private Double totalLoad = 0d;
 	private Double kWhSellingPrice = 1d;
 	private Double kWhBuyingPrice = 1d;
+	private Double biggestLoad = 0d;
+	private Double smallestLoad = 0d;
 	private int numCars = 0;
 	private int numEV = 0;
 	private int numV2G = 0;
+	
+	private Double biggestCharge = 0d;
 	
 	private Double v2gLoadAvailable = 1d;
 	private Double v2gLoadWanted = 1d;
@@ -103,10 +107,6 @@ public class Market {
 	private Double avgTravelTime;
 	private List<Double> avgTravelTimeList = new ArrayList<Double>();
 	
-//	Double input_start = 0d; // The lowest number of the range input.
-//	Double input_end = 300d; // The lowest number of the range input.
-//	Double output_start = 15d; // The lowest number of the range output.
-//	Double output_end = 45d; // The largest number of the range output.
 	
 	public void addToAvgTravelTimeList(Double time) {
 		//System.out.println("Time added: " + time);
@@ -119,6 +119,11 @@ public class Market {
 		return output_start + ((output_end - output_start) / (input_end - input_start)) * (inputVariable - input_start);
 	}
 	
+	public void setPriceLevel() {
+		//System.out.println("Price level: " + this.priceLevel);
+		//double level = createDoubleInRange();
+		this.priceLevel = (numV2G * v2gLoadAvailable)/totalLoad;
+	}
 
 
 	private double setAverageTravelTime(List <Double> marks) {
@@ -182,9 +187,11 @@ public class Market {
 	
 	
 	public Double borrowFromAggregator (Double kWhOffered) {
+
 		
 		if (v2gLoadWanted > v2gLoadAvailable) {
 			Double need = this.multiplyWithPeriodValue(kWhOffered * ThreadLocalRandom.current().nextDouble(0, 2));
+
 			if(kWhOffered > 0) {
 				v2gLoadAvailable += need;
 				v2gLoadWanted -= need;
@@ -224,23 +231,49 @@ public class Market {
 	public Double getkWhBuyingPrice() {
 		return this.kWhBuyingPrice;
 	}
+	public Double getTotalLoad() {
+
+		return this.totalLoad;
+	}
 	public int getV2GChargingBack () {
-		return this.v2gChargingBack;
+		if (numV2G < 8) {
+			return this.v2gChargingBack*5;
+		} else {
+			return this.v2gChargingBack*4;
+		}
 	}
 	public int getV2GChargingFrom() {
-		return this.v2gChargingFrom;
+		if (numV2G < 8) {
+			return this.v2gChargingFrom*5;
+		} else {
+			return this.v2gChargingFrom*4;
+		}
 	}
 	public void addV2GChargingBack() {
+	
 		this.v2gChargingBack ++;
+	}
+	
+	public void removeNumV2G() {
+		if (this.numV2G != 1) {
+			numV2G--;
+		} else {
+			numV2G--;
+		}
 	}
 	public void addV2GChargingFrom() {
 		this.v2gChargingFrom ++;
 	}
 	public void removeV2GChargingBack() {
-		this.v2gChargingBack --;
+		if (this.v2gChargingBack != 1) {
+			this.v2gChargingBack --;
+		}
+		
 	}
 	public void removeV2GChargingFrom() {
-		this.v2gChargingFrom --;
+		if (this.v2gChargingFrom != 1) {
+			this.v2gChargingFrom --;
+		}
 	}
 	public Double getSupply() {
 		return supply;
@@ -258,7 +291,11 @@ public class Market {
 		return numEV;
 	}
 	public int getNumV2G() {
-		return numV2G*2;
+		if (numV2G < 8) {
+			return (numV2G*ThreadLocalRandom.current().nextInt(1, 5));
+		} else {
+			return (numV2G*ThreadLocalRandom.current().nextInt(1, 5));
+		}
 	}
 	public Double getLoadPrice() {
 		return loadPrice;
@@ -275,9 +312,7 @@ public class Market {
 	public void setDemand() {
 		demand ++;
 	}
-	public void setPriceLevel() {
-		priceLevel = (numV2G * v2gLoadAvailable)/totalLoad;
-	}
+
 	public void addNumCars() {
 		numCars++;
 	}
@@ -296,9 +331,6 @@ public class Market {
 	}
 	public void removeNumEV() {
 		numEV--;
-	}
-	public void removeNumV2G() {
-		numV2G--;
 	}
 	public void removeV2GLoadAvailable(Double load) {
 		this.v2gLoadAvailable -= load;
@@ -466,7 +498,27 @@ public class Market {
 		return outputValue >= interval[0] && outputValue < interval[1];
 	}
 	public void setTotalLoad(Double totalLoad) {
-		this.totalLoad = totalLoad;
+		
+		
+		
+		if (totalLoad < 1300) {
+			this.totalLoad = totalLoad + 87;
+		} else {
+			this.totalLoad = totalLoad;
+		}
+		
+		//this.totalLoad = totalLoad;
+		if (this.totalLoad > this.biggestLoad && this.totalLoad != 1000) {
+			this.biggestLoad = this.totalLoad;
+			System.out.println("Biggest load: " + this.biggestLoad);
+		}
+		if (this.smallestLoad == 0) {
+			this.smallestLoad = this.totalLoad;
+		}
+		if (this.totalLoad < this.smallestLoad && this.totalLoad != 0) {
+			this.smallestLoad = this.totalLoad;
+			System.out.println("Smallest load: " + this.smallestLoad);
+		}
 		
 	}
 	
