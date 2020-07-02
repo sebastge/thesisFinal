@@ -1,6 +1,9 @@
-# casEV
+# caseEV
 
-To run casEV you will need Repast Simphony and Java installed locally. Installation instruction can be found at: https://repast.github.io/
+To run this project you will need to have repast Simphony installed with its requirements.
+See: https://repast.github.io/  For a guide on how to install it and Java.
+
+To run casEV you will need Repast Simphony installed locally. Installation instruction can be found at: https://repast.github.io/
 
 After installing Rapst Simphony, this repository needs to be cloned locally. After doing that, import the project using Eclipse IDE:
 

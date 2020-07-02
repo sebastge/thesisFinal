@@ -176,13 +176,12 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			space.moveTo(globalNode2, width - 130, height - 15);
 			grid.moveTo(globalNode2, width - 130, height - 15);
 			
-			
-			System.out.println("before gird image");
+
 			
 			//Read the images and do stuff with the pixels
 			
 			readGridImage(space, grid, context);
-			System.out.println("after gird image");
+
 
 			//Initialize all the electric entities and have it propagate
 			for(Object o: context.getObjects(ElectricEntity.class)) {
@@ -443,7 +442,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					buildings.add(building);
 					this.buildingsOutside.add(building);
 					
-					System.out.println("Building added: " + building + " Total buildings : " + buildings.size());
+
 					
 				}
 				else if(r == 128 && g == 128 && b == 0) {//Building2. Brown green
@@ -462,7 +461,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					buildings2.add(building2);
 					this.buildingsCentre.add(building2);
 					
-					System.out.println("Building 2 added: " + building2 + " Total buildings : " + buildings2.size());
+
 					
 				}
 				else if(r == 0 && g == 162 && b == 232) {//Parking nexus. Blue lightish
@@ -473,7 +472,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					parkingNexi.add(road);
 				}
 				else {
-					System.out.println("r: " + r + " g: " + g + " b: " + b);
+					//System.out.println("r: " + r + " g: " + g + " b: " + b);
 				}
 				
 			}
@@ -594,10 +593,10 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					//Gets the building already added by the city reader
 					Aggregator building = (Aggregator) Tools.getObjectAt(grid, Aggregator.class, x, y);
 					buildings2.add(building);
-					System.out.println("loooooopopol");
+
 				}
 				else {
-//					System.out.println("r: " + r + " g: " + g + " b: " + b);
+					//System.out.println("r: " + r + " g: " + g + " b: " + b);
 				}
 				
 			}
@@ -637,13 +636,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 		
 		
 		buildElectricGraph(grid, context, c.getClusters());
-		
-		for(Aggregator b: buildings2) {
-			System.out.println("Building2 parent: " + b.parent);
-			//data.add(grid.getLocation(b));
-		}
-		
-		System.out.println("Substation size: " + substations.size());
+
 	}
 	
 	/**
@@ -773,7 +766,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 		//Goes through the clusters(which are grid points) and find the objects at their members' locations
 		//Creates spanning trees within and of these cluster and connects them together.
 		for(ArrayList<GridPoint> cluster: clusters) {
-			//System.out.println(cluster);
+
 			ArrayList<ElectricEntity> clusterEntities = new ArrayList<ElectricEntity>();
 			
 			//The location of the centroid of the cluster
@@ -795,7 +788,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 						e = (ElectricEntity) o;
 						e.setParent(s);
 					} else if (!(o instanceof Substation) && o instanceof ElectricEntity && this.buildingsCentre.contains(o)) {
-						System.out.println("Centre");
+
 						subs2.add(s);
 						e = (ElectricEntity) o;
 						e.setParent(s);						

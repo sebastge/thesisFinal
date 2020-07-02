@@ -95,7 +95,7 @@ public class Prosumer extends Agent{
 	 */
 	public void setParked(int time) {
 		parkedTimer = time;
-		//System.out.println("Travel time: " + this.travelTime);
+
 		spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
 	}
 	
@@ -169,13 +169,7 @@ public class Prosumer extends Agent{
 		
 
 		double priceLevel = (Math.abs(spawner.getMarket().getPriceLevel()) * this.experiment2Mulitplier);
-		
-		System.out.println("Price level: " + priceLevel);
-//		if (((EV)v).charge > this.experiment2ProsumerConfidence && priceLevel > this.prosumerMinPriceLevel) {
-//			return true;
-//		} else {
-//			return false;
-//		}
+
 		
 		if (priceLevel > this.prosumerMinPriceLevel) {
 			return true;
