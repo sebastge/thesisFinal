@@ -1,14 +1,7 @@
 # caseEV
 
-To run this project you will need to have repast Simphony installed with its requirements.
-See: https://repast.github.io/  For a guide on how to install it and Java.
-
 To run casEV you will need Repast Simphony installed locally. Installation instruction can be found at: https://repast.github.io/
 
-
-
-
-To run the model, click the dropdown next to the green playbutton in Eclipse (run) and select "run configurations", select casEV and then press run. A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
 
 If there are issues with memory management during the simulations, try the following:
 Enter the run configurations as before, select casEV, then select the tab called "Arguments" and enter this string into the VM arguments: -Xms512M -Xmx1524M
@@ -26,3 +19,7 @@ Right click package exporer window -> import -> Existing projects into work spac
 ![1](https://i.imgur.com/wYQHQXU.jpg)
 
 ![2](https://i.imgur.com/ENpObcl.jpg)
+
+![3](https://i.imgur.com/fUlyxFN.jpg)
+
+To run the model, click the dropdown next to the green playbutton in Eclipse (run) and select "run configurations", select casEV and then press run. A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
