@@ -50,17 +50,6 @@ public class Prosumer extends Agent{
 
 
 	}
-<<<<<<< HEAD
-=======
-	
-	/**
-	 * Runs every step
-	 */
-	@ScheduledMethod(start = 1, interval = 1)
-	public void step(){
-		//setSubsationLoadForReporter();
-	}
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 
 	/**
 	 * Gets the assigned work place for this person
@@ -98,11 +87,7 @@ public class Prosumer extends Agent{
 	 */
 	public void setParked(int time) {
 		parkedTimer = time;
-<<<<<<< HEAD
 
-=======
-		//System.out.println("Travel time: " + this.travelTime);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 		spawner.getMarket().addToAvgTravelTimeList(this.travelTime);
 	}
 	
@@ -176,17 +161,7 @@ public class Prosumer extends Agent{
 		
 
 		double priceLevel = (Math.abs(spawner.getMarket().getPriceLevel()) * this.experiment2Mulitplier);
-<<<<<<< HEAD
 
-=======
-		
-		System.out.println("Price level: " + priceLevel);
-//		if (((EV)v).charge > this.experiment2ProsumerConfidence && priceLevel > this.prosumerMinPriceLevel) {
-//			return true;
-//		} else {
-//			return false;
-//		}
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 		
 		if (priceLevel > this.prosumerMinPriceLevel) {
 			return true;

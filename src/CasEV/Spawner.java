@@ -200,36 +200,21 @@ public class Spawner {
 	 * Generates the population and splits it into workers and shoppers
 	 */
 	private void generatePopulation() {
-<<<<<<< HEAD
 
 		for(int i = 0; i < populationStartCount; i++) {
 			Prosumer p = new Prosumer(space, grid, this);
 
-=======
-		System.out.println("Generatepop called: " + populationStartCount);
-		for(int i = 0; i < populationStartCount; i++) {
-			Prosumer p = new Prosumer(space, grid, this);
-			System.out.println("Person added: " + p);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			
 			//In case of experiment 1. Spawn agents with goals at both parts of town at 50/50 ratio. TODO: add to official parameters
 			
 			if (this.experimentNum == 1) {
 				
 				if (Math.random() > 0.5) {
-<<<<<<< HEAD
 
 					p.setWorkPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
 				} else {
 
 
-=======
-					//System.out.println("math random 1");
-					p.setWorkPlace(aggregators.get(RandomHelper.nextIntFromTo(0, aggregators.size() - 1)));
-				} else {
-					System.out.println("math random 2");
-					System.out.println(aggreagators2.size());
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 					p.setWorkPlace(aggreagators2.get(RandomHelper.nextIntFromTo(0, aggreagators2.size() - 1)));
 				}
 				
@@ -243,11 +228,7 @@ public class Spawner {
 			
 			population.add(p);
 			idleWorkers.add(p);
-<<<<<<< HEAD
 
-=======
-			System.out.println(p + " has workpkace: " + p.workPlace);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 		}
 	}
 	
@@ -260,10 +241,6 @@ public class Spawner {
 		int spawnCount;
 		int time = Tools.getTime();
 		if(time % 30 == 0 /*&& isInInterval(time, BUS)*/) { //Spawn bus every 5 minutes from a random spawn
-<<<<<<< HEAD
-=======
-			//System.out.println("Bus spawned");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			Road r = getSpawnPoint();
 				Spawn s = (Spawn) r;
 				Bus bus = new Bus(space, grid, 50, parkingNexi, this);
@@ -350,11 +327,7 @@ public class Spawner {
 		if(isWorker) {
 			
 			for (int i = 0; i < spawnCount; i++) {
-<<<<<<< HEAD
 
-=======
-				//System.out.println("in wrorker for");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 				if(idleWorkers.size() == 0) {
 					return;
 				}
@@ -370,11 +343,7 @@ public class Spawner {
 					//Percentage EV-adjust accordingly. Currently at 0.2 to 0.8 normal cars. TODO: add to official parameters
 					
 					if (Math.random() > 0.8) {
-<<<<<<< HEAD
 
-=======
-						//System.out.println("A EV is spawneds");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 
 						EV ev = new EV(space, grid, 5, parkingNexi, this);
 						ev.addOccupant(p);
@@ -387,11 +356,7 @@ public class Spawner {
 						
 						start.addToVehicleQueue(ev);
 					} else {
-<<<<<<< HEAD
 
-=======
-						//System.out.println("A car is spawneds");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 						Car car = new Car(space, grid, 5, parkingNexi, this);
 						car.addOccupant(p);
 						

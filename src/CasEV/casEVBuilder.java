@@ -106,29 +106,17 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			
 			//Reads the images
 			try {
-<<<<<<< HEAD
 			    cityImg = ImageIO.read(new File("maps/Park_1.png"));
-=======
-			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2_test2.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city traffic map: " + e);
 			}
 			try {
-<<<<<<< HEAD
 			    gridImg = ImageIO.read(new File("maps/overlays/EL_overlay_1.png"));
-=======
-			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2_test2.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city electric grid map: " + e);
 			}
 			try {
-<<<<<<< HEAD
 				roadImg = ImageIO.read(new File("maps/overlays/Roads_1.png"));
-=======
-				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city road weight overlay map: " + e);
 			}
@@ -188,21 +176,12 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			space.moveTo(globalNode2, width - 130, height - 15);
 			grid.moveTo(globalNode2, width - 130, height - 15);
 			
-<<<<<<< HEAD
 
-=======
-			
-			System.out.println("before gird image");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			
 			//Read the images and do stuff with the pixels
 			
 			readGridImage(space, grid, context);
-<<<<<<< HEAD
 
-=======
-			System.out.println("after gird image");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 
 			//Initialize all the electric entities and have it propagate
 			for(Object o: context.getObjects(ElectricEntity.class)) {
@@ -218,29 +197,17 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			
 			//Reads the images
 			try {
-<<<<<<< HEAD
 			    cityImg = ImageIO.read(new File("maps/Park_2.png"));
-=======
-			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city traffic map: " + e);
 			}
 			try {
-<<<<<<< HEAD
 			    gridImg = ImageIO.read(new File("maps/overlays/EL_overlay_2.png"));
-=======
-			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city electric grid map: " + e);
 			}
 			try {
-<<<<<<< HEAD
 				roadImg = ImageIO.read(new File("maps/overlays/Roads_1.png"));
-=======
-				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city road weight overlay map: " + e);
 			}
@@ -475,11 +442,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					buildings.add(building);
 					this.buildingsOutside.add(building);
 					
-<<<<<<< HEAD
 
-=======
-					System.out.println("Building added: " + building + " Total buildings : " + buildings.size());
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 					
 				}
 				else if(r == 128 && g == 128 && b == 0) {//Building2. Brown green
@@ -498,11 +461,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					buildings2.add(building2);
 					this.buildingsCentre.add(building2);
 					
-<<<<<<< HEAD
 
-=======
-					System.out.println("Building 2 added: " + building2 + " Total buildings : " + buildings2.size());
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 					
 				}
 				else if(r == 0 && g == 162 && b == 232) {//Parking nexus. Blue lightish
@@ -513,11 +472,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					parkingNexi.add(road);
 				}
 				else {
-<<<<<<< HEAD
 					//System.out.println("r: " + r + " g: " + g + " b: " + b);
-=======
-					System.out.println("r: " + r + " g: " + g + " b: " + b);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 				}
 				
 			}
@@ -638,17 +593,10 @@ public class casEVBuilder implements ContextBuilder<Object> {
 					//Gets the building already added by the city reader
 					Aggregator building = (Aggregator) Tools.getObjectAt(grid, Aggregator.class, x, y);
 					buildings2.add(building);
-<<<<<<< HEAD
 
 				}
 				else {
 					//System.out.println("r: " + r + " g: " + g + " b: " + b);
-=======
-					System.out.println("loooooopopol");
-				}
-				else {
-//					System.out.println("r: " + r + " g: " + g + " b: " + b);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 				}
 				
 			}
@@ -688,17 +636,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 		
 		
 		buildElectricGraph(grid, context, c.getClusters());
-<<<<<<< HEAD
 
-=======
-		
-		for(Aggregator b: buildings2) {
-			System.out.println("Building2 parent: " + b.parent);
-			//data.add(grid.getLocation(b));
-		}
-		
-		System.out.println("Substation size: " + substations.size());
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 	}
 	
 	/**
@@ -828,11 +766,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 		//Goes through the clusters(which are grid points) and find the objects at their members' locations
 		//Creates spanning trees within and of these cluster and connects them together.
 		for(ArrayList<GridPoint> cluster: clusters) {
-<<<<<<< HEAD
 
-=======
-			//System.out.println(cluster);
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 			ArrayList<ElectricEntity> clusterEntities = new ArrayList<ElectricEntity>();
 			
 			//The location of the centroid of the cluster
@@ -854,11 +788,7 @@ public class casEVBuilder implements ContextBuilder<Object> {
 						e = (ElectricEntity) o;
 						e.setParent(s);
 					} else if (!(o instanceof Substation) && o instanceof ElectricEntity && this.buildingsCentre.contains(o)) {
-<<<<<<< HEAD
 
-=======
-						System.out.println("Centre");
->>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 						subs2.add(s);
 						e = (ElectricEntity) o;
 						e.setParent(s);						
