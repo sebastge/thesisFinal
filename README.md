@@ -29,3 +29,10 @@ To run the model, click the dropdown next to the green playbutton in Eclipse (ru
 ![5](https://i.imgur.com/luPyQwt.jpg)
 
 A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
+
+![6](https://i.imgur.com/qqhxKSb.jpg)
+
+![7](https://i.imgur.com/ISE4KnS.jpg)
+
+![8](https://i.imgur.com/qcP9a4S.jpg)
+
