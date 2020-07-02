@@ -106,17 +106,17 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			
 			//Reads the images
 			try {
-			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2_test2.png"));
+			    cityImg = ImageIO.read(new File("maps/Park_1.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city traffic map: " + e);
 			}
 			try {
-			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2_test2.png"));
+			    gridImg = ImageIO.read(new File("maps/overlays/EL_overlay_1.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city electric grid map: " + e);
 			}
 			try {
-				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
+				roadImg = ImageIO.read(new File("maps/overlays/Roads_1.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city road weight overlay map: " + e);
 			}
@@ -197,17 +197,17 @@ public class casEVBuilder implements ContextBuilder<Object> {
 			
 			//Reads the images
 			try {
-			    cityImg = ImageIO.read(new File("maps/smallTrondheimSmallPark2.png"));
+			    cityImg = ImageIO.read(new File("maps/Park_2.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city traffic map: " + e);
 			}
 			try {
-			    gridImg = ImageIO.read(new File("maps/overlays/smallTrondheimEL2.png"));
+			    gridImg = ImageIO.read(new File("maps/overlays/EL_overlay_2.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city electric grid map: " + e);
 			}
 			try {
-				roadImg = ImageIO.read(new File("maps/overlays/smallTrondheimRoads.png"));
+				roadImg = ImageIO.read(new File("maps/overlays/Roads_1.png"));
 			} catch (IOException e) {
 				System.out.println("There was an error while loading the city road weight overlay map: " + e);
 			}
