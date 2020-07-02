@@ -84,7 +84,6 @@ public class Reporter {
 	
 	private int weatherProfile = 0;
 	
-	private int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
 	private Double totalLoadCentre = 0d;
 	private Double totalLoadOutside = 0d;
 	
@@ -283,7 +282,6 @@ public class Reporter {
 	
 	public void addParkedCar(int type) {
 		
-		//int adder = ThreadLocalRandom.current().nextInt(1, 3);
 
 		this.parkedCars ++;
 
