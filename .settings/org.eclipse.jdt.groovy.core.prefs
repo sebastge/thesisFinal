@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 groovy.compiler.level=25
+=======
+groovy.compiler.level=24
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a

@@ -23,7 +23,15 @@ public class Reporter {
 		this.experimentNum = experimentNum;
 
 	}
+<<<<<<< HEAD
 
+=======
+	
+	private int peakCars0Parked = 0;
+	private int peakCars1Parked = 0;
+	private int peakCars2Parked = 0;
+	private int peakCars3Parked = 0;
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 	
 	private Double biggestLoadCentre = 0d;
 	private Double biggestLoadOutside = 0d;
@@ -84,6 +92,10 @@ public class Reporter {
 	
 	private int weatherProfile = 0;
 	
+<<<<<<< HEAD
+=======
+	private int randomInt = ThreadLocalRandom.current().nextInt(1, 5);
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 	private Double totalLoadCentre = 0d;
 	private Double totalLoadOutside = 0d;
 	
@@ -282,6 +294,10 @@ public class Reporter {
 	
 	public void addParkedCar(int type) {
 		
+<<<<<<< HEAD
+=======
+		//int adder = ThreadLocalRandom.current().nextInt(1, 3);
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 
 		this.parkedCars ++;
 
@@ -352,21 +368,37 @@ public class Reporter {
 			if (rgn == this.rgnCentre) {
 				if (totalLoad > this.biggestLoadCentre) {
 					this.biggestLoadCentre = totalLoad;
+<<<<<<< HEAD
 					//System.out.println("New biggest load centre: " + this.biggestLoadCentre);
 				}
 				if (totalLoad < this.smallestLoadCentre || this.smallestLoadCentre == 0) {
 					this.smallestLoadCentre = totalLoad;
 					//System.out.println("New smallest load centre: " + this.smallestLoadCentre);
+=======
+					System.out.println("New biggest load centre: " + this.biggestLoadCentre);
+				}
+				if (totalLoad < this.smallestLoadCentre || this.smallestLoadCentre == 0) {
+					this.smallestLoadCentre = totalLoad;
+					System.out.println("New smallest load centre: " + this.smallestLoadCentre);
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 				}
 				setTotalLoadCentre(totalLoad);
 			} else if (rgn == this.rgnOutside) {
 				if (totalLoad > this.biggestLoadOutside) {
 					this.biggestLoadOutside = totalLoad;
+<<<<<<< HEAD
 					//System.out.println("New biggest load outside: " + this.biggestLoadOutside);
 				}
 				if (totalLoad < this.smallestLoadOutside || this.smallestLoadOutside == 0) {
 					this.smallestLoadOutside = totalLoad;
 					//System.out.println("New smallest load outside: " + this.smallestLoadOutside);
+=======
+					System.out.println("New biggest load outside: " + this.biggestLoadOutside);
+				}
+				if (totalLoad < this.smallestLoadOutside || this.smallestLoadOutside == 0) {
+					this.smallestLoadOutside = totalLoad;
+					System.out.println("New smallest load outside: " + this.smallestLoadOutside);
+>>>>>>> 7ca2499ab95466a127d18deba7b0ab66af252e3a
 				}
 				setTotalLoadOutside(totalLoad);
 
