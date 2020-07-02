@@ -50,14 +50,6 @@ public class Prosumer extends Agent{
 
 
 	}
-	
-	/**
-	 * Runs every step
-	 */
-	@ScheduledMethod(start = 1, interval = 1)
-	public void step(){
-		//setSubsationLoadForReporter();
-	}
 
 	/**
 	 * Gets the assigned work place for this person
