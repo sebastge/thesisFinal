@@ -11,6 +11,7 @@ If there are any questions or issues, please contact the author:
 sebastge@stud.ntnu.no
 seb.g.evans@gmail.com
 
+### Installation
 
 After installing Rapst Simphony, this repository needs to be cloned locally. After doing that, import the project using Eclipse IDE (w/Repast Simphony):
 
