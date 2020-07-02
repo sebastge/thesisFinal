@@ -22,7 +22,10 @@ Right click package exporer window -> import -> Existing projects into work spac
 
 ![3](https://i.imgur.com/fUlyxFN.jpg)
 
-To run the model, click the dropdown next to the green playbutton in Eclipse (run) and select "run configurations", select casEV and then press run. A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
+To run the model, click the dropdown next to the green playbutton in Eclipse (run) and select "run configurations", select casEV and then press run.
 
 ![4](https://i.imgur.com/RZO1mkl.jpg)
 
+![5](https://i.imgur.com/luPyQwt.jpg)
+
+A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
