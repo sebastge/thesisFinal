@@ -20,11 +20,6 @@ sebastge@stud.ntnu.no
 seb.g.evans@gmail.com
 
 
-![alt text](https://github.com/[sebastge]/[thesisFinal]/blob/[master]/1.png?raw=true)
+After installing Rapst Simphony, this repository needs to be cloned locally. After doing that, import the project using Eclipse IDE (w/Repast Simphony):
 
-![Alt text](.././instructions_img/1.png?raw=true "Title")
-
-
-https://i.imgur.com/wYQHQXU.jpg
-
-![alt text](https://i.imgur.com/wYQHQXU.jpg)
+![1](https://i.imgur.com/wYQHQXU.jpg)
