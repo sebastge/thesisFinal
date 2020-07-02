@@ -5,9 +5,8 @@ See: https://repast.github.io/  For a guide on how to install it and Java.
 
 To run casEV you will need Repast Simphony installed locally. Installation instruction can be found at: https://repast.github.io/
 
-After installing Rapst Simphony, this repository needs to be cloned locally. After doing that, import the project using Eclipse IDE (w/Repast Simphony):
 
-Right click package exporer window -> import -> General -> Existing projects into work space -> select root directory (navigate to the cloned the project) -> finish.)
+
 
 To run the model, click the dropdown next to the green playbutton in Eclipse (run) and select "run configurations", select casEV and then press run. A window with the repast Simphony GUI should open, where you can enter parameters and run simulations.
 
@@ -22,4 +21,8 @@ seb.g.evans@gmail.com
 
 After installing Rapst Simphony, this repository needs to be cloned locally. After doing that, import the project using Eclipse IDE (w/Repast Simphony):
 
+Right click package exporer window -> import -> Existing projects into work space -> select root directory (navigate to the cloned the project) -> finish.)
+
 ![1](https://i.imgur.com/wYQHQXU.jpg)
+
+![2](https://i.imgur.com/ENpObcl.jpg)
