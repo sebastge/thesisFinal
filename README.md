@@ -23,3 +23,8 @@ seb.g.evans@gmail.com
 ![alt text](https://github.com/[sebastge]/[thesisFinal]/blob/[master]/1.png?raw=true)
 
 ![Alt text](.././instructions_img/1.png?raw=true "Title")
+
+
+https://i.imgur.com/wYQHQXU.jpg
+
+![alt text](https://i.imgur.com/wYQHQXU.jpg)
