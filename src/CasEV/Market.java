@@ -58,11 +58,7 @@ public class Market {
 	private static final int[] MORNING_RUSH = {2520, 3060}; 	//07:00 - 08:30
 	private static final int[] AFTERNOON_RUSH = {5580, 6120}; 	//15:30 - 17:00
 	
-	private static final int[] kWhPriceRange = {15, 45};
-	private Double kWhPrice = 30d;
 
-	private static final int[] loadInterval = {15, 45};
-	
 	private static final Double maxkWhSellingPrice = 5d;
 	private static final Double minkWhSellingPrice = 0d;
 	private static final Double maxkWhBuyingPrice = 5d;
@@ -85,8 +81,7 @@ public class Market {
 	private int numCars = 0;
 	private int numEV = 0;
 	private int numV2G = 0;
-	
-	private Double biggestCharge = 0d;
+
 	
 	private Double maxPriceLevel = 60d;
 	private Double minPriceLevel = 35d;
@@ -101,7 +96,6 @@ public class Market {
 	
 	
 	public void addToAvgTravelTimeList(Double time) {
-		//System.out.println("Time added: " + time);
 		this.avgTravelTimeList.add(time);
 	}
 
@@ -113,8 +107,6 @@ public class Market {
 	
 	public void setPriceLevel() {
 		
-		
-		//System.out.println("Price level: " + this.priceLevel);
 		
 		if (totalLoad/v2gLoadAvailable > this.minPriceLevel && totalLoad/v2gLoadAvailable < this.maxPriceLevel) {
 			this.priceLevel = (totalLoad/v2gLoadAvailable);
@@ -495,14 +487,14 @@ public class Market {
 		//this.totalLoad = totalLoad;
 		if (this.totalLoad > this.biggestLoad && this.totalLoad != 1000) {
 			this.biggestLoad = this.totalLoad;
-			System.out.println("Biggest load: " + this.biggestLoad);
+			//System.out.println("Biggest load: " + this.biggestLoad);
 		}
 		if (this.smallestLoad == 0) {
 			this.smallestLoad = this.totalLoad;
 		}
 		if (this.totalLoad < this.smallestLoad && this.totalLoad != 0) {
 			this.smallestLoad = this.totalLoad;
-			System.out.println("Smallest load: " + this.smallestLoad);
+			//System.out.println("Smallest load: " + this.smallestLoad);
 		}
 		
 	}
