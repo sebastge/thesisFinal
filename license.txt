@@ -1,1 +1,1 @@
-The CitySim model is licensed as provided for by the authors. Please contact them for details.
+The model is licensed as provided for by the authors.
