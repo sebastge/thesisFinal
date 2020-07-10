@@ -1,3 +1,7 @@
+# NB!
+
+# THIS REPO IS CONTINUOUSLY UPDATED BY THE OWNER. TO VIEW THE EXACT CODE USED IN THE THESIS,  YOU NEED TO REVERT TO THE COMMIT SUBMITTED ON JUNE 30TH 2020.
+
 # caseEV
 
 To run casEV you will need Repast Simphony installed locally. Installation instruction can be found at: https://repast.github.io/
